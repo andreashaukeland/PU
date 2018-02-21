@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="431.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.CreateWeeklyRunController">
+   <children>
+      <EmojiOneView glyphName="RUNNER" layoutX="186.0" layoutY="65.0" size="60" styleClass="glypgh-icon" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="13.939998626708984" />
+      <JFXTextField fx:id="placeTextField" labelFloat="true" layoutX="143.0" layoutY="104.0" promptText="Enter Where">
+         <font>
+            <Font name="Arial Italic" size="18.0" />
+         </font>
+      </JFXTextField>
+      <FontAwesomeIconView glyphName="LOCATION_ARROW" layoutX="74.0" layoutY="135.0" size="40" styleClass="glypgh-icon" />
+      <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="70.0" layoutY="205.0" size="40" styleClass="glypgh-icon" />
+      <JFXButton fx:id="submitButton" layoutX="99.0" layoutY="248.0" onAction="#OnSubmit" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Submit" />
+      <JFXButton fx:id="cancelButton" layoutX="250.0" layoutY="248.0" onAction="#OnCancel" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Cancel" />
+      <JFXTextField labelFloat="true" layoutX="143.0" layoutY="174.0" promptText="Enter Time: yyyy.mm.dd" />
+   </children>
+</AnchorPane>

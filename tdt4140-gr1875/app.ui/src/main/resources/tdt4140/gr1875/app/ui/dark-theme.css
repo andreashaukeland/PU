@@ -1,0 +1,101 @@
+
+*{
+	-fx-primary : #2A2E37;
+	-fx-secondary : #FFFF8D;
+	-fx-primarytekst : #B2B2B2
+}
+
+.root
+{
+	-fx-background-color: -fx-primary;
+}
+
+.glypgh-icon
+{
+	-fx-fill: -fx-primarytekst;
+}
+
+.button
+{
+	-fx-text-fill: -fx-secondary;
+	-fx-background-color: -fx-primary;
+	-fx-border-color: -fx-secondary;
+	-fx-border-radius: 20px;
+}
+
+.button:hover 
+{
+	-fx-text-fill: -fx-primary;
+	-fx-background-color: -fx-secondary;
+}
+
+.button:hover .glypgh-icon
+{
+	-fx-text-fill: -fx-primary;
+	-fx-background-color: -fx-secondary;
+	-fx-fill: -fx-primary;
+}
+
+
+.login-button
+{
+	-fx-border-color: -fx-secondary;
+	-fx-border-radius: 20px;
+	-fx-background-radius: 20px;
+}
+
+.login-button:hover
+{
+	-fx-border-color: -fx-secondary;
+	-fx-background-color: -fx-secondary;
+	-fx-text-fill: -fx-primary;
+	-fx-background-radius: 20px;
+}
+
+.text-field
+{
+	-fx-text-fill: -fx-primarytekst;
+	-fx-font-size: 13pt;
+	-fx-focus-color: -fx-secondary;
+}
+
+/*TabPane styling*/
+
+.tab
+{
+	-fx-background-color: -fx-primary;
+	-fx-pref-width: 200;
+	-fx-pref-hight: 60;
+}
+
+.tab-header-background{
+	-fx-background-color: -fx-primary;
+}
+
+/* Menu bar styling*/
+
+.menu-bar{
+	-fx-base: -fx-primary;
+	-fx-background-color: -fx-primary;
+}
+
+.context-menu{
+	-fx-background-color: derive(-fx-primary, -50%);
+}
+
+/*Hamburger style*/
+
+.jfx-hamburger-icon{
+	-fx-spacing: 7;
+}
+
+.jfx-hamburger-icon StackPane {
+	-fx-background-color: -fx-secondary;
+	-fx-background-radius: 5px;
+}
+
+/*Drawer Style*/
+
+.drawer{
+	-fx-background-color: -fx-primary;
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="154.0" styleClass="root" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.ToolbarController">
+   <children>
+      <JFXButton fx:id="CreateTraining" contentDisplay="TOP" onAction="#loadCreateTraining" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="Create Weekly Training" textFill="#ffff8d">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <graphic>
+            <EmojiOneView glyphName="RUNNER" size="40" styleClass="glypgh-icon" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="ViewResults" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" onAction="#loadViewResults" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Results" textFill="#ffff8d">
+         <graphic>
+            <FontAwesomeIconView glyphName="LIST_OL" size="40" styleClass="glypgh-icon" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="ViewAthletes" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" onAction="#loadViewAthletes" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Athletes" textFill="#ffff8d">
+         <graphic>
+            <FontAwesomeIconView glyphName="LIST" size="40" styleClass="glypgh-icon" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="SendText" contentDisplay="TOP" layoutX="10.0" layoutY="276.0" onAction="#loadSendText" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="Send Text" textFill="#ffff8d">
+         <graphic>
+            <FontAwesomeIconView glyphName="WHATSAPP" size="40" styleClass="glypgh-icon" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="Settings" contentDisplay="TOP" onAction="#loadSettings" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="Settings" textFill="#ffff8d">
+         <graphic>
+            <FontAwesomeIconView glyphName="COG" size="40" styleClass="glypgh-icon" />
+         </graphic>
+      </JFXButton>
+   </children>
+</VBox>

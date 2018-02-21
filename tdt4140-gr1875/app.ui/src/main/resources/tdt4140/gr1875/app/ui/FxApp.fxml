@@ -1,8 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<Pane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tdt4140.gr1875.app.ui.FxAppController"
-            prefHeight="750" prefWidth="1000">
-</Pane>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.FxAppController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@dark-theme.css">
+         <top>
+            <MenuBar prefHeight="34.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </MenuBar>
+         </top>
+         <center>
+            <AnchorPane prefHeight="375.0" prefWidth="393.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTabPane layoutY="2.0" prefHeight="33.0" prefWidth="410.0">
+                     <tabs>
+                        <Tab text="Training Map" />
+                        <Tab text="Training Location" />
+                     </tabs>
+                  </JFXTabPane>
+                  <JFXHamburger fx:id="hamburger" styleClass="jfx-hamburger-icon" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="30.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <JFXDrawer fx:id="drawer" defaultDrawerSize="50.0" direction="RIGHT" prefHeight="366.0" prefWidth="0.0" stylesheets="@dark-theme.css" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</StackPane>
