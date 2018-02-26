@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +12,7 @@
             <Insets />
          </VBox.margin>
          <graphic>
-            <EmojiOneView glyphName="RUNNER" size="40" styleClass="glypgh-icon" />
+            <FontAwesomeIconView size="40" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="ViewResults" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" onAction="#loadViewResults" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Results" textFill="#ffff8d">
