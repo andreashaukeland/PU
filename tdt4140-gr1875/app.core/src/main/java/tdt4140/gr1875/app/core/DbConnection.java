@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class Test {
+public class DbConnection {
 	
-	public static void main(String[] args) {
-		System.out.println("Connecting to database..." + "\n");
+	public DbConnection() {
+	}
+	
+	public String db_connect() {
 		
 		Connection conn = null;
 		try {
@@ -24,8 +26,9 @@ public class Test {
 		
 		Statement stmt = null;
 		ResultSet rs = null;
+		String first = "";
+		String last = "";
 		
-		System.out.println("Test:" + "\n");
 		
 		try {
 		    stmt = conn.createStatement();
@@ -34,7 +37,9 @@ public class Test {
 		    if (stmt.execute("SELECT * FROM runner")) {
 		        rs = stmt.getResultSet();
 		        rs.next();
-		        System.out.println(rs.getString("fornavn") + " " + rs.getString("etternavn"));
+		        first = rs.getString("fornavn");
+		        last = rs.getString("etternavn");
+		        System.out.println(first + " " + last);
 		    }
 
 		}
@@ -43,6 +48,13 @@ public class Test {
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
-
+		return first + last;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Connecting to database..." + "\n");
+		System.out.println("Test:" + "\n");
+		DbConnection t = new DbConnection();
+		String result = t.db_connect();
 	}
 }

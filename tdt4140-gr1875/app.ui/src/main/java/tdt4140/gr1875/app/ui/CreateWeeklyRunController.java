@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import tdt4140.gr1875.app.core.CreateWeeklyRun;
 
 public class CreateWeeklyRunController {
 
