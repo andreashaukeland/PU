@@ -8,16 +8,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="431.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.CreateWeeklyRunController">
    <children>
+      <FontAwesomeIconView glyphName="LOCATION_ARROW" layoutX="74.0" layoutY="135.0" size="40" styleClass="glypgh-icon" />
+      <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="70.0" layoutY="205.0" size="40" styleClass="glypgh-icon" />
+      <FontAwesomeIconView glyphName="CHILD" layoutX="201.0" layoutY="55.0" size="40" styleClass="glypgh-icon" />
       <JFXTextField fx:id="placeTextField" labelFloat="true" layoutX="143.0" layoutY="104.0" promptText="Enter Where">
          <font>
             <Font name="Arial Italic" size="18.0" />
          </font>
       </JFXTextField>
-      <FontAwesomeIconView glyphName="LOCATION_ARROW" layoutX="74.0" layoutY="135.0" size="40" styleClass="glypgh-icon" />
-      <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="70.0" layoutY="205.0" size="40" styleClass="glypgh-icon" />
-      <JFXButton fx:id="submitButton" layoutX="99.0" layoutY="248.0" onAction="#OnSubmit" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Submit" />
-      <JFXButton fx:id="cancelButton" layoutX="250.0" layoutY="248.0" onAction="#OnCancel" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Cancel" />
-      <JFXTextField labelFloat="true" layoutX="143.0" layoutY="174.0" promptText="Enter Time: yyyy.mm.dd" />
-      <FontAwesomeIconView layoutX="210.0" layoutY="53.0" size="40" styleClass="glypgh-icon" />
+      <JFXTextField fx:id="timeTextField" labelFloat="true" layoutX="143.0" layoutY="174.0" promptText="Enter Time: yyyy.mm.dd" />
+      <JFXButton fx:id="submitButton" layoutX="167.0" layoutY="248.0" onAction="#OnSubmit" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Submit" />
+      <JFXButton fx:id="backButton" layoutX="14.0" layoutY="14.0" onAction="#OnBackButton" prefHeight="38.0" prefWidth="47.0" styleClass="login-button" text=".">
+         <graphic>
+            <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="30" styleClass="glypgh-icon" wrappingWidth="22.09522819519043" />
+         </graphic>
+         <font>
+            <Font size="1.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
