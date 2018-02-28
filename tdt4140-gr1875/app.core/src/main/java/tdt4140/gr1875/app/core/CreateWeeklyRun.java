@@ -17,6 +17,11 @@ public class CreateWeeklyRun {
 	
 	@SuppressWarnings("deprecation")
 	public boolean submit(String place, String time) {
+		if (time.length() != 10) {
+			return false;
+		}
+		
+		
 		String first = time.substring(0, 4);
 		String second = time.substring(5, 7);
 		String third = time.substring(8, 10);
