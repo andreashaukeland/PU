@@ -7,13 +7,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
-
+/*
+ * Help class to enable communication with remote MySQL database
+ * 
+ * USAGE: From a given class call: UseDB.getFromDB(query) / UseDB.putToDB()
+ */
 public class UseDB {
 	
 	public static ArrayList<ArrayList<String>> getFromDB(String query) {
 		
 		Connection conn = connectDB();
+		
+		if (conn == null) {
+			System.out.println("Can not connect to database");
+		}
 		
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -51,7 +58,7 @@ public class UseDB {
 	
 	
 	public static void putToDB() {
-		
+		//TODO
 	}
 	
 	
