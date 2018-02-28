@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
-public class ReadSQL {
+public class UseDB {
 	
 	public static ArrayList<ArrayList<String>> getFromDB(String query) {
 		
@@ -48,6 +48,12 @@ public class ReadSQL {
 
 	return table;
 	}
+	
+	
+	public static void putToDB() {
+		
+	}
+	
 	
 	private static Connection connectDB() {
 		System.out.println("Connecting to database..." + "\n");
