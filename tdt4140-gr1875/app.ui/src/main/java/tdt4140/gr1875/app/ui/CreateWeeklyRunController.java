@@ -12,6 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+<<<<<<< HEAD
+=======
+import tdt4140.gr1875.app.core.CreateWeeklyRun;
+>>>>>>> master
 import javafx.stage.StageStyle;
 
 public class CreateWeeklyRunController {
