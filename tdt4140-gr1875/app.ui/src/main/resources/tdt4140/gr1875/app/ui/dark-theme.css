@@ -1,4 +1,5 @@
 
+
 *{
 	-fx-primary : #2A2E37;
 	-fx-secondary : #FFFF8D;
@@ -23,7 +24,7 @@
 	-fx-border-radius: 20px;
 }
 
-.button:hover 
+.button:hover
 {
 	-fx-text-fill: -fx-primary;
 	-fx-background-color: -fx-secondary;
@@ -35,7 +36,6 @@
 	-fx-background-color: -fx-secondary;
 	-fx-fill: -fx-primary;
 }
-
 
 .login-button
 {
@@ -96,6 +96,19 @@
 
 /*Drawer Style*/
 
-.drawer{
+.drawer
+{
 	-fx-background-color: -fx-primary;
+}
+
+/*ComboBox style*/
+ 
+.Combo-Box .cell {
+     -fx-background-color: -fx-primary;
+	 -fx-text-fill: -fx-primarytekst;
+}
+
+.Combo-Box .cell:hover {
+     -fx-background-color: -fx-secondary;
+	 -fx-text-fill: -fx-primary;
 }

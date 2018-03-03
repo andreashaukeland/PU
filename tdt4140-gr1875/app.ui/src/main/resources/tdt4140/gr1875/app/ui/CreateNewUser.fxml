@@ -2,21 +2,22 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="430.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.CreateNewUserController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="433.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.CreateNewUserController">
    <children>
-      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="105.0" promptText="Username">
+      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="105.0" promptText="Name">
          <font>
             <Font name="Arial Italic" size="18.0" />
          </font>
       </JFXTextField>
       <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="144.0" layoutY="172.0" promptText="Password" />
-      <FontAwesomeIconView glyphName="USER_PLUS" layoutX="180.0" layoutY="57.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="179.8571434020996" AnchorPane.topAnchor="14.14285659790039" />
+      <FontAwesomeIconView glyphName="USER_PLUS" layoutX="196.0" layoutY="57.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="179.8571434020996" AnchorPane.topAnchor="14.14285659790039" />
       <FontAwesomeIconView glyphName="USER" layoutX="65.0" layoutY="137.0" size="40" styleClass="glypgh-icon" text="" />
       <FontAwesomeIconView glyphName="KEY" layoutX="59.0" layoutY="205.0" size="40" styleClass="glypgh-icon" text="" />
       <JFXTextField fx:id="emailField" labelFloat="true" layoutX="143.0" layoutY="245.0" promptText="Email">
@@ -31,8 +32,12 @@
       </JFXTextField>
       <FontAwesomeIconView glyphName="ENVELOPE" layoutX="59.0" layoutY="275.0" size="40" styleClass="glypgh-icon" />
       <FontAwesomeIconView glyphName="MOBILE_PHONE" layoutX="69.0" layoutY="345.0" size="45" styleClass="glypgh-icon" />
-      <JFXCheckBox fx:id="checkCoach" layoutX="106.0" layoutY="403.0" onAction="#onCheckCoach" text="Coach" textFill="#b2b2b2" />
-      <JFXCheckBox fx:id="checkAthlete" layoutX="242.0" layoutY="403.0" onAction="#onCheckAthlete" text="Athlete" textFill="#b2b2b2" />
-      <JFXButton fx:id="createUserButton" layoutX="160.0" layoutY="454.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" />
+      <JFXCheckBox fx:id="checkCoach" layoutX="115.0" layoutY="462.0" onAction="#onCheckCoach" text="Coach" textFill="#b2b2b2" />
+      <JFXCheckBox fx:id="checkAthlete" layoutX="265.0" layoutY="462.0" onAction="#onCheckAthlete" text="Athlete" textFill="#b2b2b2" />
+      <JFXButton fx:id="createUserButton" layoutX="176.0" layoutY="521.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" />
+      <FontAwesomeIconView glyphName="BIRTHDAY_CAKE" layoutX="59.0" layoutY="422.0" size="40" styleClass="glypgh-icon" />
+      <JFXComboBox fx:id="yearBox" labelFloat="true" layoutX="143.0" layoutY="395.0" prefHeight="25.0" prefWidth="74.0" promptText="Year" styleClass="Combo-Box" visibleRowCount="5" />
+      <JFXComboBox fx:id="monthBox" labelFloat="true" layoutX="224.0" layoutY="395.0" prefHeight="25.0" prefWidth="57.0" promptText="Month" styleClass="Combo-Box" visibleRowCount="5" />
+      <JFXComboBox fx:id="dayBox" labelFloat="true" layoutX="289.0" layoutY="395.0" prefHeight="25.0" prefWidth="57.0" promptText="Day" styleClass="Combo-Box" visibleRowCount="5" />
    </children>
 </AnchorPane>

@@ -2,11 +2,14 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -19,6 +22,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class CreateNewUserController implements Initializable{
@@ -47,12 +53,26 @@ public class CreateNewUserController implements Initializable{
     @FXML
     private AnchorPane anchorPane;
     
+    @FXML
+    private JFXComboBox<String> yearBox;
+    
+    @FXML
+    private JFXComboBox<String> monthBox;
+    
+    @FXML
+    private JFXComboBox<String> dayBox;
+    
+    
     //DataBaseHandler handler;
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	//handler = new DataBaseHandler();
-	}
+    	yearBox.getItems().addAll(addYears());
+    	monthBox.getItems().addAll(addMonths());
+    	dayBox.getItems().addAll(addDays());
+    }
+    
 
     @FXML
     private void onCreateUser(ActionEvent event) {
@@ -62,6 +82,7 @@ public class CreateNewUserController implements Initializable{
     	String mobile = mobileField.getText();
     	boolean coach = checkCoach.isSelected();
     	boolean athlete = checkAthlete.isSelected();
+    	String birthDay = yearBox.getValue() + "-" + monthBox.getValue() + "-" + dayBox.getValue();
     	
     	if (!checkEmail(email)) {
     		createAlert("Not Valid Email");
@@ -72,8 +93,13 @@ public class CreateNewUserController implements Initializable{
     		return;
     	}
     	
-    	//handler.AddNewUser(userName, pWord, email, mobile, coach, athlete); Husk å ta hensyn til brukernavn
+    	//handler.AddNewUser(name, pWord, email, mobile, birthDay, coach, athlete); Husk å ta hensyn til brukere
     	//som allerede er i databasen (håndteres i dataBaseHandler)
+    	
+    	if (!validBirthDay(birthDay)) {
+    		createAlert("Not Valid Birthday");
+    		return;
+    	}
     	
     	if (coach) {
     		loadWindow("FxApp.fxml", usernameField);
@@ -86,6 +112,29 @@ public class CreateNewUserController implements Initializable{
     		return;
     	}
     }
+   
+    private boolean validBirthDay(String birthDay) {
+		int month = Integer.parseInt(birthDay.substring(5, 7));
+		int day = Integer.parseInt(birthDay.substring(8, 10));
+		
+		if (month == 2 && day > 28) {
+			return false;
+		}
+		
+		if ((month % 2 == 0) && month < 8 && day == 31) {
+			return false;
+		}
+		
+		if ((month % 2 == 1) && month > 8 && day == 31) {
+			return false;
+		}
+		
+		
+		return true;
+	}
+
+
+	//Makes sure that you can't check for both Coach and Athlete
     @FXML
     private void onCheckCoach() {
     	if (checkAthlete.isSelected()) {
@@ -100,13 +149,15 @@ public class CreateNewUserController implements Initializable{
     	}
     }
     
+    //Make an alert with customized text
 	private void createAlert(String string) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setHeaderText(null);
 		alert.setContentText(string);
 		alert.showAndWait();
 	}
-
+	
+	//Checks the mobile number format
 	private boolean checkMobile(String mobile) {
 		int l = mobile.length();
 		if (l != 8) {
@@ -122,6 +173,7 @@ public class CreateNewUserController implements Initializable{
 		
 	}
 
+	//Checks the email format
 	private boolean checkEmail(String email) {
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +
@@ -138,6 +190,7 @@ public class CreateNewUserController implements Initializable{
 		return true;
 	}
 
+	//Loads new window on loc. Closes the window that contains the 'root' node.
     private void loadWindow(String loc, Node root) {
     	try {
 			Parent parent = FXMLLoader.load(getClass().getResource(loc));
@@ -148,7 +201,36 @@ public class CreateNewUserController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-
+    
+    private List<String> addYears(){
+    	List<String> newList = new ArrayList<>();
+    	for (int i = 1950; i < 2018; i++) {
+			newList.add(Integer.toString(i));
+		}
+    	return newList;
+    }
 	
-	
+    private List<String> addMonths(){
+    	List<String> newList = new ArrayList<>();
+    	for (int i = 1; i < 13; i++) {
+    		if (i < 10) {
+    			newList.add('0' + Integer.toString(i));
+    		}else {
+    			newList.add(Integer.toString(i));
+    		}
+    	}
+    	return newList;
+    }
+    
+    private List<String> addDays(){
+    	List<String> newList = new ArrayList<>();
+    	for (int i = 1; i < 32; i++) {
+    		if (i < 10) {
+    			newList.add('0' + Integer.toString(i));
+    		}else {
+    			newList.add(Integer.toString(i));
+    		}
+		}
+    	return newList;
+    }
 }
