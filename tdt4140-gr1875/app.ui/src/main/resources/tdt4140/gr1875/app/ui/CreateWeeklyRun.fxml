@@ -16,7 +16,7 @@
             <Font name="Arial Italic" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="timeTextField" labelFloat="true" layoutX="143.0" layoutY="174.0" promptText="Enter Time: yyyy.mm.dd" />
+      <JFXTextField fx:id="dateTextField" labelFloat="true" layoutX="143.0" layoutY="174.0" promptText="Enter Time: yyyy.mm.dd" />
       <JFXButton fx:id="submitButton" layoutX="167.0" layoutY="325.0" onAction="#OnSubmit" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Submit" />
       <JFXButton fx:id="backButton" layoutX="14.0" layoutY="14.0" onAction="#OnBackButton" prefHeight="38.0" prefWidth="47.0" styleClass="login-button" text=".">
          <graphic>
@@ -26,7 +26,7 @@
             <Font size="1.0" />
          </font>
       </JFXButton>
-      <JFXTextField layoutX="143.0" layoutY="239.0" promptText="Time: Ex - 00:00" />
+      <JFXTextField fx:id="timeTextField" layoutX="143.0" layoutY="239.0" promptText="Time: Ex - 00:00" />
       <FontAwesomeIconView glyphName="CALENDAR" layoutX="69.0" layoutY="207.0" size="40" styleClass="glypgh-icon" />
    </children>
 </AnchorPane>

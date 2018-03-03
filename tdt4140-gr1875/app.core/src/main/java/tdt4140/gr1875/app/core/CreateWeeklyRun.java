@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import tdt4140.gr1875.app.core.UseDB;
 
 public class CreateWeeklyRun {
 	public CreateWeeklyRun() {
@@ -13,7 +14,7 @@ public class CreateWeeklyRun {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			return false;
 		}
-		//Connect to database
+		UseDB.SubmitWeeklyRun(place, date, time);
 		return true;
 	}
 	
