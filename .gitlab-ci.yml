@@ -11,7 +11,7 @@ cache:
   key: "$CI_BUILD_REF_NAME"
 
 variables:
-  HEADLESS_TESTFX: "-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500 -Dprism.verbose=true"
+  HEADLESS_TESTFX: "-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dglass.platform=Monocle -Dmonocle.platform=Headless Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=50000 -Dprism.verbose=true"
   MAVEN_OPTS: "-Djava.awt.headless=true -Dmaven.repo.local=.m2/repository"
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -Dgitlab-ci=true"
 
