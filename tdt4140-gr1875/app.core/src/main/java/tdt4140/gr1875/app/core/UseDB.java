@@ -161,4 +161,10 @@ public class UseDB {
 		return conn;
 	}
 
+	
+	public static boolean SubmitWeeklyRun(String place, String date, String time) {
+		int newID = UseDB.getFreeID("tracks");
+		putToDB("tracks", newID, place, time, date);
+		return true;	
+	}
 }
