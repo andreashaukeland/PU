@@ -81,7 +81,7 @@ public class ViewResultsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getFromDB("SELECT * FROM result");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT * FROM result");
 		tableView.getItems().setAll(getRes(list));
 	}
 	

@@ -100,7 +100,7 @@ public class ViewAthletesController implements Initializable{ //implements Toolb
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getFromDB("SELECT firstname, lastname, birthday FROM runner");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT firstname, lastname, birthday FROM runner");
 		tableView.getItems().setAll(getRes(list));
 	}
 	
