@@ -15,27 +15,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import tdt4140.gr1875.app.core.LoginScreen;
+import tdt4140.gr1875.app.core.SessionInformation;
 
 public class LoginScreenController {
 
-	@FXML
-    private JFXTextField usernameField;
-
-    @FXML
-    private JFXButton loginButton;
-
-    @FXML
-    private JFXButton createUserButton;
-
-    @FXML
-    private JFXPasswordField passwordField;
-
-    @FXML
-    private JFXCheckBox checkCoach;
-
-    @FXML
-    private JFXCheckBox checkAthlete;
-
+	@FXML private JFXTextField usernameField;
+    @FXML private JFXButton loginButton;
+    @FXML private JFXButton createUserButton;
+    @FXML private JFXPasswordField passwordField;
+    private LoginScreen loginScreen = new LoginScreen();
 
     @FXML
     void onCreateUser(ActionEvent event) {
@@ -44,21 +33,19 @@ public class LoginScreenController {
 
     @FXML
     private void onLogin(ActionEvent event) {
-    	if (!checkUsernameAndPassword()) {
-    		createAlert("Incorect Username or Password");
+    	String username = usernameField.getText();
+		String password = passwordField.getText();
+		
+    	if (! loginScreen.checkUsernameAndPassword(username, password)) {
+    		createAlert("Incorrect Username or Password");
     		return;
     	}
-    	if (checkCoach.isSelected()) {
-    		loadWindow("FxApp.fxml", usernameField);
-    	}
-    	else if (checkAthlete.isSelected()) {
+    	if(SessionInformation.userType=="runner") {
     		loadWindow("AthleteMainScreen.fxml", usernameField);
     	}
-    	else if (!checkAthlete.isSelected() && !checkCoach.isSelected()){
-    		createAlert("You must check for either 'Coach' og 'Athlete'");
-    		return;
+    	else {
+    		loadWindow("FxApp.fxml", usernameField);
     	}
-    	
     }
     
     private void loadWindow(String loc, Node root) {
@@ -79,24 +66,5 @@ public class LoginScreenController {
 		alert.showAndWait();
     }
     
-	private boolean checkUsernameAndPassword() {
-		if (usernameField.getText().isEmpty()) { return false;}
-		if (passwordField.getText().isEmpty()) { return false;}
-		return true;
-	}
-
-	@FXML
-	private void OnCheckedCoach() {
-		if (checkAthlete.isSelected()) {
-			checkAthlete.setSelected(false);
-		}
-	}
-
-	@FXML
-	private void OnCheckedAthlete() {
-		if (checkCoach.isSelected()) {
-			checkCoach.setSelected(false);
-		}
-	}
 	
 }
