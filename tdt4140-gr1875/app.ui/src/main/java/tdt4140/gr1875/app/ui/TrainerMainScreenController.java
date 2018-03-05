@@ -3,46 +3,51 @@ package tdt4140.gr1875.app.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXDrawer.DrawerDirection;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import tdt4140.gr1875.app.core.AthleteMainScreen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class AthleteMainScreenController implements Initializable{
 
+public class TrainerMainScreenController implements Initializable{
+
+	
 	private JFXDrawer drawer;
-	@FXML private JFXHamburger hamburger;
-	@FXML private StackPane stackPane;
-	@FXML private BorderPane borderPane;
-	@FXML private TextField nextRun;
 	
-	@FXML private TextField nameTextfield;
-	@FXML private TextField timeTextfield;
-	@FXML private JFXButton submitButton;
+	@FXML
+	private JFXHamburger hamburger;
 	
-	private AthleteMainScreen model = new AthleteMainScreen();
+	@FXML
+	private StackPane stackPane;
+	
+	@FXML
+	private BorderPane borderPane;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
-		nextRun.setText(model.getLastRun());	
 	}
 	
 	
@@ -52,7 +57,7 @@ public class AthleteMainScreenController implements Initializable{
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("AthleteToolbar.fxml"));
+			toolbar = FXMLLoader.load(getClass().getResource("Toolbar.fxml"));
 			drawer.setSidePane(toolbar);
 			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
@@ -63,12 +68,10 @@ public class AthleteMainScreenController implements Initializable{
 					
 					if (drawer.isShown()) {
 						borderPane.setRight(null);
-						//drawer.setVisible(true);
 						drawer.close();
 					}
 					else {
 						borderPane.setRight(drawer);
-						//drawer.setVisible(false);
 						drawer.open();;
 						
 					}
@@ -82,15 +85,6 @@ public class AthleteMainScreenController implements Initializable{
 		
 	}
 	
-	public void onSubmit() {
-		String runnerID = nameTextfield.getText();
-		String time = timeTextfield.getText();
-		if(model.submitTime(runnerID, time)) {
-			//SUCCESS
-		}
-		else 
-		{
-			
-		}
-	}
+	
+	
 }
