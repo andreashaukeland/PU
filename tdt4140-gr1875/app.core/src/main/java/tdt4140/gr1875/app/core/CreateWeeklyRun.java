@@ -4,58 +4,58 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import tdt4140.gr1875.app.core.UseDB;
 
 public class CreateWeeklyRun {
-	
-	
-	//private DatabaseController DBController;
-	
-	
 	public CreateWeeklyRun() {
 	}
 	
-	
-	@SuppressWarnings("deprecation")
-	public boolean submit(String place, String time) {
-		if (time.length() != 10) {
+	public boolean submit(String place, String date, String time) {
+		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			return false;
 		}
-		
-		
-		String first = time.substring(0, 4);
-		String second = time.substring(5, 7);
-		String third = time.substring(8, 10);
-		
-		List<String> list = new ArrayList<>(Arrays.asList(first, second, third));
-		
-		boolean isValid = checkValidInput(place, list);
-		
-		if(isValid) {
-			@SuppressWarnings("deprecation")
-			Date date = new Date(Integer.parseInt(first), Integer.parseInt(second), Integer.parseInt(third));
-			//DBController.askWeeklyRunQuery(date.get(year), date.get(month), date.get(day));
-		}
-		
-		return isValid;
+		UseDB.SubmitWeeklyRun(place, date, time);
+		return true;
 	}
 	
-	public boolean checkValidInput(String place, List<String> dateArray) {
-		if (dateArray.size() != 3) {
+	private boolean checkValidDate(String date) {
+		if (date.length() != 10) {
 			return false;
 		}
-		try {
-			for (int i = 0; i < dateArray.size(); i++) {
-				Integer.parseInt(dateArray.get(i));
-			}
+		String yearString = date.substring(0, 4);
+		String monthString = date.substring(5, 7);
+		String dayString = date.substring(8, 10);
+		try{
+			int year = Integer.parseInt(yearString);
+			int month = Integer.parseInt(monthString);
+			int day = Integer.parseInt(dayString);
+		}
+		catch(NumberFormatException e){
+			return false;
+		}
+		return true;
+	}
+	private boolean checkValidTime(String time) {
+		if (time.length() != 5) {
+			return false;
+		}
+		String hourString = time.substring(0, 2);
+		String minuteString = time.substring(3, 5);
+		
+		try{
+			int hour = Integer.parseInt(hourString);
+			int minute = Integer.parseInt(minuteString);
+		}
+		catch(NumberFormatException e){
+			return false;
+		}
+		return true;
+	}
+	private boolean checkValidPlace(String place) {
+		if(place!="") {
 			return true;
 		}
-		catch(Exception e){
-			System.out.println(e);
-			return false;
-		}
+		return false;
 	}
-	
-	
-	
-
 }
+	

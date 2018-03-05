@@ -25,6 +25,9 @@ public class CreateWeeklyRunController {
 
 	@FXML
 	private JFXTextField timeTextField;
+	@FXML
+	private JFXTextField dateTextField;
+
 
 	@FXML
 	private JFXButton submitButton;
@@ -44,7 +47,8 @@ public class CreateWeeklyRunController {
 		
 		String place = placeTextField.getText();
 		String time = timeTextField.getText();
-		boolean successfulSubmit = createWeeklyRun.submit(place, time);
+		String date = dateTextField.getText();
+		boolean successfulSubmit = createWeeklyRun.submit(place, date, time);
 		
 		if(! successfulSubmit) {
 			createAlert("Not successful submit");
