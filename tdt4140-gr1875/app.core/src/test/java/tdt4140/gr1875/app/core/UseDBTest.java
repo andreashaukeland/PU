@@ -17,9 +17,9 @@ public class UseDBTest {
 
 	@Test
 	public void DBTest() {
-		UseDB.putToDB("tracks", UseDB.getFreeID("tracks"), "TestTrack", "12:00", "2019-03-12");
+		UseDB.addRow("training", UseDB.getFreeID("training"), "TestTrack", "12:00", "2019-03-12", 0);
 		
-		ArrayList<ArrayList<String>> result1 = UseDB.getFromDB("SELECT track FROM tracks");
+		ArrayList<ArrayList<String>> result1 = UseDB.getTable("SELECT place FROM training");
 		String track = result1.get(result1.size()-1).get(0);
 			
 		Assert.assertEquals("TestTrack", track);
@@ -30,7 +30,7 @@ public class UseDBTest {
 	@Test
 	public void getRunnerByIDTest() {
 		int id = 1;
-		String runner = UseDB.getFromDB("SELECT fornavn, etternavn FROM runner WHERE runner.runnerid = " + id).get(0).get(0);
+		String runner = UseDB.getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0).get(0);
 		String result2 = UseDB.getRunnerByID(id).get(0);
 		Assert.assertEquals(runner, result2);
 	}

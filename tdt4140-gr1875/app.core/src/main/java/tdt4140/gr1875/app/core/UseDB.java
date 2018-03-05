@@ -11,23 +11,28 @@ import java.util.List;
 /*
  * Help class to enable communication with remote MySQL database
  * 
- * USAGE: From a given class call: UseDB.getFromDB(query) / UseDB.putToDB()
+ * USAGE: From a given class call: UseDB.getTable(query) / UseDB.addRow()
  */
+
+
+
 public class UseDB {
 	
-	public static ArrayList<ArrayList<String>> getFromDB(String query) {
+	// Get table from database
+	public static ArrayList<ArrayList<String>> getTable(String query) {
 		
 		Connection conn = connectDB();
 		
 		if (conn == null) {
 			System.out.println("Can not connect to database");
+			System.exit(0);
 		}
 		
 		Statement stmt = null;
 		ResultSet rs = null;
 		ArrayList<ArrayList<String>> table = null;
 		
-		System.out.println("Running query.." + "\n");
+		System.out.println("Running query..");
 		
 		try {
 		    stmt = conn.createStatement();
@@ -45,14 +50,16 @@ public class UseDB {
 	        	table.add(col);
 		    }
 
-
 		}
 		catch (SQLException ex){
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
-
+		
+	try { conn.close(); } catch (SQLException e) {/* ignore */}
+	
+    System.out.println("Process finished, connection closed");
 	return table;
 	}
 	
@@ -60,7 +67,7 @@ public class UseDB {
 	
 	public static ArrayList<String> getRunnerByID(int id){
 		try {
-			return getFromDB("SELECT fornavn, etternavn FROM runner WHERE runner.runnerid = " + id).get(0);
+			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
 
 		}catch (Exception e) {
 			System.out.println("ID not found");
@@ -74,14 +81,15 @@ public class UseDB {
 	/*
 	 * Method for adding new rows into external database.
 	 * 
-	 * USAGE: UseDB.putToDB('table', values...) // Values must be of type integer or string
+	 * USAGE: UseDB.addRow('table', values...) // Values must be of type integer or string
 	 * NOTE: To get an unused ID for a new row call the method UseDB.getFreeID('table')
 	 * 
-	 * EXAMPLE: UseDB.putToDB("tracks", UseDB.getFreeID("tracks"), "Delfino Square", "12:00", "2019-03-12");
+	 * EXAMPLE: UseDB.addRow("tracks", UseDB.getFreeID("tracks"), "Delfino Square", "12:00", "2019-03-12");
 	 */
 	
-	public static void putToDB(String table, Object...objects) {
+	public static boolean addRow(String table, Object...objects) {
 		Connection conn = connectDB();
+		boolean result_status = false;
 		
 		try {
 			System.out.println("Inserting row into " + table + "...");
@@ -107,42 +115,63 @@ public class UseDB {
 		    	}
 		    }
 		    values = values.substring(0, values.length() - 2);
-
 		    
 			String query = "INSERT INTO " + table + " (" + cols + ") VALUES (" + values + ")";
-			//System.out.println(query);
 			stmt.executeUpdate(query);
 			System.out.println("Row added!");
+			result_status = true;
 		}
 		catch (SQLException ex){
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
-
+		
+		try { conn.close(); } catch (SQLException e) {/* ignore */}
+	    System.out.println("Process finished, connection closed");
+		return result_status;
 	}
 	
-	// Help function used to get an unused ID
-	public static int getFreeID(String table) {
-		Connection conn = connectDB();
-		
-		int rowNum = 0;
-		System.out.println("Finding unused ID...");
-		try {
-			Statement stmt = conn.createStatement();
-		
 	
-			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
-		    java.sql.ResultSetMetaData rsmd = rs.getMetaData();
-		    rowNum = rs.last() ? rs.getRow() : 0;
+	
+	// Delete a row in the database, arguments are table name (string) and id (integer)
+	public static boolean deleteRow(String table, Integer id) {
+		Connection conn = connectDB();
+		boolean result_status = false;
+		
+		try {
+			System.out.println("Deleting row with id: " + id + "..");
+			Statement stmt = conn.createStatement();
+			
+			stmt.executeUpdate("DELETE FROM " + table + " WHERE " + table + "id like " + id);
+			System.out.println("Row deleted!");
+			try { conn.close(); } catch (SQLException e) {/* ignore */}
+			result_status = true;	
 		}
 		catch (SQLException ex){
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
+		    System.out.println("VendorError: " + ex.getErrorCode());		  
 		}
-	    
-	    return rowNum+1;
+		
+		try { conn.close(); } catch (SQLException e) {/* ignore */}
+	    System.out.println("Process finished, connection closed");
+		return result_status;
+	}
+	
+	
+	
+	// Help function used to get an unused ID
+	public static int getFreeID(String table) {		
+		int rowNum = 1;
+		System.out.println("Finding unused ID...");
+		ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		ArrayList<String> rs_collapsed = new ArrayList<>();
+		res.forEach(elem -> rs_collapsed.addAll(elem));
+		while (rs_collapsed.contains(Integer.toString(rowNum))) {
+			rowNum++;
+		}
+	    return rowNum;
 	}
 	
 	//Help function for connecting to an external database.
@@ -161,23 +190,25 @@ public class UseDB {
 		}
 		return conn;
 	}
-
+	
+	
+	// Some prebuilt functions
 	
 	public static boolean submitWeeklyRun(String place, String date, String time) {
 		int newID = UseDB.getFreeID("training");
-		putToDB("training", newID, place, time, date, 0);
+		addRow("training", newID, place, time, date, 0);
 		return true;	
 	}
 	
 	public static boolean submitTimeToTraining(String runnerID, String time) {
 		String currentTrainingId = getLastRun().get(0);
-		putToDB("result", currentTrainingId, Integer.parseInt(runnerID), time);
+		addRow("result", currentTrainingId, Integer.parseInt(runnerID), time);
 		return true;
 	}
 	
 	public static ArrayList<String> getLastRun() {
 		try {
-			ArrayList<ArrayList<String>> runs = getFromDB("SELECT trainingid, place, time, date FROM training");
+			ArrayList<ArrayList<String>> runs = getTable("SELECT trainingid, place, time, date FROM training");
 			ArrayList<String> lastRun = runs.get(runs.size()-1);
 			return lastRun;
 		}catch (Exception e) {
@@ -185,4 +216,5 @@ public class UseDB {
 			return null;
 		}
 	}
+
 }
