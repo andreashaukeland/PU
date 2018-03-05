@@ -35,16 +35,16 @@ public class LoginScreenController {
     private void onLogin(ActionEvent event) {
     	String username = usernameField.getText();
 		String password = passwordField.getText();
-		
-    	if (! loginScreen.checkUsernameAndPassword(username, password)) {
+		boolean validCombination = loginScreen.checkUsernameAndPassword(username, password);
+    	if (! validCombination) {
     		createAlert("Incorrect Username or Password");
     		return;
     	}
-    	if(SessionInformation.userType=="runner") {
-    		loadWindow("AthleteMainScreen.fxml", usernameField);
+    	if(SessionInformation.userType.equals("runner")) {
+    		loadWindow("RunnerMainScreen.fxml", usernameField);
     	}
     	else {
-    		loadWindow("FxApp.fxml", usernameField);
+    		loadWindow("TrainerMainScreen.fxml", usernameField);
     	}
     }
     

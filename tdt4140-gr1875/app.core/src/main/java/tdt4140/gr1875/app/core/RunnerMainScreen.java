@@ -3,9 +3,9 @@ package tdt4140.gr1875.app.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AthleteMainScreen {
+public class RunnerMainScreen {
 
-	public AthleteMainScreen() {
+	public RunnerMainScreen() {
 		
 	}
 	
