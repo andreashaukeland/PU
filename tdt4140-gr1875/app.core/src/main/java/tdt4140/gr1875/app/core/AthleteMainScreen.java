@@ -12,10 +12,14 @@ public class AthleteMainScreen {
 	public static String getLastRun() {
 		ArrayList<String> lastRun = UseDB.getLastRun();
 		if(lastRun != null) {
-			String lastRunString  = "The next run is " + lastRun.get(1) + " " + lastRun.get(2) + " at " + lastRun.get(0) + " ";
+			String lastRunString  = "The next run is " + lastRun.get(2) + " " + lastRun.get(3) + " at " + lastRun.get(1) + " ";
 			return lastRunString;
 		}
 		return null;
+	}
+	
+	public boolean submitTime(String runnerID, String time) {
+		return UseDB.submitTimeToTraining(runnerID, time);
 	}
 	
 }
