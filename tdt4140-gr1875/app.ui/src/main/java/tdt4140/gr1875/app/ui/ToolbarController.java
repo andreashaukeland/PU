@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 
 public class ToolbarController {
 		
@@ -32,7 +33,7 @@ public class ToolbarController {
 	private JFXButton SendText;
 	
 	@FXML 
-	private JFXButton Settings;
+	private JFXButton LogOut;
 	
 	
 	List<ToolbarListener> listeners = new ArrayList<ToolbarListener>();
@@ -64,8 +65,11 @@ public class ToolbarController {
 	}
 	
 	@FXML
-	public void loadSettings(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/Settings.fxml", (Node) CreateTraining);
+	public void onLogOut(ActionEvent event) {
+		SessionInformation.userId = 0;
+		SessionInformation.userType = "";
+		loadWindow("/tdt4140/gr1875/app/ui/LoginScreen.fxml", (Node) CreateTraining);
+		
 	}
 	
 	
@@ -78,7 +82,9 @@ public class ToolbarController {
     		Parent parent = FXMLLoader.load(getClass().getResource(loc));
 			Scene newScene = new Scene(parent);
 	    	Stage curStage = (Stage) root.getScene().getWindow();
+	    	
 	    	curStage.setScene(newScene);
+	   
 	    	
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -26,45 +26,25 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import tdt4140.gr1875.app.core.CreateNewUser;
 
 public class CreateNewUserController implements Initializable{
+	@FXML private JFXTextField firstnameField;
+	@FXML private JFXTextField lastnameField;
+	@FXML private JFXTextField usernameField;
+    @FXML private JFXPasswordField passwordField;
+    @FXML private JFXButton createUserButton;
+    @FXML private JFXTextField emailField;
+    @FXML private JFXTextField mobileField;
+    @FXML private JFXCheckBox checkCoach;
+    @FXML private JFXCheckBox checkAthlete;
+    @FXML private AnchorPane anchorPane;
+    @FXML private JFXComboBox<String> yearBox;
+    @FXML private JFXComboBox<String> monthBox;
+    @FXML private JFXComboBox<String> dayBox;
+    
+    private CreateNewUser createNewUser = new CreateNewUser();
 
-	@FXML
-    private JFXTextField usernameField;
-
-    @FXML
-    private JFXPasswordField passwordField;
-
-    @FXML
-    private JFXButton createUserButton;
-
-    @FXML
-    private JFXTextField emailField;
-
-    @FXML
-    private JFXTextField mobileField;
-    
-    @FXML
-    private JFXCheckBox checkCoach;
-    
-    @FXML
-    private JFXCheckBox checkAthlete;
-    
-    @FXML
-    private AnchorPane anchorPane;
-    
-    @FXML
-    private JFXComboBox<String> yearBox;
-    
-    @FXML
-    private JFXComboBox<String> monthBox;
-    
-    @FXML
-    private JFXComboBox<String> dayBox;
-    
-    
-    //DataBaseHandler handler;
-    
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	//handler = new DataBaseHandler();
@@ -76,63 +56,45 @@ public class CreateNewUserController implements Initializable{
 
     @FXML
     private void onCreateUser(ActionEvent event) {
-    	String userName = usernameField.getText();
-    	String pWord = passwordField.getText();
+    	String firstname = firstnameField.getText();
+    	String lastname = lastnameField.getText();
+    	String username = usernameField.getText();
+    	String password = passwordField.getText();
     	String email = emailField.getText();
     	String mobile = mobileField.getText();
     	boolean coach = checkCoach.isSelected();
     	boolean athlete = checkAthlete.isSelected();
-    	String birthDay = yearBox.getValue() + "-" + monthBox.getValue() + "-" + dayBox.getValue();
+    	String birthday = yearBox.getValue() + "-" + monthBox.getValue() + "-" + dayBox.getValue();
     	
-    	if (!checkEmail(email)) {
-    		createAlert("Not Valid Email");
+    	if(! checkValidInput(email, mobile, birthday, coach, athlete)) {
     		return;
     	}
-    	if (!checkMobile(mobile)) {
-    		createAlert("Not Valid Mobile Number");
-    		return;
+    	if(createNewUser.addNewUser(username, password, firstname, lastname, email, mobile, birthday, coach, athlete)) {
+        	loadWindow("LoginScreen.fxml", usernameField);
     	}
     	
-    	//handler.AddNewUser(name, pWord, email, mobile, birthDay, coach, athlete); Husk å ta hensyn til brukere
-    	//som allerede er i databasen (håndteres i dataBaseHandler)
-    	
-    	if (!validBirthDay(birthDay)) {
-    		createAlert("Not Valid Birthday");
-    		return;
-    	}
-    	
-    	if (coach) {
-    		loadWindow("FxApp.fxml", usernameField);
-    	}
-    	else if(athlete){
-    		loadWindow("AthleteMainScreen.fxml", usernameField);
-    	}
-    	else {
-    		createAlert("You must assign as Coach or Athlete");
-    		return;
-    	}
     }
    
-    private boolean validBirthDay(String birthDay) {
-		int month = Integer.parseInt(birthDay.substring(5, 7));
-		int day = Integer.parseInt(birthDay.substring(8, 10));
-		
-		if (month == 2 && day > 28) {
-			return false;
-		}
-		
-		if ((month % 2 == 0) && month < 8 && day == 31) {
-			return false;
-		}
-		
-		if ((month % 2 == 1) && month > 8 && day == 31) {
-			return false;
-		}
-		
-		
-		return true;
-	}
-
+    private boolean checkValidInput(String email, String mobile, String birthday, boolean coach, boolean athlete) {
+    	boolean validInput = true;
+    	if (! createNewUser.checkEmail(email)) {
+    		createAlert("Not Valid Email");
+    		validInput = false;
+    	}
+    	if (!createNewUser.checkMobile(mobile)) {
+    		createAlert("Not Valid Mobile Number");
+    		validInput = false;
+    	}
+    	if (!createNewUser.validBirthDay(birthday)) {
+    		createAlert("Not Valid Birthday");
+    		validInput = false;
+    	}
+    	if(( coach && athlete ) || (! coach && ! athlete )) {
+    		createAlert("Please check the box for either coach or athlete");
+    		validInput = false;
+    	}
+    	return validInput;
+    }
 
 	//Makes sure that you can't check for both Coach and Athlete
     @FXML
@@ -156,39 +118,7 @@ public class CreateNewUserController implements Initializable{
 		alert.setContentText(string);
 		alert.showAndWait();
 	}
-	
-	//Checks the mobile number format
-	private boolean checkMobile(String mobile) {
-		int l = mobile.length();
-		if (l != 8) {
-			return false;
-		}
-		
-		for (int i = 0; i < l; i++) {
-			if (!Character.isDigit(mobile.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
-		
-	}
 
-	//Checks the email format
-	private boolean checkEmail(String email) {
-		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-                 
-		Pattern pat = Pattern.compile(emailRegex);
-		if (email == null) {
-			return false;
-		}
-		if (!pat.matcher(email).matches()) {
-			return false;
-		}
-		return true;
-	}
 
 	//Loads new window on loc. Closes the window that contains the 'root' node.
     private void loadWindow(String loc, Node root) {
