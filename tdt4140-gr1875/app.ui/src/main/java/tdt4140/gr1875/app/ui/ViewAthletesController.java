@@ -59,37 +59,7 @@ public class ViewAthletesController implements Initializable{ //implements Toolb
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	/*
-    	System.out.println("Its a coach: " + itIsACoach);
-    	
-    	if (itIsACoach) {
-    		try {
-    			Parent parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-    			Stage stage = new Stage(StageStyle.DECORATED);
-    			stage.setScene(new Scene(parent));
-    			stage.show();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}else {
-    		try {
-    			Parent parent = FXMLLoader.load(getClass().getResource("AthleteMainScreen.fxml"));
-    			Stage stage = new Stage(StageStyle.DECORATED);
-    			stage.setScene(new Scene(parent));
-    			stage.show();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}
-    	
-    	@Override
-		public void itsACoach(boolean coach) {
-			System.out.println("HEY");
-			this.itIsACoach = coach;
-		}
-    	
-    	*/
+
     }
 
     @FXML
