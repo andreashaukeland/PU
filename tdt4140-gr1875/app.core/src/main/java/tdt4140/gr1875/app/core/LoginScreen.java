@@ -9,7 +9,7 @@ public class LoginScreen {
 	
 	public boolean checkUsernameAndPassword(String username, String password) {
 		try{
-			ArrayList<String> userInfo = UseDB.getFromDB("SELECT runnerid, usertype FROM login WHERE username=\"" + username + "\" and password=\"" + password + "\"").get(0);
+			ArrayList<String> userInfo = UseDB.getTable("SELECT runnerid, usertype FROM login WHERE username=\"" + username + "\" and password=\"" + password + "\"").get(0);
 			int userID = Integer.parseInt(userInfo.get(0));
 			String userType = userInfo.get(1);
 			SessionInformation.userId = userID;
