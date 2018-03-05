@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Menu?>
@@ -48,8 +49,9 @@
                         <Tab text="Current training">
                         <VBox>
                         	<TextField fx:id="nextRun"></TextField> 
-                        	<TextField fx:id="nameTextfield"></TextField>
-                        	<TextField fx:id="timeTextfield"></TextField>
+                        	<TextField fx:id="nameTextfield" promptText="Write runnerID"></TextField>
+                        	<TextField fx:id="timeTextfield" promptText="Write time"></TextField>
+                       		<JFXButton fx:id="submitButton" text="Submit" onAction="#onSubmit" />
                        	</VBox> 
                         	
                         </Tab> 
