@@ -14,7 +14,7 @@ public class CreateWeeklyRun {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			return false;
 		}
-		UseDB.SubmitWeeklyRun(place, date, time);
+		UseDB.submitWeeklyRun(place, date, time);
 		return true;
 	}
 	

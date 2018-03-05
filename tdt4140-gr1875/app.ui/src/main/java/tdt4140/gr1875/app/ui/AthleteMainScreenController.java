@@ -14,47 +14,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import tdt4140.gr1875.app.core.AthleteMainScreen;
 
 public class AthleteMainScreenController implements Initializable{
 
 	private JFXDrawer drawer;
-	
-	@FXML
-	private JFXHamburger hamburger;
-	
-	@FXML
-	private StackPane stackPane;
-	
-	@FXML
-	private BorderPane borderPane;
+	@FXML private JFXHamburger hamburger;
+	@FXML private StackPane stackPane;
+	@FXML private BorderPane borderPane;
+	@FXML private TextField nextRun;
+	private AthleteMainScreen model = new AthleteMainScreen();
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
-		/*
-		try {
-			
-			FXMLLoader ViewAthletesLoader = new FXMLLoader(getClass().getResource("ViewAthletes.fxml"));
-			ViewAthletesLoader.load();
-			ViewAthletesController VAC = ViewAthletesLoader.getController();
-			
-			FXMLLoader ToolbarLoader = new FXMLLoader(getClass().getResource("AthleteToolbar.fxml"));
-			ToolbarLoader.load();
-			AthleteToolbarController TBC = ToolbarLoader.getController();
+		nextRun.setText(model.getLastRun());
 		
-			
-			TBC.addListener(VAC);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 	
 	
