@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Help class to enable communication with remote MySQL database
@@ -162,9 +163,26 @@ public class UseDB {
 	}
 
 	
-	public static boolean SubmitWeeklyRun(String place, String date, String time) {
-		int newID = UseDB.getFreeID("tracks");
-		putToDB("tracks", newID, place, time, date);
+	public static boolean submitWeeklyRun(String place, String date, String time) {
+		int newID = UseDB.getFreeID("training");
+		putToDB("training", newID, place, time, date, 0);
 		return true;	
+	}
+	
+	public static boolean submitTimeToTraining(String runnerID, String time) {
+		String currentTrainingId = getLastRun().get(0);
+		putToDB("result", currentTrainingId, Integer.parseInt(runnerID), time);
+		return true;
+	}
+	
+	public static ArrayList<String> getLastRun() {
+		try {
+			ArrayList<ArrayList<String>> runs = getFromDB("SELECT trainingid, place, time, date FROM training");
+			ArrayList<String> lastRun = runs.get(runs.size()-1);
+			return lastRun;
+		}catch (Exception e) {
+			System.out.println("ID not found");
+			return null;
+		}
 	}
 }
