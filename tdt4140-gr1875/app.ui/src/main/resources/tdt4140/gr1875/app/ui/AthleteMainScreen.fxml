@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
 <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="675.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.AthleteMainScreenController">
    <children>
@@ -44,9 +45,13 @@
                <children>
                   <JFXTabPane layoutY="2.0" prefHeight="33.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <tabs>
-                        <Tab text="Next training">
+                        <Tab text="Current training">
+                        <VBox>
                         	<TextField fx:id="nextRun"></TextField> 
-
+                        	<TextField fx:id="nameTextfield"></TextField>
+                        	<TextField fx:id="timeTextfield"></TextField>
+                       	</VBox> 
+                        	
                         </Tab> 
                         <Tab text="Earlier trainings">
                         	
