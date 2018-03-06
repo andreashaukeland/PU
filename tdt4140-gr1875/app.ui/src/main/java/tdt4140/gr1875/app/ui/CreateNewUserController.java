@@ -70,7 +70,7 @@ public class CreateNewUserController implements Initializable{
     		return;
     	}
     	if(createNewUser.addNewUser(username, password, firstname, lastname, email, mobile, birthday, coach, athlete)) {
-        	loadWindow("LoginScreen.fxml", usernameField);
+        	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField);
     	}
     	
     }
@@ -120,17 +120,7 @@ public class CreateNewUserController implements Initializable{
 	}
 
 
-	//Loads new window on loc. Closes the window that contains the 'root' node.
-    private void loadWindow(String loc, Node root) {
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	curStage.setScene(newScene);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
     
     private List<String> addYears(){
     	List<String> newList = new ArrayList<>();

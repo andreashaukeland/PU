@@ -19,11 +19,13 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 
 public class SettingsController {
 
@@ -113,16 +115,11 @@ public class SettingsController {
 
 	@FXML
     public void OnBackArrow(ActionEvent event) {
-    	Stage curStage = (Stage) anchorPane.getScene().getWindow();
-    	curStage.close();
-    	Parent parent;
-		try {
-			parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setScene(new Scene(parent));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(SessionInformation.userType.equals("runner")) {
+			SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) anchorPane);
+		}
+		else {
+			SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) anchorPane);
 		}
     }
 	

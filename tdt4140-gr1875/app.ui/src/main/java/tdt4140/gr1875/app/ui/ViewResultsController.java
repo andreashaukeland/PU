@@ -65,26 +65,14 @@ public class ViewResultsController implements Initializable{
     void OnBackButton(ActionEvent event) {
     	System.out.println(SessionInformation.userType);
     	if (SessionInformation.userType.equals("trainer")) {
-    		loadWindow("TrainerMainScreen.fxml", (Node) tableView);
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView);
     	}
     	
     	if (SessionInformation.userType.equals("runner")) {
-    		loadWindow("RunnerMainScreen.fxml", (Node) tableView);
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView);
     	}
     }
     
-    private void loadWindow(String loc, Node root) {
-		try {
-    		Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	curStage.setScene(newScene);
-	    	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();

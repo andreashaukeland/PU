@@ -30,7 +30,7 @@ public class LoginScreenController {
 
     @FXML
     void onCreateUser(ActionEvent event) {
-    	loadWindow("CreateNewUser.fxml", usernameField);
+    	SceneLoader.loadWindow("CreateNewUser.fxml", (Node) usernameField);
     }
 
     @FXML
@@ -43,23 +43,13 @@ public class LoginScreenController {
     		return;
     	}
     	if(SessionInformation.userType.equals("runner")) {
-    		loadWindow("RunnerMainScreen.fxml", usernameField);
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) usernameField);
     	}
     	else {
-    		loadWindow("TrainerMainScreen.fxml", usernameField);
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) usernameField);
     	}
     }
     
-    private void loadWindow(String loc, Node root) {
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	curStage.setScene(newScene);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
     private final void createAlert(String string) {
     	Alert alert = new Alert(Alert.AlertType.INFORMATION);

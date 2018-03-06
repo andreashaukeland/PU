@@ -38,46 +38,30 @@ public class TrainerToolbarController {
 
 	@FXML
 	public void loadCreateTraining(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/CreateWeeklyRun.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("CreateWeeklyRun.fxml", (Node) CreateTraining);
 	}
 	
 	@FXML
 	public void loadViewResults(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/ViewResults.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("ViewResults.fxml", (Node) CreateTraining);
 	}
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/ViewAthletes.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("ViewAthletes.fxml", (Node) CreateTraining);
 	}
 	
 	@FXML
 	public void loadSendText(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/SendText.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("SendText.fxml", (Node) CreateTraining);
 	}
 	
 	@FXML
 	public void onLogOut(ActionEvent event) {
 		SessionInformation.userId = 0;
 		SessionInformation.userType = "";
-		loadWindow("/tdt4140/gr1875/app/ui/LoginScreen.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("LoginScreen.fxml", (Node) CreateTraining);
 		
 	}
-	
-	
-	private void loadWindow(String loc, Node root) {
-		try {
-    		Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	
-	    	curStage.setScene(newScene);
-	   
-	    	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+		
 }
