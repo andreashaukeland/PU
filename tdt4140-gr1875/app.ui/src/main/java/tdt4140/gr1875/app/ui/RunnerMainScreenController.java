@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXDrawer.DrawerDirection;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +32,7 @@ public class RunnerMainScreenController implements Initializable{
 	@FXML private JFXHamburger hamburger;
 	@FXML private StackPane stackPane;
 	@FXML private BorderPane borderPane;
-	@FXML private TextField nextRun;
+	@FXML private JFXTextArea nextRun;
 	
 	@FXML private TextField nameTextfield;
 	@FXML private TextField timeTextfield;
