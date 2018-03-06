@@ -2,6 +2,7 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -10,19 +11,31 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXDrawer.DrawerDirection;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1875.app.core.RunnerMainScreen;
+import tdt4140.gr1875.app.core.RunnerProgressScreen;
+import tdt4140.gr1875.app.core.SessionInformation;
+import tdt4140.gr1875.app.core.UseDB;
+import tdt4140.gr1875.app.ui.ViewResultsController.Results;
 
 public class RunnerProgressScreenController implements Initializable{
 
@@ -30,19 +43,30 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private JFXHamburger hamburger;
 	@FXML private StackPane stackPane;
 	@FXML private BorderPane borderPane;
-	@FXML private TextField nextRun;
+
+	@FXML private TableView<Results> tableView;
+	@FXML private TableColumn<Results, String> trainingNumberColumn;
+	@FXML private TableColumn<Results, String> trainingDateColumn;
+	@FXML private TableColumn<Results, String> trainingPlaceColumn;
+	@FXML private TableColumn<Results, String> distanceColumn;
+	@FXML private TableColumn<Results, String> timeColumn;
+	@FXML private JFXButton toggleButton;
+	@FXML private JFXButton backButton;
 	
-	@FXML private TextField nameTextfield;
-	@FXML private TextField timeTextfield;
-	@FXML private JFXButton submitButton;
-	
-	private RunnerMainScreen model = new RunnerMainScreen();
-	
-	
+	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
+		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
-		nextRun.setText(model.getLastRun());	
+		initCol();
+		/*
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
+				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+				+ "WHERE runner.runnerid =\""+SessionInformation.userId+"\";"); */
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
+				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+				+ " WHERE runner.runnerid = 1");
+		tableView.getItems().setAll(getResults(list));
 	}
 	
 	
@@ -82,15 +106,69 @@ public class RunnerProgressScreenController implements Initializable{
 		
 	}
 	
-	public void onSubmit() {
-		String runnerID = nameTextfield.getText();
-		String time = timeTextfield.getText();
-		if(model.submitTime(runnerID, time)) {
-			//SUCCESS
+	@FXML
+    void OnBackButton(ActionEvent event) {
+
+    	System.out.println(SessionInformation.userType);
+    	if (SessionInformation.userType.equals("trainer")) {
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
+    	}
+    	
+    	if (SessionInformation.userType.equals("runner")) {
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView, this);
+    	}
+    }
+	private void initCol() {
+		trainingNumberColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingNumber"));
+		trainingPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingPlace"));
+		trainingDateColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingDate"));
+		distanceColumn.setCellValueFactory(new PropertyValueFactory<>("Distance"));
+		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
+	}
+	
+	private ObservableList<Results> getResults(ArrayList<ArrayList<String>> list){
+		ArrayList<Results> results = new ArrayList<>();		
+		for (int i = 0; i < list.size(); i++) {
+			ArrayList<String> indexedlist = list.get(i);
+			results.add(new Results(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2),indexedlist.get(3),indexedlist.get(4)));
 		}
-		else 
-		{
-			
+		return FXCollections.observableArrayList(results);
+	}
+
+	
+	public static class Results{
+		private final SimpleStringProperty trainingNumber;
+		private final SimpleStringProperty trainingPlace;
+		private final SimpleStringProperty trainingDate;
+		private final SimpleStringProperty time;
+		private final SimpleStringProperty distance;
+
+		
+		public Results(String trainingNumber, String trainingPlace, String trainingDate, String distance, String time) {
+			this.trainingNumber = new SimpleStringProperty(trainingNumber);
+			this.trainingPlace = new SimpleStringProperty(trainingPlace);
+			this.trainingDate = new SimpleStringProperty(trainingDate);
+			this.time = new SimpleStringProperty(time);
+			this.distance = new SimpleStringProperty(distance); 
+		}
+		
+		public String getTrainingNumber() {
+			return trainingNumber.get();
+		}
+		public String getTrainingPlace() {
+			return trainingPlace.get();
+		}
+		public String getTrainingDate() {
+			return trainingDate.get();
+		}
+
+		public String getDistance() {
+			return distance.get();
+		}
+
+		public String getTime() {
+			return time.get();
 		}
 	}
+
 }
