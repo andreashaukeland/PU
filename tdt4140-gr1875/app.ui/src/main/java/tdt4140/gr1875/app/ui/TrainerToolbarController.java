@@ -48,7 +48,7 @@ public class TrainerToolbarController {
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		SceneLoader.loadWindow("ViewAthletes.fxml", (Node) CreateTraining, this);
+		SceneLoader.loadWindow("ViewRunners.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML

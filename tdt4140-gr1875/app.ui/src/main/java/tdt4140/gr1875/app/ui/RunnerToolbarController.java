@@ -1,3 +1,4 @@
+
 package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class RunnerToolbarController {
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		SceneLoader.loadWindow("ViewRunners.fxml", (Node) nextTraining, this);
+		SceneLoader.loadWindow("RunnerProgressScreen.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML

@@ -20,7 +20,7 @@
             <FontAwesomeIconView glyphName="LIST_OL" size="40" styleClass="glypgh-icon" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="ViewAthletes" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" onAction="#loadViewAthletes" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Athletes" textFill="#ffff8d">
+      <JFXButton fx:id="ViewProgress" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" onAction="#loadViewAthletes" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Progress" textFill="#ffff8d">
          <graphic>
             <FontAwesomeIconView glyphName="LIST" size="40" styleClass="glypgh-icon" />
          </graphic>
