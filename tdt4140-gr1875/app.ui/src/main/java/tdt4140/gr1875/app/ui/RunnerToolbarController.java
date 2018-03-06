@@ -52,7 +52,7 @@ public class RunnerToolbarController {
 	}
 	
 	@FXML
-	public void loadViewAthletes(ActionEvent event) {
+	public void loadViewProgress(ActionEvent event) {
 		SceneLoader.loadWindow("RunnerProgressScreen.fxml", (Node) nextTraining, this);
 	}
 	
