@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.LoginScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
@@ -28,7 +30,7 @@ public class LoginScreenController {
 
     @FXML
     void onCreateUser(ActionEvent event) {
-    	loadWindow("CreateNewUser.fxml", usernameField);
+    	SceneLoader.loadWindow("CreateNewUser.fxml", (Node) usernameField, this);
     }
 
     @FXML
@@ -41,23 +43,13 @@ public class LoginScreenController {
     		return;
     	}
     	if(SessionInformation.userType.equals("runner")) {
-    		loadWindow("RunnerMainScreen.fxml", usernameField);
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) usernameField, this);
     	}
     	else {
-    		loadWindow("TrainerMainScreen.fxml", usernameField);
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) usernameField, this);
     	}
     }
     
-    private void loadWindow(String loc, Node root) {
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	curStage.setScene(newScene);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
     private final void createAlert(String string) {
     	Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -66,5 +58,12 @@ public class LoginScreenController {
 		alert.showAndWait();
     }
     
+    //login method is fired on ENTER-key
+    @FXML
+	public void handleKeyPress(KeyEvent event){
+		if (event.getCode() == KeyCode.ENTER){
+			onLogin(null);
+		}
+	}
 	
 }

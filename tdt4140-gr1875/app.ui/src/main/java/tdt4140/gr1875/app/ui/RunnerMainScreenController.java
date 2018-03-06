@@ -52,7 +52,7 @@ public class RunnerMainScreenController implements Initializable{
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("AthleteToolbar.fxml"));
+			toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
 			drawer.setSidePane(toolbar);
 			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);

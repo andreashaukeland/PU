@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -34,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 
 public class ViewResultsController implements Initializable{
@@ -61,27 +63,21 @@ public class ViewResultsController implements Initializable{
     
     @FXML
     void OnBackButton(ActionEvent event) {
-    	Stage curstage = (Stage) backButton.getScene().getWindow();
-        curstage.close();
-        try {
-			Parent parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setScene(new Scene(parent));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	System.out.println(SessionInformation.userType);
+    	if (SessionInformation.userType.equals("trainer")) {
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
+    	}
+    	
+    	if (SessionInformation.userType.equals("runner")) {
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView, this);
+    	}
     }
-
-    @FXML
-    void OnToggleView(ActionEvent event) {
-
-    }
-
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT * FROM result");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT concat(firstname, ' ', lastname), trainingid, time"
+				+ " FROM result join runner on result.runnerid = runner.runnerid");
 		tableView.getItems().setAll(getRes(list));
 	}
 	
@@ -128,5 +124,9 @@ public class ViewResultsController implements Initializable{
 		
 	}
 	
+	@FXML
+    void OnToggleView(ActionEvent event) {
+
+    }
 	
 }

@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -22,10 +23,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.ViewResultsController.Results;
 
-public class ViewAthletesController implements Initializable{ //implements ToolbarListener
+public class ViewRunnersController implements Initializable{ //implements ToolbarListener
 
 	@FXML
     private TableView<Athlete> tableView;
@@ -45,21 +47,17 @@ public class ViewAthletesController implements Initializable{ //implements Toolb
     @FXML
     private JFXButton backButton;
     
-    //private boolean itIsACoach;
 
     @FXML
     void OnBackButton(ActionEvent event) {
-    	Stage curstage = (Stage) backButton.getScene().getWindow();
-    	curstage.close();
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setScene(new Scene(parent));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+    	System.out.println(SessionInformation.userType);
+    	if (SessionInformation.userType.equals("trainer")) {
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
+    	}
+    	
+    	if (SessionInformation.userType.equals("runner")) {
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView, this);
+    	}
     }
 
     @FXML

@@ -1,3 +1,4 @@
+
 package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class AthleteToolbarController {
+public class RunnerToolbarController {
 
 	@FXML 
 	private JFXButton nextTraining;
@@ -47,41 +48,23 @@ public class AthleteToolbarController {
 	
 	@FXML
 	public void loadViewResults(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/ViewResults.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("ViewResults.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/ViewAthletes.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("RunnerProgressScreen.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadChat(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/Chat.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("Chat.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadSettings(ActionEvent event) {
-		loadWindow("/tdt4140/gr1875/app/ui/Settings.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("Settings.fxml", (Node) nextTraining, this);
 	}
 	
-	
-	private void loadWindow(String loc, Node root) {
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource(loc));
-			Scene newScene = new Scene(parent);
-	    	Stage curStage = (Stage) root.getScene().getWindow();
-	    	curStage.setScene(newScene);
-	    	
-	    	/*
-	    	for (ToolbarListener listener : listeners) {
-	    		listener.itsACoach(false);
-	    	}	
-	    	*/
-	    	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 }
