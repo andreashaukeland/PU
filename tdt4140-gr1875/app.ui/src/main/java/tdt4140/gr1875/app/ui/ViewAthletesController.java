@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.ViewResultsController.Results;
 
@@ -45,52 +47,30 @@ public class ViewAthletesController implements Initializable{ //implements Toolb
     @FXML
     private JFXButton backButton;
     
-    //private boolean itIsACoach;
 
     @FXML
     void OnBackButton(ActionEvent event) {
-    	Stage curstage = (Stage) backButton.getScene().getWindow();
-    	curstage.close();
-    	try {
-			Parent parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-			Stage stage = new Stage(StageStyle.DECORATED);
-			stage.setScene(new Scene(parent));
-			stage.show();
+    	System.out.println(SessionInformation.userType);
+    	if (SessionInformation.userType.equals("trainer")) {
+    		loadWindow("TrainerMainScreen.fxml", (Node) tableView);
+    	}
+    	
+    	if (SessionInformation.userType.equals("runner")) {
+    		loadWindow("RunnerMainScreen.fxml", (Node) tableView);
+    	}
+    }
+    
+    private void loadWindow(String loc, Node root) {
+		try {
+    		Parent parent = FXMLLoader.load(getClass().getResource(loc));
+			Scene newScene = new Scene(parent);
+	    	Stage curStage = (Stage) root.getScene().getWindow();
+	    	curStage.setScene(newScene);
+	    	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	/*
-    	System.out.println("Its a coach: " + itIsACoach);
-    	
-    	if (itIsACoach) {
-    		try {
-    			Parent parent = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
-    			Stage stage = new Stage(StageStyle.DECORATED);
-    			stage.setScene(new Scene(parent));
-    			stage.show();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}else {
-    		try {
-    			Parent parent = FXMLLoader.load(getClass().getResource("AthleteMainScreen.fxml"));
-    			Stage stage = new Stage(StageStyle.DECORATED);
-    			stage.setScene(new Scene(parent));
-    			stage.show();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}
-    	
-    	@Override
-		public void itsACoach(boolean coach) {
-			System.out.println("HEY");
-			this.itIsACoach = coach;
-		}
-    	
-    	*/
-    }
+	}
 
     @FXML
     void OnToggleButton(ActionEvent event) {

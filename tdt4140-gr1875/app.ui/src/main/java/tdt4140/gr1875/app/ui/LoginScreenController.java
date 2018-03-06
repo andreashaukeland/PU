@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.LoginScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
@@ -66,5 +68,12 @@ public class LoginScreenController {
 		alert.showAndWait();
     }
     
+    //login method is fired on ENTER-key
+    @FXML
+	public void handleKeyPress(KeyEvent event){
+		if (event.getCode() == KeyCode.ENTER){
+			onLogin(null);
+		}
+	}
 	
 }
