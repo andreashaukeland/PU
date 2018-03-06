@@ -27,7 +27,7 @@ import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.ViewResultsController.Results;
 
-public class ViewAthletesController implements Initializable{ //implements ToolbarListener
+public class ViewRunnersController implements Initializable{ //implements ToolbarListener
 
 	@FXML
     private TableView<Athlete> tableView;

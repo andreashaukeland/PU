@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tdt4140.gr1875.app.core.SessionInformation;
 
-public class ToolbarController {
+public class TrainerToolbarController {
 		
 	
 	@FXML 
@@ -34,14 +34,6 @@ public class ToolbarController {
 	
 	@FXML 
 	private JFXButton LogOut;
-	
-	
-	List<ToolbarListener> listeners = new ArrayList<ToolbarListener>();
-	
-	
-	public void addListener(ToolbarListener listener) {
-		listeners.add(listener);
-	}
 	
 
 	@FXML
@@ -74,10 +66,6 @@ public class ToolbarController {
 	
 	
 	private void loadWindow(String loc, Node root) {
-		System.out.println("Listeners: " + listeners);
-		for (ToolbarListener listener : listeners) {
-    		listener.itsACoach(true);
-    	}
 		try {
     		Parent parent = FXMLLoader.load(getClass().getResource(loc));
 			Scene newScene = new Scene(parent);
