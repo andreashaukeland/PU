@@ -62,7 +62,7 @@ public class CreateWeeklyRunController {
 	
 	@FXML
 	public void OnBackButton(ActionEvent event) {
-		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) backButton);
+		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) backButton, this);
 	}
 	
 	private void createAlert(String string) {

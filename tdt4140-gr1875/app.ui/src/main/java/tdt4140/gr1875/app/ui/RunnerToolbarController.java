@@ -47,22 +47,22 @@ public class RunnerToolbarController {
 	
 	@FXML
 	public void loadViewResults(ActionEvent event) {
-		SceneLoader.loadWindow("ViewResults.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("ViewResults.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		SceneLoader.loadWindow("ViewRunners.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("ViewRunners.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadChat(ActionEvent event) {
-		SceneLoader.loadWindow("Chat.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("Chat.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML
 	public void loadSettings(ActionEvent event) {
-		SceneLoader.loadWindow("Settings.fxml", (Node) nextTraining);
+		SceneLoader.loadWindow("Settings.fxml", (Node) nextTraining, this);
 	}
 	
 	

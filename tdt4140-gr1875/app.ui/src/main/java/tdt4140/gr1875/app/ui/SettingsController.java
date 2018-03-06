@@ -116,10 +116,10 @@ public class SettingsController {
 	@FXML
     public void OnBackArrow(ActionEvent event) {
 		if(SessionInformation.userType.equals("runner")) {
-			SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) anchorPane);
+			SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) anchorPane, this);
 		}
 		else {
-			SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) anchorPane);
+			SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) anchorPane, this);
 		}
     }
 	

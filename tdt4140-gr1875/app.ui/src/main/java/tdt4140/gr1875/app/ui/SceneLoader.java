@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneLoader {
-    public static void loadWindow(String loc, Node root) {
+    public static void loadWindow(String loc, Node root, Object classname) {
     	try {
-			Parent parent = FXMLLoader.load(root.getClass().getResource(loc));
+			Parent parent = FXMLLoader.load(classname.getClass().getResource(loc));
 			Scene newScene = new Scene(parent);
 	    	Stage curStage = (Stage) root.getScene().getWindow();
 	    	curStage.setScene(newScene);

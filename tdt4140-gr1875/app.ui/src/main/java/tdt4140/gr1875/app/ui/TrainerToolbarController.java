@@ -38,29 +38,29 @@ public class TrainerToolbarController {
 
 	@FXML
 	public void loadCreateTraining(ActionEvent event) {
-		SceneLoader.loadWindow("CreateWeeklyRun.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("CreateWeeklyRun.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML
 	public void loadViewResults(ActionEvent event) {
-		SceneLoader.loadWindow("ViewResults.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("ViewResults.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML
 	public void loadViewAthletes(ActionEvent event) {
-		SceneLoader.loadWindow("ViewAthletes.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("ViewAthletes.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML
 	public void loadSendText(ActionEvent event) {
-		SceneLoader.loadWindow("SendText.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("SendText.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML
 	public void onLogOut(ActionEvent event) {
 		SessionInformation.userId = 0;
 		SessionInformation.userType = "";
-		SceneLoader.loadWindow("LoginScreen.fxml", (Node) CreateTraining);
+		SceneLoader.loadWindow("LoginScreen.fxml", (Node) CreateTraining, this);
 		
 	}
 		

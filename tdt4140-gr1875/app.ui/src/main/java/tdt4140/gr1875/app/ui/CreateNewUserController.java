@@ -70,7 +70,7 @@ public class CreateNewUserController implements Initializable{
     		return;
     	}
     	if(createNewUser.addNewUser(username, password, firstname, lastname, email, mobile, birthday, coach, athlete)) {
-        	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField);
+        	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
     	}
     	
     }

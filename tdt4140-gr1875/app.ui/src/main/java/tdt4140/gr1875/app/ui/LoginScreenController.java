@@ -30,7 +30,7 @@ public class LoginScreenController {
 
     @FXML
     void onCreateUser(ActionEvent event) {
-    	SceneLoader.loadWindow("CreateNewUser.fxml", (Node) usernameField);
+    	SceneLoader.loadWindow("CreateNewUser.fxml", (Node) usernameField, this);
     }
 
     @FXML
@@ -43,10 +43,10 @@ public class LoginScreenController {
     		return;
     	}
     	if(SessionInformation.userType.equals("runner")) {
-    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) usernameField);
+    		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) usernameField, this);
     	}
     	else {
-    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) usernameField);
+    		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) usernameField, this);
     	}
     }
     
