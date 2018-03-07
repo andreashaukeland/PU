@@ -43,5 +43,13 @@
       <JFXComboBox fx:id="dayBox" labelFloat="true" layoutX="290.0" layoutY="481.0" prefHeight="25.0" prefWidth="57.0" promptText="Day" styleClass="Combo-Box" visibleRowCount="5" />
       <FontAwesomeIconView glyphName="USER" layoutX="67.0" layoutY="192.0" size="40" styleClass="glypgh-icon" text="" />
       <FontAwesomeIconView glyphName="USER" layoutX="62.0" layoutY="251.0" size="40" styleClass="glypgh-icon" text="" />
+      <JFXButton fx:id="backButton" layoutX="24.0" layoutY="24.0" onAction="#OnBackButton" prefHeight="45.0" prefWidth="57.0" styleClass="login-button" text=".">
+         <graphic>
+            <FontAwesomeIconView glyphName="CHEVRON_LEFT" size="30" styleClass="glypgh-icon" wrappingWidth="22.09522819519043" />
+         </graphic>
+         <font>
+            <Font size="1.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

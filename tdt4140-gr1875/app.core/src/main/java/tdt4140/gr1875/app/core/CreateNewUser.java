@@ -1,5 +1,7 @@
 package tdt4140.gr1875.app.core;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 public class CreateNewUser {
@@ -7,18 +9,19 @@ public class CreateNewUser {
 	public CreateNewUser() {
 		
 	}
-	public boolean addNewUser(String username, String password, String firstName, String lastName, 
+	public boolean addNewUser(String username, String password, String salt, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
-		if(coach) {
+		System.out.println("salt: " + salt);
+		if(!coach) {
 			int id = UseDB.getFreeID("runner");
 			boolean addedUser = UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile);
-			boolean addedLogin = UseDB.addRow("login", id, username, password, "runner");
+			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "runner");
 			return (addedUser && addedLogin);
 		}
 		else {
 			int id = UseDB.getFreeID("trainer");
 			boolean addedUser = UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
-			boolean addedLogin = UseDB.addRow("login", id, username, password, "trainer");
+			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "trainer");
 			return (addedUser && addedLogin);
 		}
 	}
@@ -53,6 +56,7 @@ public class CreateNewUser {
 		}
 		return true;
 	}
+	
     public boolean validBirthDay(String birthDay) {
 		int month = Integer.parseInt(birthDay.substring(5, 7));
 		int day = Integer.parseInt(birthDay.substring(8, 10));
@@ -68,8 +72,6 @@ public class CreateNewUser {
 		if ((month % 2 == 1) && month > 8 && day == 31) {
 			return false;
 		}
-		
-		
 		return true;
 	}
 
