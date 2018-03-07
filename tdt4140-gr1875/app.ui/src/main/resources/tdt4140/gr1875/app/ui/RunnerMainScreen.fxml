@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,7 +15,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="675.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.AthleteMainScreenController">
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="675.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.RunnerMainScreenController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@dark-theme.css">
          <top>
@@ -43,8 +47,20 @@
                <children>
                   <JFXTabPane layoutY="2.0" prefHeight="33.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <tabs>
-                        <Tab text="Map" />
-                        <Tab text="Top 10" />
+                        <Tab text="Current training">
+                           <content>
+                              <AnchorPane prefHeight="200.0" prefWidth="613.0">
+                                 <children>
+                                    <JFXTextArea fx:id="nextRun" layoutX="69.0" layoutY="102.0" prefHeight="57.0" prefWidth="270.0" styleClass="text-field" />
+                                    <JFXButton fx:id="submitButton" layoutX="160.0" layoutY="339.0" onAction="#onSubmit" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
+                                    <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="187.0" layoutY="65.0" size="40" styleClass="glypgh-icon" />
+                                    <JFXTextField fx:id="nameTextfield" labelFloat="true" layoutX="69.0" layoutY="206.0" prefHeight="38.0" prefWidth="269.0" promptText="Write runnerID" />
+                                    <JFXTextField fx:id="timeTextfield" labelFloat="true" layoutX="70.0" layoutY="265.0" prefHeight="38.0" prefWidth="269.0" promptText="Write time" />
+                                 </children>
+                              </AnchorPane>
+                           </content> 
+                        	
+                        </Tab>
                      </tabs>
                   </JFXTabPane>
                   <JFXHamburger fx:id="hamburger" styleClass="jfx-hamburger-icon" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="40.0" />

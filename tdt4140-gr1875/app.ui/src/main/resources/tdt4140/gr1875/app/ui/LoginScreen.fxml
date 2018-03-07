@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="417.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.LoginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPress" prefHeight="373.0" prefWidth="417.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.LoginScreenController">
    <children>
-      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="105.0" promptText="Username">
+      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="130.0" promptText="Username">
          <font>
             <Font name="Arial Italic" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="144.0" layoutY="172.0" promptText="Password" />
-      <JFXCheckBox fx:id="checkCoach" layoutX="102.0" layoutY="250.0" onAction="#OnCheckedCoach" prefHeight="33.0" prefWidth="70.0" text="Coach" textFill="#b2b2b2" />
-      <JFXCheckBox fx:id="checkAthlete" layoutX="250.0" layoutY="253.0" onAction="#OnCheckedAthlete" prefHeight="27.0" prefWidth="81.0" text="Athlete" textFill="#b2b2b2" />
-      <JFXButton fx:id="loginButton" layoutX="88.0" layoutY="316.0" onAction="#onLogin" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Login" />
-      <JFXButton fx:id="createUserButton" layoutX="242.0" layoutY="316.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" />
-      <FontAwesomeIconView glyphName="LOCK" layoutX="199.0" layoutY="57.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="199.8571434020996" AnchorPane.topAnchor="14.14285659790039" />
-      <FontAwesomeIconView glyphName="USER" layoutX="65.0" layoutY="137.0" size="40" styleClass="glypgh-icon" text="" />
-      <FontAwesomeIconView glyphName="KEY" layoutX="59.0" layoutY="205.0" size="40" styleClass="glypgh-icon" text="" />
+      <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="144.0" layoutY="211.0" promptText="Password" />
+      <JFXButton fx:id="loginButton" layoutX="79.0" layoutY="301.0" onAction="#onLogin" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Login" />
+      <JFXButton fx:id="createUserButton" layoutX="243.0" layoutY="301.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" />
+      <FontAwesomeIconView glyphName="LOCK" layoutX="192.0" layoutY="67.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.8571434020996" AnchorPane.topAnchor="24.14285659790039" />
+      <FontAwesomeIconView glyphName="USER" layoutX="65.0" layoutY="160.0" size="40" styleClass="glypgh-icon" text="" />
+      <FontAwesomeIconView glyphName="KEY" layoutX="59.0" layoutY="244.0" size="40" styleClass="glypgh-icon" text="" />
    </children>
 </AnchorPane>

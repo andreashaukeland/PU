@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="150.0" styleClass="root" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.AthleteToolbarController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="150.0" styleClass="root" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.RunnerToolbarController">
    <children>
       <JFXButton fx:id="nextTraining" contentDisplay="TOP" onAction="#loadNextTraining" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="Next Training" textFill="#ffff8d">
          <VBox.margin>
@@ -20,7 +20,7 @@
             <FontAwesomeIconView glyphName="LIST_OL" size="40" styleClass="glypgh-icon" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="ViewAthletes" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" onAction="#loadViewAthletes" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Athletes" textFill="#ffff8d">
+      <JFXButton fx:id="ViewProgress" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" onAction="#loadViewProgress" prefHeight="400.0" prefWidth="250.0" styleClass="login-button" text="View Progress" textFill="#ffff8d">
          <graphic>
             <FontAwesomeIconView glyphName="LIST" size="40" styleClass="glypgh-icon" />
          </graphic>

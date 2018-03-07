@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="150.0" styleClass="root" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.ToolbarController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="150.0" styleClass="root" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.TrainerToolbarController">
    <children>
       <JFXButton fx:id="CreateTraining" contentDisplay="TOP" onAction="#loadCreateTraining" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Create Training" textFill="#ffff8d">
          <VBox.margin>
@@ -33,7 +33,7 @@
             <FontAwesomeIconView glyphName="WHATSAPP" size="40" styleClass="glypgh-icon" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="Settings" contentDisplay="TOP" onAction="#loadSettings" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Settings" textFill="#ffff8d">
+      <JFXButton fx:id="LogOut" contentDisplay="TOP" onAction="#onLogOut" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Log out" textFill="#ffff8d">
          <graphic>
             <FontAwesomeIconView glyphName="COG" size="40" styleClass="glypgh-icon" />
          </graphic>
