@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,11 @@ public class UseDBTest {
 		String runner = UseDB.getFromDB("SELECT fornavn, etternavn FROM runner WHERE runner.runnerid = " + id).get(0).get(0);
 		String result2 = UseDB.getRunnerByID(id).get(0);
 		Assert.assertEquals(runner, result2);
+	}
+	
+	@After
+	public void delete() {
+		
 	}
 
 
