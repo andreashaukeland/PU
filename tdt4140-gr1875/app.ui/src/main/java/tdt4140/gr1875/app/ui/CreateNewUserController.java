@@ -2,8 +2,11 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -27,6 +30,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.CreateNewUser;
+import tdt4140.gr1875.app.core.SessionInformation;
 
 public class CreateNewUserController implements Initializable{
 	@FXML private JFXTextField firstnameField;
@@ -42,8 +46,9 @@ public class CreateNewUserController implements Initializable{
     @FXML private JFXComboBox<String> yearBox;
     @FXML private JFXComboBox<String> monthBox;
     @FXML private JFXComboBox<String> dayBox;
+    @FXML private JFXButton backButton;
     
-    private CreateNewUser createNewUser = new CreateNewUser();
+    private CreateNewUser createNewUser;
 
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -51,9 +56,44 @@ public class CreateNewUserController implements Initializable{
     	yearBox.getItems().addAll(addYears());
     	monthBox.getItems().addAll(addMonths());
     	dayBox.getItems().addAll(addDays());
+    	createNewUser = new CreateNewUser();
     }
     
 
+    private String hashPassword(String password) {
+		MessageDigest messageDigest;
+		String encryptedPassword = "";
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-1");
+			messageDigest.update(password.getBytes());
+			encryptedPassword = new String(messageDigest.digest());
+			if (encryptedPassword.contains("'") || encryptedPassword.contains("\"")) {
+				encryptedPassword = encryptedPassword.replace("\"", "");
+				encryptedPassword = encryptedPassword.replace("'", "");
+	        }
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return encryptedPassword;
+	}
+    
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        if (saltStr.contains("'") || saltStr.contains("\"")) {
+        	saltStr = saltStr.replace("\"", "");
+        	saltStr = saltStr.replace("'", "");
+        }
+        System.out.println(saltStr);
+        return saltStr;
+    }
+    
     @FXML
     private void onCreateUser(ActionEvent event) {
     	String firstname = firstnameField.getText();
@@ -65,14 +105,21 @@ public class CreateNewUserController implements Initializable{
     	boolean coach = checkCoach.isSelected();
     	boolean athlete = checkAthlete.isSelected();
     	String birthday = yearBox.getValue() + "-" + monthBox.getValue() + "-" + dayBox.getValue();
+    	String salt = getSaltString();
+    	String encryptedPassword = hashPassword(password + salt);
     	
     	if(! checkValidInput(email, mobile, birthday, coach, athlete)) {
     		return;
     	}
-    	if(createNewUser.addNewUser(username, password, firstname, lastname, email, mobile, birthday, coach, athlete)) {
+    	if(createNewUser.addNewUser(username, encryptedPassword, salt, firstname, lastname, email, mobile, birthday, coach, athlete)) {
         	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
     	}
     	
+    }
+    
+    @FXML
+    void OnBackButton() {
+    	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
     }
    
     private boolean checkValidInput(String email, String mobile, String birthday, boolean coach, boolean athlete) {

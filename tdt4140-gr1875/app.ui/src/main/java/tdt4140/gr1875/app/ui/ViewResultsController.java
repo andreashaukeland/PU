@@ -63,7 +63,6 @@ public class ViewResultsController implements Initializable{
     
     @FXML
     void OnBackButton(ActionEvent event) {
-    	System.out.println(SessionInformation.userType);
     	if (SessionInformation.userType.equals("trainer")) {
     		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
     	}
