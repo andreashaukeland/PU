@@ -74,6 +74,32 @@ public class UseDB {
 			return null;
 		}
 	}
+	
+	//Arguments example: getIDByName("training", "place=TestTrack"); 
+	
+	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
+		if (names.length > 2 || names.length == 0) {
+			System.out.println("Invalid. Wrong number of arguments.");
+			return null;
+		}
+		try {
+			String query;
+			if (names.length == 1) {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "'";
+				System.out.println(query);
+			} else {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "' AND " 
+						+ names[1].split("=")[0] + " = '" + names[1].split("=")[1] + "'";
+			}
+			return getTable(query);
+		} catch (Exception e) {
+			System.out.println("ID not found");
+			return null;
+		}
+	}
+	
 	//TODO MAKE MORE...
 	//-----------------------------
 	

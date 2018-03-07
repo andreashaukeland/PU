@@ -15,16 +15,19 @@ public class UseDBTest {
 	/*
 	 * The methods getFreeID() and connectDB() are being used (and tested) by other methods. 
 	 */
+	int id = UseDB.getFreeID("training");
 
 	@Test
 	public void DBTest() {
-		UseDB.addRow("training", UseDB.getFreeID("training"), "TestTrack", "12:00", "2019-03-12", 0);
+		UseDB.addRow("training", id, "TestTrack", "12:00", "2019-03-12", 0);
 		
 		ArrayList<ArrayList<String>> result1 = UseDB.getTable("SELECT place FROM training");
 		String track = result1.get(result1.size()-1).get(0);
 			
 		Assert.assertEquals("TestTrack", track);
 		//Assert.assertEquals("true", "true"); // used to test when ntnu database is down
+		
+		UseDB.deleteRow("training", id);
 	}
 
 
@@ -36,10 +39,7 @@ public class UseDBTest {
 		Assert.assertEquals(runner, result2);
 	}
 	
-	@After
-	public void delete() {
-		
-	}
+	
 
 
 }
