@@ -46,7 +46,7 @@
       </TableView>
       <HBox alignment="CENTER" prefHeight="78.0" prefWidth="517.0">
          <children>
-            <JFXButton fx:id="toggleViewButton" onAction="#OnToggleButton" prefHeight="56.0" prefWidth="129.0" styleClass="login-button" text="Toggle View">
+            <JFXButton fx:id="chooseUserButton" onAction="#OnChooseUser" prefHeight="56.0" prefWidth="129.0" styleClass="login-button" text="Choose user">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

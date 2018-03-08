@@ -28,7 +28,7 @@
             <Insets />
          </VBox.margin>
       </JFXButton>
-      <JFXButton fx:id="SendText" contentDisplay="TOP" layoutX="10.0" layoutY="276.0" onAction="#loadSendText" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Send Text" textFill="#ffff8d">
+      <JFXButton fx:id="Settings" contentDisplay="TOP" layoutX="10.0" layoutY="276.0" onAction="#loadSettings" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Settings" textFill="#ffff8d">
          <graphic>
             <FontAwesomeIconView glyphName="WHATSAPP" size="40" styleClass="glypgh-icon" />
          </graphic>
