@@ -29,23 +29,12 @@ import tdt4140.gr1875.app.ui.ViewResultsController.Results;
 
 public class ViewRunnersController implements Initializable{ //implements ToolbarListener
 
-	@FXML
-    private TableView<Athlete> tableView;
-	
-	@FXML
-    private TableColumn<Athlete, String> FirstNameColumn;
-	
-	@FXML
-    private TableColumn<Athlete, String> LastNameColumn;
-	
-	@FXML
-    private TableColumn<Athlete, String> BirthDayColumn;
-
-    @FXML
-    private JFXButton toggleViewButton;
-
-    @FXML
-    private JFXButton backButton;
+	@FXML private TableView<Athlete> tableView;
+	@FXML private TableColumn<Athlete, String> FirstNameColumn;
+	@FXML private TableColumn<Athlete, String> LastNameColumn;
+	@FXML private TableColumn<Athlete, String> BirthDayColumn;
+	@FXML private JFXButton chooseUserButton;
+    @FXML private JFXButton backButton;
     
 
     @FXML
@@ -61,14 +50,18 @@ public class ViewRunnersController implements Initializable{ //implements Toolba
     }
 
     @FXML
-    void OnToggleButton(ActionEvent event) {
-
+    void OnChooseUser(ActionEvent event) {
+    	Athlete selectedAthlete = tableView.getSelectionModel().getSelectedItem();
+    	int currentRunnerId = selectedAthlete.getRunnerId();
+    	SessionInformation.currentRunnerViewed = currentRunnerId;
+    	SceneLoader.loadWindow("RunnerProgressScreen.fxml", (Node) tableView, this);
+    	
     }
     
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT firstname, lastname, birthday FROM runner");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT firstname, lastname, birthday, runnerid FROM runner");
 		tableView.getItems().setAll(getRes(list));
 	}
 	
@@ -82,23 +75,24 @@ public class ViewRunnersController implements Initializable{ //implements Toolba
 		ArrayList<Athlete> res = new ArrayList<>();		
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> indexedlist = list.get(i);
-			res.add(new Athlete(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2)));
+			res.add(new Athlete(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2),indexedlist.get(3)));
 		}
 		return FXCollections.observableArrayList(res);
 	}
 
 	
 	public static class Athlete{
-		
 
 		private final SimpleStringProperty FirstName;
 		private final SimpleStringProperty LastName;
 		private final SimpleStringProperty BirthDay;
+		private final int runnerID;
 		
-		public Athlete(String name, String track, String time) {
+		public Athlete(String name, String track, String time, String runnerID) {
 			this.FirstName = new SimpleStringProperty(name);
 			this.LastName = new SimpleStringProperty(track); 
 			this.BirthDay = new SimpleStringProperty(time);
+			this.runnerID = Integer.valueOf(runnerID);
 		}
 		
 		public String getFirstName() {
@@ -111,6 +105,10 @@ public class ViewRunnersController implements Initializable{ //implements Toolba
 
 		public String getBirthDay() {
 			return BirthDay.get();
+		}
+		
+		public int getRunnerId() {
+			return runnerID;
 		}
 		
 	}

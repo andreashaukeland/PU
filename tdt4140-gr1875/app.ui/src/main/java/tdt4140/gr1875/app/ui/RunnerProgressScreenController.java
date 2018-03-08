@@ -62,14 +62,23 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private Tab progressTab;
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
+	private int currentUser;
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//If a trainer is logged in, the current runner we want to view is currentRunnerViewed
+		//Else we want to watch the runner that is logged in
+		if(SessionInformation.userType.equals("trainer")) {
+			currentUser = SessionInformation.currentRunnerViewed;
+		}
+		else {
+			currentUser = SessionInformation.userId;
+		}
 		initDrawer();
 		initCol();
 		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
-				+ " WHERE runner.runnerid =" + SessionInformation.userId+";");
+				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
 		initProgressChart();
 	}
@@ -84,7 +93,7 @@ public class RunnerProgressScreenController implements Initializable{
         XYChart.Series series = new XYChart.Series();
         ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT date, distance, result.time"
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
-				+ " WHERE runner.runnerid =" + SessionInformation.userId + ";");
+				+ " WHERE runner.runnerid =" + currentUser + ";");
         for (ArrayList<String> result: list) {
         	Time time = Time.valueOf(result.get(2));
 			double hours = time.getHours();
