@@ -20,20 +20,11 @@ import tdt4140.gr1875.app.core.SessionInformation;
 public class TrainerToolbarController {
 		
 	
-	@FXML 
-	private JFXButton CreateTraining;
-	
-	@FXML 
-	private JFXButton ViewResults;
-	
-	@FXML 
-	private JFXButton ViewAthletes;
-	
-	@FXML 
-	private JFXButton SendText;
-	
-	@FXML 
-	private JFXButton LogOut;
+	@FXML private JFXButton CreateTraining;
+	@FXML private JFXButton ViewResults;
+	@FXML private JFXButton ViewAthletes;
+	@FXML private JFXButton SendText;
+	@FXML private JFXButton LogOut;
 	
 
 	@FXML
@@ -52,8 +43,8 @@ public class TrainerToolbarController {
 	}
 	
 	@FXML
-	public void loadSendText(ActionEvent event) {
-		SceneLoader.loadWindow("SendText.fxml", (Node) CreateTraining, this);
+	public void loadSettings(ActionEvent event) {
+		SceneLoader.loadWindow("Settings.fxml", (Node) CreateTraining, this);
 	}
 	
 	@FXML
