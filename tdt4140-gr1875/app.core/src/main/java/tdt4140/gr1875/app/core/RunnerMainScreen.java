@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RunnerMainScreen {
-
-	public RunnerMainScreen() {
-		
-	}
 	
 	public static String getLastRun() {
 		ArrayList<String> lastRun = UseDB.getLastRun();
@@ -20,6 +16,5 @@ public class RunnerMainScreen {
 	
 	public boolean submitTime(String runnerID, String time) {
 		return UseDB.submitTimeToTraining(runnerID, time);
-	}
-	
+	}	
 }
