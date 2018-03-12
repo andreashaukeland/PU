@@ -54,7 +54,6 @@
                                     <JFXTextArea fx:id="nextRun" layoutX="69.0" layoutY="102.0" prefHeight="57.0" prefWidth="270.0" styleClass="text-field" />
                                     <JFXButton fx:id="submitButton" layoutX="160.0" layoutY="339.0" onAction="#onSubmit" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
                                     <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="187.0" layoutY="65.0" size="40" styleClass="glypgh-icon" />
-                                    <JFXTextField fx:id="nameTextfield" labelFloat="true" layoutX="69.0" layoutY="206.0" prefHeight="38.0" prefWidth="269.0" promptText="Write runnerID" />
                                     <JFXTextField fx:id="timeTextfield" labelFloat="true" layoutX="70.0" layoutY="265.0" prefHeight="38.0" prefWidth="269.0" promptText="Write time" />
                                  </children>
                               </AnchorPane>

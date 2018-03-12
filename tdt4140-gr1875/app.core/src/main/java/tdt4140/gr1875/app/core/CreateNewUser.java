@@ -1,14 +1,11 @@
 package tdt4140.gr1875.app.core;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
 public class CreateNewUser {
-
-	public CreateNewUser() {
-		
-	}
+	
 	public boolean addNewUser(String username, String password, String salt, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
 		System.out.println("salt: " + salt);
@@ -58,21 +55,9 @@ public class CreateNewUser {
 	}
 	
     public boolean validBirthDay(String birthDay) {
-		int month = Integer.parseInt(birthDay.substring(5, 7));
-		int day = Integer.parseInt(birthDay.substring(8, 10));
-		
-		if (month == 2 && day > 28) {
-			return false;
-		}
-		
-		if ((month % 2 == 0) && month < 8 && day == 31) {
-			return false;
-		}
-		
-		if ((month % 2 == 1) && month > 8 && day == 31) {
-			return false;
-		}
-		return true;
+    	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	    sdf.setLenient(false);
+    	    return sdf.parse(birthDay, new ParsePosition(0)) != null;
 	}
 
 }

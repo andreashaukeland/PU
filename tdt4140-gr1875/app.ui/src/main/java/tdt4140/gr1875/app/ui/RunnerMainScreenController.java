@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -25,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import tdt4140.gr1875.app.core.RunnerMainScreen;
+import tdt4140.gr1875.app.core.SessionInformation;
 
 public class RunnerMainScreenController implements Initializable{
 
@@ -34,7 +36,6 @@ public class RunnerMainScreenController implements Initializable{
 	@FXML private BorderPane borderPane;
 	@FXML private JFXTextArea nextRun;
 	
-	@FXML private TextField nameTextfield;
 	@FXML private TextField timeTextfield;
 	@FXML private JFXButton submitButton;
 	
@@ -85,14 +86,14 @@ public class RunnerMainScreenController implements Initializable{
 	}
 	
 	public void onSubmit() {
-		String runnerID = nameTextfield.getText();
 		String time = timeTextfield.getText();
-		if(model.submitTime(runnerID, time)) {
-			//SUCCESS
-		}
-		else 
-		{
-			
+		boolean submitted = model.submitTime(SessionInformation.userId, time);
+		if(! submitted) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Could not submit to database");
+			alert.showAndWait();
 		}
 	}
+
 }

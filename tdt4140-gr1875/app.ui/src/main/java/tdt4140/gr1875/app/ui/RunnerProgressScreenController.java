@@ -2,6 +2,8 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -21,7 +23,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -52,21 +59,55 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private TableColumn<Results, String> timeColumn;
 	@FXML private JFXButton toggleButton;
 	@FXML private JFXButton backButton;
+	@FXML private Tab progressTab;
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
+	private int currentUser;
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//If a trainer is logged in, the current runner we want to view is currentRunnerViewed
+		//Else we want to watch the runner that is logged in
+		if(SessionInformation.userType.equals("trainer")) {
+			currentUser = SessionInformation.currentRunnerViewed;
+		}
+		else {
+			currentUser = SessionInformation.userId;
+		}
 		initDrawer();
 		initCol();
-		/*
 		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
-				+ "WHERE runner.runnerid =\""+SessionInformation.userId+"\";"); */
-		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
-				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
-				+ " WHERE runner.runnerid = 1");
+				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
+		initProgressChart();
+	}
+	
+	private void initProgressChart() {
+		final NumberAxis yAxis = new NumberAxis();
+        final CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Date:");
+        final LineChart<String,Number> lineChart = 
+                new LineChart<String,Number>(xAxis,yAxis);
+        lineChart.setTitle("Progress of speed on runs:");
+        XYChart.Series series = new XYChart.Series();
+        ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT date, distance, result.time"
+				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+				+ " WHERE runner.runnerid =" + currentUser + ";");
+        for (ArrayList<String> result: list) {
+        	Time time = Time.valueOf(result.get(2));
+			double hours = time.getHours();
+			double minutes = time.getMinutes();
+			double seconds = time.getSeconds();
+			double totalHours = hours + minutes / 60 + seconds / 3600;
+			
+			double distance = Double.valueOf(result.get(1));
+			double speed = distance / totalHours;
+			String date = result.get(0);
+			series.getData().add(new XYChart.Data(date, speed));
+		}
+        lineChart.getData().add(series);
+        progressTab.setContent(lineChart);
 	}
 	
 	
@@ -127,6 +168,9 @@ public class RunnerProgressScreenController implements Initializable{
 	}
 	
 	private ObservableList<Results> getResults(ArrayList<ArrayList<String>> list){
+		if(list == null) {
+			return null;
+		}
 		ArrayList<Results> results = new ArrayList<>();		
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> indexedlist = list.get(i);
