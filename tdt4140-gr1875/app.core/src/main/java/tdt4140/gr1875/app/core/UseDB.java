@@ -210,14 +210,12 @@ public class UseDB {
 	
 	public static boolean submitWeeklyRun(String place, String date, String time) {
 		int newID = UseDB.getFreeID("training");
-		addRow("training", newID, place, time, date, 0);
-		return true;	
+		return addRow("training", newID, place, time, date, 0);	
 	}
 	
-	public static boolean submitTimeToTraining(String runnerID, String time) {
+	public static boolean submitTimeToTraining(int runnerID, String time) {
 		String currentTrainingId = getLastRun().get(0);
-		addRow("result", currentTrainingId, Integer.parseInt(runnerID), time);
-		return true;
+		return addRow("result", currentTrainingId, runnerID, time);
 	}
 	
 	public static ArrayList<String> getLastRun() {

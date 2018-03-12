@@ -96,10 +96,10 @@ xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.RunnerP
 </VBox>
 </content>
                         </Tab> 
-                        <Tab text="Information">
-                        	
+                        
+                        <Tab fx:id="progressTab" text="Progress view">          	
                         </Tab>
-                        <Tab text="Progress view">
+                        <Tab text="Information">
                         	
                         </Tab>
                      </tabs>
