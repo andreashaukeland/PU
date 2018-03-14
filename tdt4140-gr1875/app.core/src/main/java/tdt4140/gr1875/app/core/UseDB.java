@@ -184,6 +184,20 @@ public class UseDB {
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
+	public static void addComment(int trainingid, String comment) {
+		try {
+			Connection myconn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db","martisku_pu","pu75");
+			Statement statement = myconn.createStatement();
+			String query = "Update result"
+					+ " set comment = \""+comment+"\"\n"
+					+ "where trainingid= "+trainingid+" and runnerid= "+SessionInformation.userId+";";
+			System.out.println(query);
+		    statement.execute(query);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
 	
 	
 	
