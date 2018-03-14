@@ -7,18 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPress" prefHeight="373.0" prefWidth="417.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.LoginScreenController">
    <children>
-      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="130.0" promptText="Username">
+      <JFXTextField fx:id="usernameField" labelFloat="true" layoutX="143.0" layoutY="130.0" promptText="Username" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="130.0">
          <font>
             <Font name="Arial Italic" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="144.0" layoutY="211.0" promptText="Password" />
-      <JFXButton fx:id="loginButton" layoutX="79.0" layoutY="301.0" onAction="#onLogin" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Login" />
-      <JFXButton fx:id="createUserButton" layoutX="243.0" layoutY="301.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" />
-      <FontAwesomeIconView glyphName="LOCK" layoutX="192.0" layoutY="67.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.8571434020996" AnchorPane.topAnchor="24.14285659790039" />
-      <FontAwesomeIconView glyphName="USER" layoutX="65.0" layoutY="160.0" size="40" styleClass="glypgh-icon" text="" />
-      <FontAwesomeIconView glyphName="KEY" layoutX="59.0" layoutY="244.0" size="40" styleClass="glypgh-icon" text="" />
+      <JFXPasswordField fx:id="passwordField" labelFloat="true" layoutX="144.0" layoutY="211.0" promptText="Password" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="211.0" />
+      <JFXButton fx:id="loginButton" layoutX="79.0" layoutY="301.0" onAction="#onLogin" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Login" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="301.0" />
+      <JFXButton fx:id="createUserButton" layoutX="231.0" layoutY="301.0" onAction="#onCreateUser" prefHeight="43.0" prefWidth="97.0" styleClass="login-button" text="Create User" AnchorPane.leftAnchor="231.0" AnchorPane.topAnchor="301.0" />
+      <FontAwesomeIconView glyphName="LOCK" layoutX="192.0" layoutY="67.0" size="50" styleClass="glypgh-icon" AnchorPane.leftAnchor="192.0" AnchorPane.topAnchor="24.14285659790039" />
+      <FontAwesomeIconView glyphName="USER" layoutX="65.0" layoutY="160.0" size="40" styleClass="glypgh-icon" text="" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="125.71428680419922" />
+      <FontAwesomeIconView glyphName="KEY" layoutX="59.0" layoutY="244.0" size="40" styleClass="glypgh-icon" text="" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="209.71428680419922" />
    </children>
 </AnchorPane>

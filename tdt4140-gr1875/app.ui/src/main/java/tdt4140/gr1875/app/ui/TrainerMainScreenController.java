@@ -21,8 +21,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,27 +36,35 @@ import javafx.stage.StageStyle;
 
 public class TrainerMainScreenController implements Initializable{
 
+	//private JFXDrawer drawer;
+	@FXML private JFXHamburger hamburger;
+	@FXML private StackPane stackPane;
+	@FXML private BorderPane borderPane;
+	@FXML private GridPane trainingMapTabGridPane;
+	@FXML private JFXDrawer drawer;
 	
-	private JFXDrawer drawer;
-	
-	@FXML
-	private JFXHamburger hamburger;
-	
-	@FXML
-	private StackPane stackPane;
-	
-	@FXML
-	private BorderPane borderPane;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
+		initMap();
 	}
 	
 	
+	private void initMap() {
+		try {
+			GridPane pane = FXMLLoader.load(getClass().getResource("GoogleMap.fxml"));
+			trainingMapTabGridPane.getChildren().setAll(pane);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 	private void initDrawer() {
-		drawer = new JFXDrawer();
+		//drawer = new JFXDrawer();
+		borderPane.setRight(null);
 		drawer.setDirection(DrawerDirection.RIGHT);
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
@@ -80,11 +92,12 @@ public class TrainerMainScreenController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 	
+	@FXML
+	public void handleCloseProgram() {
+		((Stage) stackPane.getScene().getWindow()).close();
+	}
 	
 	
 }
