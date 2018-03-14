@@ -14,7 +14,7 @@ public class RunnerMainScreen {
 		return null;
 	}
 	
-	public boolean submitTime(int runnerID, String time) {
-		return UseDB.submitTimeToTraining(runnerID, time);
+	public boolean submitTime(int runnerID, String time, String comment) {
+		return UseDB.submitTimeToTraining(runnerID, time, comment);
 	}	
 }

@@ -239,9 +239,10 @@ public class UseDB {
 		return addRow("training", newID, place, time, date, 0);	
 	}
 	
-	public static boolean submitTimeToTraining(int runnerID, String time) {
+	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
 		String currentTrainingId = getLastRun().get(0);
-		return addRow("result", currentTrainingId, runnerID, time);
+		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
+		return addRow("result", currentTrainingId, runnerID, time, comment);
 	}
 	
 	public static ArrayList<String> getLastRun() {

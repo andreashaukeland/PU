@@ -87,7 +87,8 @@ public class RunnerMainScreenController implements Initializable{
 	
 	public void onSubmit() {
 		String time = timeTextfield.getText();
-		boolean submitted = model.submitTime(SessionInformation.userId, time);
+		String comment = ""; // TODO: ADD COMMENT FIELD
+		boolean submitted = model.submitTime(SessionInformation.userId, time, comment);
 		if(! submitted) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
