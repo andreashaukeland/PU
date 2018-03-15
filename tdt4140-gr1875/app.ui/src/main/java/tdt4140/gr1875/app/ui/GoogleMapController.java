@@ -1,10 +1,15 @@
 package tdt4140.gr1875.app.ui;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.util.ISO8601Utils;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
@@ -15,12 +20,15 @@ import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.service.geocoding.GeocoderGeometry;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
+
 
 public class GoogleMapController implements Initializable, MapComponentInitializedListener{
 
@@ -28,7 +36,9 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	private GoogleMap map;
 	List<Marker> markers = new ArrayList<>();
 	PolylineOptions line_opt;
-	Polyline line;
+	Polyline line; 
+	
+	
 	
 	@Override
 	public void mapInitialized() {
@@ -90,7 +100,6 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 		 });
 	 }
 	 
-	
 	 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

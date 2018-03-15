@@ -70,10 +70,36 @@ public class UseDB {
 			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
 
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found in getRunnerByID");
 			return null;
 		}
 	}
+	
+	//Arguments example: getIDByName("training", "place=TestTrack"); 
+	
+	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
+		if (names.length > 2 || names.length == 0) {
+			System.out.println("Invalid. Wrong number of arguments.");
+			return null;
+		}
+		try {
+			String query;
+			if (names.length == 1) {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "'";
+				System.out.println(query);
+			} else {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "' AND " 
+						+ names[1].split("=")[0] + " = '" + names[1].split("=")[1] + "'";
+			}
+			return getTable(query);
+		} catch (Exception e) {
+			System.out.println("ID not found in getIDByName");
+			return null;
+		}
+	}
+	
 	//TODO MAKE MORE...
 	//-----------------------------
 	
@@ -158,6 +184,20 @@ public class UseDB {
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
+	public static void addComment(int trainingid, String comment) {
+		try {
+			Connection myconn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db","martisku_pu","pu75");
+			Statement statement = myconn.createStatement();
+			String query = "Update result"
+					+ " set comment = \""+comment+"\"\n"
+					+ "where trainingid= "+trainingid+" and runnerid= "+SessionInformation.userId+";";
+			System.out.println(query);
+		    statement.execute(query);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
 	
 	
 	
@@ -166,7 +206,9 @@ public class UseDB {
 		int rowNum = 1;
 		System.out.println("Finding unused ID...");
 		ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		System.out.println("SELECT " + table + "id FROM " + table);
 		ArrayList<String> rs_collapsed = new ArrayList<>();
+		res.forEach(elem -> System.out.println(elem));
 		res.forEach(elem -> rs_collapsed.addAll(elem));
 		while (rs_collapsed.contains(Integer.toString(rowNum))) {
 			rowNum++;
@@ -199,9 +241,10 @@ public class UseDB {
 		return addRow("training", newID, place, time, date, 0);	
 	}
 	
-	public static boolean submitTimeToTraining(int runnerID, String time) {
+	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
 		String currentTrainingId = getLastRun().get(0);
-		return addRow("result", currentTrainingId, runnerID, time);
+		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
+		return addRow("result", currentTrainingId, runnerID, time, comment);
 	}
 	
 	public static ArrayList<String> getLastRun() {
@@ -210,7 +253,7 @@ public class UseDB {
 			ArrayList<String> lastRun = runs.get(runs.size()-1);
 			return lastRun;
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found getLastRun");
 			return null;
 		}
 	}

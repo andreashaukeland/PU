@@ -77,7 +77,7 @@ public class SettingsController {
     public void onSetPassword() {
     	
     }
-    //Får IO-feil når prøver å lese Elevator.wav. Kode har funka før. Vet ikke kilde til feil foreløpig
+    //Error when reading Elevator.wav. Worked before, reason not found.
     /*
     void playSound() {
     	File audioFile = new File("Elevator.wav");

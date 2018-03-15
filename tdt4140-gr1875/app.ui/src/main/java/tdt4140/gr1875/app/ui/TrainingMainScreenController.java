@@ -3,49 +3,51 @@ package tdt4140.gr1875.app.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXDrawer.DrawerDirection;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import tdt4140.gr1875.app.core.RunnerMainScreen;
-import tdt4140.gr1875.app.core.SessionInformation;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class RunnerMainScreenController implements Initializable{
 
+public class TrainingMainScreenController implements Initializable{
+
+	
 	private JFXDrawer drawer;
-	@FXML private JFXHamburger hamburger;
-	@FXML private StackPane stackPane;
-	@FXML private BorderPane borderPane;
-	@FXML private JFXTextArea nextRun;
 	
-	@FXML private TextField timeTextfield;
-	@FXML private JFXButton submitButton;
+	@FXML
+	private JFXHamburger hamburger;
 	
-	private RunnerMainScreen model = new RunnerMainScreen();
+	@FXML
+	private StackPane stackPane;
+	
+	@FXML
+	private BorderPane borderPane;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
-		nextRun.setText(model.getLastRun());	
 	}
 	
 	
@@ -55,7 +57,7 @@ public class RunnerMainScreenController implements Initializable{
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
+			toolbar = FXMLLoader.load(getClass().getResource("TrainerToolbar.fxml"));
 			drawer.setSidePane(toolbar);
 			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
@@ -66,12 +68,10 @@ public class RunnerMainScreenController implements Initializable{
 					
 					if (drawer.isShown()) {
 						borderPane.setRight(null);
-						//drawer.setVisible(true);
 						drawer.close();
 					}
 					else {
 						borderPane.setRight(drawer);
-						//drawer.setVisible(false);
 						drawer.open();;
 						
 					}
@@ -79,27 +79,12 @@ public class RunnerMainScreenController implements Initializable{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
+		
+		
 		
 	}
 	
-	public void onSubmit() {
-		String time = timeTextfield.getText();
-		String comment = ""; // TODO: ADD COMMENT FIELD
-		boolean submitted = model.submitTime(SessionInformation.userId, time, comment);
-		if(! submitted) {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Could not submit to database");
-			alert.showAndWait();
-		}
-		else {
-			timeTextfield.clear();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Time submitted");
-			alert.showAndWait();
-		}
-	}
-
+	
+	
 }
