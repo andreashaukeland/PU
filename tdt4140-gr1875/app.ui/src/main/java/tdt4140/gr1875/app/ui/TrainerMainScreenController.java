@@ -41,7 +41,7 @@ public class TrainerMainScreenController implements Initializable{
 	@FXML private StackPane stackPane;
 	@FXML private BorderPane borderPane;
 	@FXML private GridPane trainingMapTabGridPane;
-	@FXML private JFXDrawer drawer;
+	private JFXDrawer drawer = new JFXDrawer();
 	
 	
 	

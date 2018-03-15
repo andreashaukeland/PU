@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
@@ -58,7 +57,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <padding>
-                                    <Insets right="175.0" />
+                                    <Insets right="50.0" />
                                  </padding>
                               </GridPane>
                            </content></Tab>
@@ -69,9 +68,6 @@
                </children>
             </AnchorPane>
          </center>
-         <right>
-            <JFXDrawer fx:id="drawer" direction="RIGHT" prefHeight="446.0" prefWidth="104.0" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </children>
 </StackPane>

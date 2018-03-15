@@ -206,7 +206,9 @@ public class UseDB {
 		int rowNum = 1;
 		System.out.println("Finding unused ID...");
 		ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		System.out.println("SELECT " + table + "id FROM " + table);
 		ArrayList<String> rs_collapsed = new ArrayList<>();
+		res.forEach(elem -> System.out.println(elem));
 		res.forEach(elem -> rs_collapsed.addAll(elem));
 		while (rs_collapsed.contains(Integer.toString(rowNum))) {
 			rowNum++;
