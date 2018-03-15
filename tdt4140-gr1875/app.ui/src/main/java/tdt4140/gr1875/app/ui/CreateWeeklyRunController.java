@@ -41,7 +41,7 @@ public class CreateWeeklyRunController {
 		String time = timeTextField.getText();
 		String date = dateTextField.getText();
 		String geojsonFilePath = geojsonTextField.getText();
-		boolean successfulSubmit = createWeeklyRun.submit(place, date, time);
+		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, geojsonFilePath);
 		
 		if(! successfulSubmit) {
 			createAlert("Not successful submit");
