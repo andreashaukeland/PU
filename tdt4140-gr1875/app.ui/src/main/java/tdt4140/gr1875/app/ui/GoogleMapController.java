@@ -5,8 +5,15 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.util.ISO8601Utils;
@@ -67,6 +74,33 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	    Marker marker = new Marker(markerOptions);
 	    map.addMarker(marker);
 	    drawPath(null);
+	}
+	public LatLong[] stringToCoordinates(String track) {
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject geojson = (JSONObject) parser.parse(track);
+			JSONArray features = (JSONArray) geojson.get("features");
+			System.out.println(features);
+			
+			ArrayList<LatLong> coordinates = new ArrayList<>();
+			
+			Iterator<JSONObject> it = features.iterator();
+	        
+	        while (it.hasNext()) {
+	            JSONObject feat = it.next();
+				JSONObject geom = (JSONObject) feat.get("geometry");
+				JSONArray cords = (JSONArray) geom.get("coordinates");
+				coordinates.add( new LatLong((Double) cords.get(0), (Double) cords.get(1)) );
+	        }
+	        
+	        LatLong[] result = coordinates.toArray(new LatLong[coordinates.size()]);
+	        return result;
+			
+		} catch (ParseException e) {
+			System.out.println("GoogleMapController.java: Error parsing geojson");
+			return null;
+		}
+		
 	}
 	
 	public void drawPath(LatLong[] path) {
