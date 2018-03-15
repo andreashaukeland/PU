@@ -70,7 +70,7 @@ public class UseDB {
 			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
 
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found in getRunnerByID");
 			return null;
 		}
 	}
@@ -95,7 +95,7 @@ public class UseDB {
 			}
 			return getTable(query);
 		} catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found in getIDByName");
 			return null;
 		}
 	}
@@ -251,7 +251,7 @@ public class UseDB {
 			ArrayList<String> lastRun = runs.get(runs.size()-1);
 			return lastRun;
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found getLastRun");
 			return null;
 		}
 	}

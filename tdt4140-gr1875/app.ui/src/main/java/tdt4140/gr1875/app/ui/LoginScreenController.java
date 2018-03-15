@@ -1,6 +1,7 @@
 package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -66,7 +67,7 @@ public class LoginScreenController {
 				encryptedPassword = encryptedPassword.replace("\"", "");
 				encryptedPassword = encryptedPassword.replace("'", "");
 	        }
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return encryptedPassword;
