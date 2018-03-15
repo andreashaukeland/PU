@@ -100,6 +100,11 @@ public class UseDB {
 		}
 	}
 	
+	public static String getGeojsonTrack(int trackNum) {
+		return getTable("select track from training where training.trainingid = " + trackNum).get(0).get(0);
+	}
+	
+	
 	//TODO MAKE MORE...
 	//-----------------------------
 	
@@ -257,5 +262,6 @@ public class UseDB {
 			return null;
 		}
 	}
+
 
 }
