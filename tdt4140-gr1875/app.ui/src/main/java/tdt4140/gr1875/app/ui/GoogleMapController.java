@@ -69,8 +69,14 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	}
 	
 	public void drawPath(LatLong[] path) {
+		LatLong[] newpath = new LatLong[path.length +1];
+		for (int i = 0; i < path.length; i++) {
+			newpath[i] = path[i];
+		}
+		newpath[path.length +1] = path[0];
+		
 		line_opt = new PolylineOptions();
-		line_opt.path(new MVCArray(path))
+		line_opt.path(new MVCArray(newpath))
 	            .clickable(false)
 	            .draggable(false)
 	            .editable(false)
@@ -78,8 +84,9 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	            .strokeWeight(2)
 	            .visible(true);
 
-	line = new Polyline(line_opt);
-	map.addMapShape(line);
+		line = new Polyline(line_opt);
+		map.addMapShape(line);
+		
 	}
 	
 	private void setMultipleMarkers(LatLong[] coordinates) {
