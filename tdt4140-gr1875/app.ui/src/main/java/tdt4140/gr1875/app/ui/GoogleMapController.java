@@ -35,6 +35,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
+import tdt4140.gr1875.app.core.UseDB;
 
 
 public class GoogleMapController implements Initializable, MapComponentInitializedListener{
@@ -61,19 +62,17 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	            .streetViewControl(false)
 	            .zoomControl(false)
 	            .mapMarker(true)
-	            .zoom(12);
+	            .zoom(8);
 
 	    map = googleMap.createMap(mapOptions);
-
-	    //Add a marker to the map
-	    MarkerOptions markerOptions = new MarkerOptions();
-
-	    markerOptions.position(new LatLong(62.185777, 6.106872) )
-	                .visible(Boolean.TRUE)
-	                .title("My Marker");
-	    Marker marker = new Marker(markerOptions);
-	    map.addMarker(marker);
-	    drawPath(null);
+	    
+	    String geojsonFile = UseDB.getGeojsonTrack(2); //TODO make method that returns value of which track you want 
+	    //to see in map based on which track the trainer has chosen in trainings tab 
+	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
+	    
+	    //Add a markers to the map
+	    setMultipleMarkers(coordinates);
+	    drawPath(coordinates);
 	}
 	public LatLong[] stringToCoordinates(String track) {
 		JSONParser parser = new JSONParser();
@@ -104,9 +103,8 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	}
 	
 	public void drawPath(LatLong[] path) {
-		LatLong[] TestPath = {new LatLong(-13.163068, -72.545128),new LatLong(48.858093, 2.294694),new LatLong(27.987850,86.925026),new LatLong(-25.344490, 131.035431), new LatLong(-33.918861, 18.423300), new LatLong(-13.163068, -72.545128)};
 		line_opt = new PolylineOptions();
-		line_opt.path(new MVCArray(TestPath))
+		line_opt.path(new MVCArray(path))
 	            .clickable(false)
 	            .draggable(false)
 	            .editable(false)
@@ -117,8 +115,17 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	line = new Polyline(line_opt);
 	map.addMapShape(line);
 	}
+	
+	private void setMultipleMarkers(LatLong[] coordinates) {
+		for (int i = 0; i < coordinates.length; i++) {
+			MarkerOptions options = new MarkerOptions();
+			options.position(coordinates[i]).visible(Boolean.TRUE);
+			Marker marker = new Marker(options);
+			map.addMarker(marker);
+		}
+	}
 
-	public void showMarker(double lat, double lng, String iconPath) {
+	private void showMarker(double lat, double lng, String iconPath) {
 	        MarkerOptions options = new MarkerOptions();
 	        options.icon(iconPath).position(new LatLong(lat, lng));
 	        Marker marker = new Marker(options);
