@@ -16,6 +16,7 @@ public class test_json_read {
 		
 		try {
 			JSONObject a = (JSONObject) parser.parse(new FileReader("/home/pederbg/Downloads/map.geojson"));
+			System.out.println(a.toString());
 			JSONArray features = (JSONArray) a.get("features");
 			JSONObject geom = (JSONObject) ((JSONObject) features.get(1)).get("geometry");
 			System.out.println(geom.get("coordinates"));
