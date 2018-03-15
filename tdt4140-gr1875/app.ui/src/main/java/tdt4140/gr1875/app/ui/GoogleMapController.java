@@ -70,9 +70,16 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	    //to see in map based on which track the trainer has chosen in trainings tab 
 	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
 	    
-	    //Add a markers to the map
+	    //Add a markers and draw lines in map
 	    setMultipleMarkers(coordinates);
 	    drawPath(coordinates);
+	    LatLong first = coordinates[0];
+	    LatLong last = coordinates[coordinates.length - 1];
+	    LatLong[] latlonglist = new LatLong[2];
+	    latlonglist[0] = first;
+	    latlonglist[1] = last;
+	    
+	    drawPath(latlonglist);
 	}
 	
 	// Take a string, converts it to geojson, parse it to get coordinates and returns a LatLong[] object.
@@ -102,14 +109,8 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	}
 	
 	public void drawPath(LatLong[] path) {
-		LatLong[] newpath = new LatLong[path.length +1];
-		for (int i = 0; i < path.length; i++) {
-			newpath[i] = path[i];
-		}
-		newpath[path.length +1] = path[0];
-		
 		line_opt = new PolylineOptions();
-		line_opt.path(new MVCArray(newpath))
+		line_opt.path(new MVCArray(path))
 	            .clickable(false)
 	            .draggable(false)
 	            .editable(false)
@@ -125,7 +126,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	private void setMultipleMarkers(LatLong[] coordinates) {
 		for (int i = 0; i < coordinates.length; i++) {
 			MarkerOptions options = new MarkerOptions();
-			options.position(coordinates[i]).visible(Boolean.TRUE);
+			options.position(coordinates[i]).visible(Boolean.TRUE).icon("http://2.gravatar.com/avatar/8cb8671a62910c02e407fcee81699840?s=40&d=blank&r=g");
 			Marker marker = new Marker(options);
 			map.addMarker(marker);
 		}
