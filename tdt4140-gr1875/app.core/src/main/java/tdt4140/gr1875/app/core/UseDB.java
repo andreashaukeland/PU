@@ -70,10 +70,36 @@ public class UseDB {
 			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
 
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found in getRunnerByID");
 			return null;
 		}
 	}
+	
+	//Arguments example: getIDByName("training", "place=TestTrack"); 
+	
+	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
+		if (names.length > 2 || names.length == 0) {
+			System.out.println("Invalid. Wrong number of arguments.");
+			return null;
+		}
+		try {
+			String query;
+			if (names.length == 1) {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "'";
+				System.out.println(query);
+			} else {
+				query = "SELECT " + table + "id FROM " + table + " WHERE " + table + "." 
+						+ names[0].split("=")[0] + " = '" + names[0].split("=")[1] + "' AND " 
+						+ names[1].split("=")[0] + " = '" + names[1].split("=")[1] + "'";
+			}
+			return getTable(query);
+		} catch (Exception e) {
+			System.out.println("ID not found in getIDByName");
+			return null;
+		}
+	}
+	
 	//TODO MAKE MORE...
 	//-----------------------------
 	
@@ -213,9 +239,10 @@ public class UseDB {
 		return addRow("training", newID, place, time, date, 0);	
 	}
 	
-	public static boolean submitTimeToTraining(int runnerID, String time) {
+	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
 		String currentTrainingId = getLastRun().get(0);
-		return addRow("result", currentTrainingId, runnerID, time);
+		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
+		return addRow("result", currentTrainingId, runnerID, time, comment);
 	}
 	
 	public static ArrayList<String> getLastRun() {
@@ -224,7 +251,7 @@ public class UseDB {
 			ArrayList<String> lastRun = runs.get(runs.size()-1);
 			return lastRun;
 		}catch (Exception e) {
-			System.out.println("ID not found");
+			System.out.println("ID not found getLastRun");
 			return null;
 		}
 	}

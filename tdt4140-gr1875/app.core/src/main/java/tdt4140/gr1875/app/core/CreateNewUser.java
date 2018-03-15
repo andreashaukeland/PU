@@ -11,7 +11,8 @@ public class CreateNewUser {
 		System.out.println("salt: " + salt);
 		if(!coach) {
 			int id = UseDB.getFreeID("runner");
-			boolean addedUser = UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile);
+			String info = "No info";
+			boolean addedUser = UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
 			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "runner");
 			return (addedUser && addedLogin);
 		}
