@@ -205,7 +205,8 @@ public class UseDB {
 	public static int getFreeID(String table) {		
 		int rowNum = 1;
 		System.out.println("Finding unused ID...");
-		ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		//ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		ArrayList<ArrayList<String>> res = getTable("SELECT " + "runnerid FROM " + table);
 		ArrayList<String> rs_collapsed = new ArrayList<>();
 		res.forEach(elem -> rs_collapsed.addAll(elem));
 		while (rs_collapsed.contains(Integer.toString(rowNum))) {

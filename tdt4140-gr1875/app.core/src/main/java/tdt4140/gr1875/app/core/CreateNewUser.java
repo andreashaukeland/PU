@@ -8,16 +8,14 @@ public class CreateNewUser {
 	
 	public boolean addNewUser(String username, String password, String salt, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
-		System.out.println("salt: " + salt);
+		int id = UseDB.getFreeID("login");
 		if(!coach) {
-			int id = UseDB.getFreeID("runner");
 			String info = "No info";
 			boolean addedUser = UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
 			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "runner");
 			return (addedUser && addedLogin);
 		}
 		else {
-			int id = UseDB.getFreeID("trainer");
 			boolean addedUser = UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
 			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "trainer");
 			return (addedUser && addedLogin);

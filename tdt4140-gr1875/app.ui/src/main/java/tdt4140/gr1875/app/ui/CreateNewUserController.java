@@ -92,7 +92,6 @@ public class CreateNewUserController implements Initializable{
         	saltStr = saltStr.replace("\"", "");
         	saltStr = saltStr.replace("'", "");
         }
-        System.out.println(saltStr);
         return saltStr;
     }
     
