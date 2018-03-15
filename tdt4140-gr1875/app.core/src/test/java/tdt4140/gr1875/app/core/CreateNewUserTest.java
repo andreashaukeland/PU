@@ -49,7 +49,4 @@ public class CreateNewUserTest {
 		
 		
 	}
-	public void addNewUserTest() {
-		
-	}
 }
