@@ -43,7 +43,6 @@ public class LoginScreenController {
     	String username = usernameField.getText();
     	String salt = UseDB.getTable("SELECT salt FROM login WHERE login.username = '" + username + "'").get(0).get(0);
     	String password = hashPassword(passwordField.getText() + salt);
-    	System.out.println(password);
 		boolean validCombination = loginScreen.checkUsernameAndPassword(username, password);
 		if (! validCombination) {
     		createAlert("Incorrect Username or Password");
