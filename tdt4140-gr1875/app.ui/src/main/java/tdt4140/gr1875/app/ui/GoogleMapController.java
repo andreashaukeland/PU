@@ -74,22 +74,22 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	    setMultipleMarkers(coordinates);
 	    drawPath(coordinates);
 	}
+	
+	// Take a string, converts it to geojson, parse it to get coordinates and returns a LatLong[] object.
 	public LatLong[] stringToCoordinates(String track) {
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject geojson = (JSONObject) parser.parse(track);
 			JSONArray features = (JSONArray) geojson.get("features");
-			System.out.println(features);
 			
 			ArrayList<LatLong> coordinates = new ArrayList<>();
-			
 			Iterator<JSONObject> it = features.iterator();
 	        
 	        while (it.hasNext()) {
 	            JSONObject feat = it.next();
 				JSONObject geom = (JSONObject) feat.get("geometry");
 				JSONArray cords = (JSONArray) geom.get("coordinates");
-				coordinates.add( new LatLong((Double) cords.get(0), (Double) cords.get(1)) );
+				coordinates.add( new LatLong((Double) cords.get(1), (Double) cords.get(0)) );
 	        }
 	        
 	        LatLong[] result = coordinates.toArray(new LatLong[coordinates.size()]);
@@ -98,8 +98,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 		} catch (ParseException e) {
 			System.out.println("GoogleMapController.java: Error parsing geojson");
 			return null;
-		}
-		
+		}		
 	}
 	
 	public void drawPath(LatLong[] path) {
