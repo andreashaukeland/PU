@@ -22,6 +22,10 @@ public class CreateWeeklyRun {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			return false;
 		}
+		if (geojsonFilePath.equals("none")) {
+			UseDB.submitWeeklyRun(place, date, time, geojsonFilePath);
+			return true;
+		}
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
