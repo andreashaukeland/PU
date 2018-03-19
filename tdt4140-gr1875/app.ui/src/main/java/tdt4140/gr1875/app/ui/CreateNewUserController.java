@@ -54,46 +54,12 @@ public class CreateNewUserController implements Initializable{
 
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
-    	//handler = new DataBaseHandler();
     	yearBox.getItems().addAll(addYears());
     	monthBox.getItems().addAll(addMonths());
     	dayBox.getItems().addAll(addDays());
     	createNewUser = new CreateNewUser();
     }
-    
 
-    private String hashPassword(String password) {
-		MessageDigest messageDigest;
-		String encryptedPassword = "";
-		try {
-			messageDigest = MessageDigest.getInstance("SHA-1");
-			messageDigest.update(password.getBytes("UTF-8"));
-			encryptedPassword = new String(Base64.getEncoder().encode(messageDigest.digest()));
-			if (encryptedPassword.contains("'") || encryptedPassword.contains("\"")) {
-				encryptedPassword = encryptedPassword.replace("\"", "");
-				encryptedPassword = encryptedPassword.replace("'", "");
-	        }
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return encryptedPassword;
-	}
-    
-    protected String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 18) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        if (saltStr.contains("'") || saltStr.contains("\"")) {
-        	saltStr = saltStr.replace("\"", "");
-        	saltStr = saltStr.replace("'", "");
-        }
-        return saltStr;
-    }
     
     @FXML
     private void onCreateUser(ActionEvent event) {
@@ -106,16 +72,14 @@ public class CreateNewUserController implements Initializable{
     	boolean coach = checkCoach.isSelected();
     	boolean athlete = checkAthlete.isSelected();
     	String birthday = yearBox.getValue() + "-" + monthBox.getValue() + "-" + dayBox.getValue();
-    	String salt = getSaltString();
-    	String encryptedPassword = hashPassword(password + salt);
-    	
-    	if(! checkValidInput(email, mobile, birthday, coach, athlete)) {
-    		return;
+
+    	try {
+    		createNewUser.addNewUser(username, password, firstname, lastname, email, mobile, birthday, coach, athlete);
+    		SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
     	}
-    	if(createNewUser.addNewUser(username, encryptedPassword, salt, firstname, lastname, email, mobile, birthday, coach, athlete)) {
-        	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
-    	}
-    	
+    	catch(Exception e){
+    		createAlert(e.getMessage());
+    	}    	
     }
     
     @FXML
@@ -123,26 +87,7 @@ public class CreateNewUserController implements Initializable{
     	SceneLoader.loadWindow("LoginScreen.fxml", (Node) firstnameField, this);
     }
    
-    private boolean checkValidInput(String email, String mobile, String birthday, boolean coach, boolean athlete) {
-    	boolean validInput = true;
-    	if (! createNewUser.checkEmail(email)) {
-    		createAlert("Not Valid Email");
-    		validInput = false;
-    	}
-    	if (!createNewUser.checkMobile(mobile)) {
-    		createAlert("Not Valid Mobile Number");
-    		validInput = false;
-    	}
-    	if (!createNewUser.validBirthDay(birthday)) {
-    		createAlert("Not Valid Birthday");
-    		validInput = false;
-    	}
-    	if(( coach && athlete ) || (! coach && ! athlete )) {
-    		createAlert("Please check the box for either coach or athlete");
-    		validInput = false;
-    	}
-    	return validInput;
-    }
+
 
 	//Makes sure that you can't check for both Coach and Athlete
     @FXML

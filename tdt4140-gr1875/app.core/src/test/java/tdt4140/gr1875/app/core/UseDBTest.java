@@ -22,7 +22,7 @@ public class UseDBTest {
 	public void DBTest() {
 		//Assert.assertEquals("true", "true"); // used to test when ntnu database is down
 		
-		UseDB.addRow("training", id, "TestTrack", "12:00", "2019-03-12", 0);
+		UseDB.addRow("training", id, "TestTrack", "12:00", "2019-03-12", 0, "");
 		
 		ArrayList<ArrayList<String>> result1 = UseDB.getTable("SELECT place FROM training WHERE trainingid="+id);
 		String track = result1.get(result1.size()-1).get(0);
