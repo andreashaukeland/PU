@@ -5,17 +5,32 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import tdt4140.gr1875.app.core.UseDB;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import javafx.scene.media.Track;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 public class CreateWeeklyRun {
 	public CreateWeeklyRun() {
 	}
 	
-	public boolean submit(String place, String date, String time) {
+	public boolean submit(String place, String date, String time, String geojsonFilePath) {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			return false;
 		}
-		UseDB.submitWeeklyRun(place, date, time);
-		return true;
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
+			UseDB.submitWeeklyRun(place, date, time, track.toString());
+			return true;
+		} catch (IOException | ParseException e) {
+			System.out.println("CreateWeeklyRun.java: Error when parsing geojson");
+			return false;
+		}
 	}
 	
 	private boolean checkValidDate(String date) {

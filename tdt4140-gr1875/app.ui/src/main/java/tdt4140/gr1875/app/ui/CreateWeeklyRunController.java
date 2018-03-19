@@ -21,21 +21,12 @@ import javafx.stage.StageStyle;
 public class CreateWeeklyRunController {
 
 	
-	@FXML
-	private JFXTextField placeTextField;
-
-	@FXML
-	private JFXTextField timeTextField;
-	@FXML
-	private JFXTextField dateTextField;
-
-
-	@FXML
-	private JFXButton submitButton;
-
-	@FXML
-	private JFXButton backButton;
-	
+	@FXML private JFXTextField placeTextField;
+	@FXML private JFXTextField timeTextField;
+	@FXML private JFXTextField dateTextField;
+	@FXML private JFXTextField geojsonTextField;
+	@FXML private JFXButton submitButton;
+	@FXML private JFXButton backButton;
 	public CreateWeeklyRun createWeeklyRun;
 	
 	public void initialize(){
@@ -49,7 +40,8 @@ public class CreateWeeklyRunController {
 		String place = placeTextField.getText();
 		String time = timeTextField.getText();
 		String date = dateTextField.getText();
-		boolean successfulSubmit = createWeeklyRun.submit(place, date, time);
+		String geojsonFilePath = geojsonTextField.getText();
+		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, geojsonFilePath);
 		
 		if(! successfulSubmit) {
 			createAlert("Not successful submit");

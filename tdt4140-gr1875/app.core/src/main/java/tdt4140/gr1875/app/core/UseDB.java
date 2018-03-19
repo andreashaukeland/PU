@@ -100,6 +100,11 @@ public class UseDB {
 		}
 	}
 	
+	public static String getGeojsonTrack(int trackNum) {
+		return getTable("select track from training where training.trainingid = " + trackNum).get(0).get(0);
+	}
+	
+	
 	//TODO MAKE MORE...
 	//-----------------------------
 	
@@ -206,7 +211,9 @@ public class UseDB {
 		int rowNum = 1;
 		System.out.println("Finding unused ID...");
 		ArrayList<ArrayList<String>> res = getTable("SELECT " + table + "id FROM " + table);
+		System.out.println("SELECT " + table + "id FROM " + table);
 		ArrayList<String> rs_collapsed = new ArrayList<>();
+		res.forEach(elem -> System.out.println(elem));
 		res.forEach(elem -> rs_collapsed.addAll(elem));
 		while (rs_collapsed.contains(Integer.toString(rowNum))) {
 			rowNum++;
@@ -234,9 +241,9 @@ public class UseDB {
 	
 	// Some prebuilt functions
 	
-	public static boolean submitWeeklyRun(String place, String date, String time) {
+	public static boolean submitWeeklyRun(String place, String date, String time, String track) {
 		int newID = UseDB.getFreeID("training");
-		return addRow("training", newID, place, time, date, 0);	
+		return addRow("training", newID, place, time, date, track);	
 	}
 	
 	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
@@ -255,5 +262,6 @@ public class UseDB {
 			return null;
 		}
 	}
+
 
 }
