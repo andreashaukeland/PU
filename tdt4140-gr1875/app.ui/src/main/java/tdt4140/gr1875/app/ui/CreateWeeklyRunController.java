@@ -44,11 +44,8 @@ public class CreateWeeklyRunController {
 		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, geojsonFilePath);
 		
 		if(! successfulSubmit) {
-			createAlert("Not successful submit");
-			timeTextField.setText("Error: Wrong Format");
 			return;
 		}
-		createAlert("Successful submit");
 		OnBackButton(null);
 	}
 	
