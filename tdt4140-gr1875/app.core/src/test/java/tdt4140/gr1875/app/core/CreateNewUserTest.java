@@ -11,6 +11,19 @@ import junit.framework.Assert;
 
 public class CreateNewUserTest {
 	CreateNewUser testUser = new CreateNewUser();
+	
+	@Test
+	public void checkAddNewUser() {
+		String shortPhone = "" + 9090;
+		String correctPhone = "" + 90909090;
+		try {
+			testUser.addNewUser("Torgeir95", "MANUERBEST", "Torgeir", "Mourinho", "fotballgutt@hotmail.com", shortPhone, "1995-11-11", true, false);
+		}
+		catch(Exception e){
+			Assert.assertEquals("Not Valid Mobile Number \n", e.getMessage());
+		}
+	}
+	
 	@Test
 	public void checkMobileTest() {
 		boolean correct =testUser.checkMobile("12345678");
@@ -35,18 +48,16 @@ public class CreateNewUserTest {
 		Assert.assertEquals(false, noDomain);
 	}
 	@Test
-	public void validBirthDayTest() {
-		boolean correct = testUser.validBirthDay("1995-11-15");
-		boolean wrongFormat = testUser.validBirthDay("15111995");
-		boolean checkfeb = testUser.validBirthDay("1234-02-31");
-		boolean unvalidMonth = testUser.validBirthDay("1234-20-11");
-		boolean unvalidDay = testUser.validBirthDay("2015-11-40");
+	public void checkBirthDayTest() {
+		boolean correct = testUser.checkBirthDay("1995-11-15");
+		boolean wrongFormat = testUser.checkBirthDay("15111995");
+		boolean checkfeb = testUser.checkBirthDay("1234-02-31");
+		boolean unvalidMonth = testUser.checkBirthDay("1234-20-11");
+		boolean unvalidDay = testUser.checkBirthDay("2015-11-40");
 		Assert.assertEquals(true, correct);
 		Assert.assertEquals(false, wrongFormat);
 		Assert.assertEquals(false, checkfeb);
 		Assert.assertEquals(false, unvalidMonth);
 		Assert.assertEquals(false, unvalidDay);
-		
-		
 	}
 }
