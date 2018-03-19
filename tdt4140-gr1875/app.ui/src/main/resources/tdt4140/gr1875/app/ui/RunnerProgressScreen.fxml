@@ -113,12 +113,12 @@
                                           <Insets left="25.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label fx:id="labelInformation" alignment="TOP_LEFT" layoutX="10.0" layoutY="50.0" text="General info" textFill="#f9ff81" VBox.vgrow="ALWAYS">
+                                    <Label fx:id="labelInformation" alignment="TOP_LEFT" layoutX="10.0" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="General info" textFill="#f9ff81" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="Lucida Sans Unicode" size="15.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="5.0" right="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
                                        </padding>
                                        <VBox.margin>
                                           <Insets left="20.0" right="200.0" />
