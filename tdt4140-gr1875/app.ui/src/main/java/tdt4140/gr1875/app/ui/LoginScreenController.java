@@ -1,8 +1,10 @@
 package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -60,13 +62,13 @@ public class LoginScreenController {
 		String encryptedPassword = "";
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-1");
-			messageDigest.update(password.getBytes());
-			encryptedPassword = new String(messageDigest.digest());
+			messageDigest.update(password.getBytes("UTF-8"));
+			encryptedPassword = new String(Base64.getEncoder().encode(messageDigest.digest()));
 			if (encryptedPassword.contains("'") || encryptedPassword.contains("\"")) {
 				encryptedPassword = encryptedPassword.replace("\"", "");
 				encryptedPassword = encryptedPassword.replace("'", "");
 	        }
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return encryptedPassword;

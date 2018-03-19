@@ -11,7 +11,7 @@ public class RunnerMainScreen {
 			String lastRunString  = "The next run is " + lastRun.get(2) + " " + lastRun.get(3) + " at " + lastRun.get(1) + " ";
 			return lastRunString;
 		}
-		return null;
+		return "No next training";
 	}
 	
 	public boolean submitTime(int runnerID, String time, String comment) {

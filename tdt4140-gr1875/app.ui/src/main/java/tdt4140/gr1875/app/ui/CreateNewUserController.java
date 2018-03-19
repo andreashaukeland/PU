@@ -1,10 +1,12 @@
 package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -65,13 +67,13 @@ public class CreateNewUserController implements Initializable{
 		String encryptedPassword = "";
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-1");
-			messageDigest.update(password.getBytes());
-			encryptedPassword = new String(messageDigest.digest());
+			messageDigest.update(password.getBytes("UTF-8"));
+			encryptedPassword = new String(Base64.getEncoder().encode(messageDigest.digest()));
 			if (encryptedPassword.contains("'") || encryptedPassword.contains("\"")) {
 				encryptedPassword = encryptedPassword.replace("\"", "");
 				encryptedPassword = encryptedPassword.replace("'", "");
 	        }
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return encryptedPassword;
@@ -90,7 +92,6 @@ public class CreateNewUserController implements Initializable{
         	saltStr = saltStr.replace("\"", "");
         	saltStr = saltStr.replace("'", "");
         }
-        System.out.println(saltStr);
         return saltStr;
     }
     

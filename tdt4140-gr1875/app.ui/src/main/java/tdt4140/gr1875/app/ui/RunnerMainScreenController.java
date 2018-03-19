@@ -79,9 +79,7 @@ public class RunnerMainScreenController implements Initializable{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		
+		}	
 		
 	}
 	
@@ -93,6 +91,13 @@ public class RunnerMainScreenController implements Initializable{
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setContentText("Could not submit to database");
+			alert.showAndWait();
+		}
+		else {
+			timeTextfield.clear();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Time submitted");
 			alert.showAndWait();
 		}
 	}
