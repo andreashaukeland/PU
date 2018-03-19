@@ -7,13 +7,16 @@ import tdt4140.gr1875.app.core.CreateWeeklyRun;
 
 @SuppressWarnings("deprecation")
 public class CreateWeeklyRunTest {
-
+	
+	//Database test will not work without VPN
 	
 	@Test
-	public void test() {
+	public void SubmitTest() {
+		
 		CreateWeeklyRun run = new CreateWeeklyRun();
-		//Database test will not work without VPN
-		//Assert.assertEquals(true, run.submit("run", "2018.03.09"));
+		Assert.assertEquals(true, run.submit("TestRun", "2018.03.09", "10:00"));
+		UseDB.deleteRow("training", Integer.parseInt(UseDB.getIDByName("training", "place=TestRun").get(0).get(0)));
 	}
+	
 
 }
