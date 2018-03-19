@@ -25,7 +25,12 @@ public class CreateWeeklyRun {
 			createAlert("Not valid place, date or time format");
 			return false;
 		}
-		
+
+		if (geojsonFilePath.equals("")) {
+			UseDB.submitWeeklyRun(place, date, time, geojsonFilePath);
+			return true;
+		}
+
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
@@ -34,7 +39,6 @@ public class CreateWeeklyRun {
 			return true;
 		} catch (IOException | ParseException e) {
 			createAlert("Training submitted without track \nNo geojson file found");
-			UseDB.submitWeeklyRun(place, date, time, "");
 			return true;
 		}
 		
