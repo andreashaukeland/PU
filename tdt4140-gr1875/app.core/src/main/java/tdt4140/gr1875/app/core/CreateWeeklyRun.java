@@ -9,10 +9,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javafx.scene.control.Alert;
 import javafx.scene.media.Track;
 
 import java.io.FileReader;
 import java.io.IOException;
+import tdt4140.gr1875.app.core.*;
 
 public class CreateWeeklyRun {
 	public CreateWeeklyRun() {
@@ -20,21 +22,26 @@ public class CreateWeeklyRun {
 	
 	public boolean submit(String place, String date, String time, String geojsonFilePath) {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
+			createAlert("Not valid place, date or time format");
 			return false;
 		}
-		if (geojsonFilePath.equals("none")) {
+
+		if (geojsonFilePath.equals("")) {
 			UseDB.submitWeeklyRun(place, date, time, geojsonFilePath);
 			return true;
 		}
+
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
 			UseDB.submitWeeklyRun(place, date, time, track.toString());
+			createAlert("Training submitted with track");
 			return true;
 		} catch (IOException | ParseException e) {
-			System.out.println("CreateWeeklyRun.java: Error when parsing geojson");
-			return false;
+			createAlert("Training submitted without track \nNo geojson file found");
+			return true;
 		}
+		
 	}
 	
 	private boolean checkValidDate(String date) {
@@ -76,5 +83,13 @@ public class CreateWeeklyRun {
 		}
 		return false;
 	}
+	
+	private void createAlert(String string) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText(null);
+		alert.setContentText(string);
+		alert.showAndWait();
+	}
+	
 }
 	
