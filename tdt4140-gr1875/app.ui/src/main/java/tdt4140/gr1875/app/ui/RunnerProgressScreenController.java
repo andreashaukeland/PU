@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -28,6 +32,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -61,6 +66,12 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private JFXButton toggleButton;
 	@FXML private JFXButton backButton;
 	@FXML private Tab progressTab;
+	@FXML private Label labelFullname;
+	@FXML private Label labelInformation;
+	@FXML private Label labelMobile;
+	@FXML private Label labelEmail;
+	@FXML private Label labelAge;
+	
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
 	private int currentUser;
@@ -82,6 +93,7 @@ public class RunnerProgressScreenController implements Initializable{
 				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
 		initProgressChart();
+		initInformationTab();
 	}
 	
 	private void initProgressChart() {
@@ -150,6 +162,32 @@ public class RunnerProgressScreenController implements Initializable{
 		((Stage) stackPane.getScene().getWindow()).close();
 	}
 	
+	private void initInformationTab() {
+		
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT firstname, lastname, information,  email, mobile, birthday"
+				+ " FROM runner " + " WHERE runner.runnerid =" + currentUser +";");
+		
+		for (ArrayList<String> result: list) {
+		
+			Date birthday = Date.valueOf(result.get(5));
+			java.util.Date currentDate = Calendar.getInstance().getTime();
+			int year = currentDate.getYear() - birthday.getYear();
+
+			labelAge.setText("" + year);
+			
+		
+			String fullname = result.get(0) + " " + result.get(1);
+			labelFullname.setText(fullname);
+			String information = result.get(2);
+			labelInformation.setText(information);
+			String email = result.get(3);
+			labelEmail.setText(email);
+			String mobile = result.get(4);
+			labelMobile.setText(mobile);
+		}
+		
+		
+	}
 	@FXML
     void OnBackButton(ActionEvent event) {
     	if (SessionInformation.userType.equals("trainer")) {
@@ -194,7 +232,7 @@ public class RunnerProgressScreenController implements Initializable{
 			this.trainingPlace = new SimpleStringProperty(trainingPlace);
 			this.trainingDate = new SimpleStringProperty(trainingDate);
 			this.time = new SimpleStringProperty(time);
-			this.distance = new SimpleStringProperty(distance); 
+			this.distance = new SimpleStringProperty(distance);
 		}
 		
 		public String getTrainingNumber() {
@@ -214,6 +252,7 @@ public class RunnerProgressScreenController implements Initializable{
 		public String getTime() {
 			return time.get();
 		}
+		
 	}
 
 }
