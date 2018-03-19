@@ -1,34 +1,61 @@
 package tdt4140.gr1875.app.core;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class CreateNewUser {
 	
-	public boolean addNewUser(String username, String password, String salt, String firstName, String lastName, 
+	public void addNewUser(String username, String password, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
+		
+		String errorString = checkValidInput(email, mobile, birthday, coach, athlete);
+		if(errorString != "") {
+			throw new IllegalArgumentException(errorString);
+		};
+		
 		int id = UseDB.getFreeID("login");
-		if(!coach) {
+		String salt = getSaltString();
+		String encryptedPassword = password + salt;
+		
+		if(! coach) {
 			String info = "No info";
-			boolean addedUser = UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
-			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "runner");
-			return (addedUser && addedLogin);
+			UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
+			UseDB.addRow("login", id, username, encryptedPassword, salt, "runner");
 		}
 		else {
-			boolean addedUser = UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
-			boolean addedLogin = UseDB.addRow("login", id, username, password, salt, "trainer");
-			return (addedUser && addedLogin);
+			UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
+			UseDB.addRow("login", id, username, encryptedPassword, salt, "trainer");
 		}
 	}
-	
+		
+	private String checkValidInput(String email, String mobile, String birthday, boolean coach, boolean athlete) {
+    	String errorString = "";
+    	if (! checkEmail(email)) {
+    		errorString = "Not Valid Email \n";
+    	}	
+    	if (! checkMobile(mobile)) {
+    		errorString = "Not Valid Mobile Number \n";
+    	}
+    	if (! checkBirthDay(birthday)) {
+    		errorString = "Not Valid Birthday \n";
+    	}
+    	if(( coach && athlete ) || (! coach && ! athlete )) {
+    		errorString = "Choose either coach or athlete \n";
+    	}
+    	return errorString;
+    }
 	
 	public boolean checkMobile(String mobile) {
 		int l = mobile.length();
 		if (l != 8) {
 			return false;
 		}
-		
 		for (int i = 0; i < l; i++) {
 			if (!Character.isDigit(mobile.charAt(i))) {
 				return false;
@@ -53,10 +80,43 @@ public class CreateNewUser {
 		return true;
 	}
 	
-    public boolean validBirthDay(String birthDay) {
+    public boolean checkBirthDay(String birthDay) {
     	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     	    sdf.setLenient(false);
     	    return sdf.parse(birthDay, new ParsePosition(0)) != null;
 	}
 
+    public String hashPassword(String password) {
+		MessageDigest messageDigest;
+		String encryptedPassword = "";
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-1");
+			messageDigest.update(password.getBytes("UTF-8"));
+			encryptedPassword = new String(Base64.getEncoder().encode(messageDigest.digest()));
+			if (encryptedPassword.contains("'") || encryptedPassword.contains("\"")) {
+				encryptedPassword = encryptedPassword.replace("\"", "");
+				encryptedPassword = encryptedPassword.replace("'", "");
+	        }
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return encryptedPassword;
+	}
+    
+    private String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        if (saltStr.contains("'") || saltStr.contains("\"")) {
+        	saltStr = saltStr.replace("\"", "");
+        	saltStr = saltStr.replace("'", "");
+        }
+        return saltStr;
+    }
+    
 }
