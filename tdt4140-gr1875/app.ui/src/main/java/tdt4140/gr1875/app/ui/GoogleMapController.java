@@ -47,13 +47,16 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	Polyline line; 
 	
 	
-	
 	@Override
 	public void mapInitialized() {
-		//Set the initial properties of the map.
+	    String geojsonFile = UseDB.getGeojsonTrack(2); //TODO make method that returns value of which track you want 
+	    //to see in map based on which track the trainer has chosen in trainings tab 
+	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
+	    
+	  //Set the initial properties of the map.
 	    MapOptions mapOptions = new MapOptions();
 
-	    mapOptions.center(new LatLong(62.185777, 6.106872))
+	    mapOptions.center(coordinates[0])
 	            .mapType(MapTypeIdEnum.ROADMAP)
 	            .overviewMapControl(false)
 	            .panControl(false)
@@ -62,13 +65,9 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	            .streetViewControl(false)
 	            .zoomControl(false)
 	            .mapMarker(true)
-	            .zoom(8);
+	            .zoom(3);
 
 	    map = googleMap.createMap(mapOptions);
-	    
-	    String geojsonFile = UseDB.getGeojsonTrack(2); //TODO make method that returns value of which track you want 
-	    //to see in map based on which track the trainer has chosen in trainings tab 
-	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
 	    
 	    //Add a markers and draw lines in map
 	    setMultipleMarkers(coordinates);
@@ -78,7 +77,6 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	    LatLong[] latlonglist = new LatLong[2];
 	    latlonglist[0] = first;
 	    latlonglist[1] = last;
-	    
 	    drawPath(latlonglist);
 	}
 	
