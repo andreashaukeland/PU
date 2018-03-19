@@ -38,6 +38,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.RunnerMainScreen;
 import tdt4140.gr1875.app.core.RunnerProgressScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
@@ -142,15 +143,15 @@ public class RunnerProgressScreenController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+	}
+	
+	@FXML
+	public void handleCloseProgram() {
+		((Stage) stackPane.getScene().getWindow()).close();
 	}
 	
 	@FXML
     void OnBackButton(ActionEvent event) {
-
-    	System.out.println(SessionInformation.userType);
     	if (SessionInformation.userType.equals("trainer")) {
     		SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
     	}
