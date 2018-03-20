@@ -20,21 +20,21 @@ public class CreateWeeklyRun {
 	public CreateWeeklyRun() {
 	}
 	
-	public boolean submit(String place, String date, String time, String geojsonFilePath) {
+	public boolean submit(String place, String date, String time, String distance, String geojsonFilePath) {
 		if (! checkValidDate(date) || ! checkValidTime(time) || ! checkValidPlace(place)){
 			createAlert("Not valid place, date or time format");
 			return false;
 		}
 
 		if (geojsonFilePath.equals("")) {
-			UseDB.submitWeeklyRun(place, date, time, geojsonFilePath);
+			UseDB.submitWeeklyRun(place, time, date, Integer.parseInt(distance), geojsonFilePath);
 			return true;
 		}
 
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
-			UseDB.submitWeeklyRun(place, date, time, track.toString());
+			UseDB.submitWeeklyRun(place, time, date, Integer.parseInt(distance), track.toString());
 			createAlert("Training submitted with track");
 			return true;
 		} catch (IOException | ParseException e) {

@@ -24,6 +24,7 @@ public class CreateWeeklyRunController {
 	@FXML private JFXTextField placeTextField;
 	@FXML private JFXTextField timeTextField;
 	@FXML private JFXTextField dateTextField;
+	@FXML private JFXTextField distanceTextField;
 	@FXML private JFXTextField geojsonTextField;
 	@FXML private JFXButton submitButton;
 	@FXML private JFXButton backButton;
@@ -40,8 +41,9 @@ public class CreateWeeklyRunController {
 		String place = placeTextField.getText();
 		String time = timeTextField.getText();
 		String date = dateTextField.getText();
+		String distance = distanceTextField.getText();
 		String geojsonFilePath = geojsonTextField.getText();
-		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, geojsonFilePath);
+		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, distance, geojsonFilePath);
 		
 		if(! successfulSubmit) {
 			return;

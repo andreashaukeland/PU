@@ -28,6 +28,7 @@
          </font>
       </JFXButton>
       <JFXTextField fx:id="timeTextField" labelFloat="true" layoutX="144.0" layoutY="266.0" promptText="Time: Ex - 00:00" />
+      <JFXTextField fx:id="distanceTextField" labelFloat="true" layoutX="144.0" layoutY="295.0" promptText="Distanfce: Ex - 10" />
       <JFXTextField fx:id="geojsonTextField" labelFloat="true" layoutX="144.0" layoutY="340.0" promptText="Geojson file path" />
       <FontAwesomeIconView glyphName="FOLDER_OPEN" layoutX="68.0" layoutY="373.0" size="40" styleClass="glypgh-icon" />
    </children>
