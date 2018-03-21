@@ -44,7 +44,7 @@ public class CreateWeeklyRun {
 		
 	}
 	
-	private boolean checkValidDate(String date) {
+	public boolean checkValidDate(String date) {
 		if (date.length() != 10) {
 			return false;
 		}
@@ -52,9 +52,9 @@ public class CreateWeeklyRun {
 		String monthString = date.substring(5, 7);
 		String dayString = date.substring(8, 10);
 		try{
-			int year = Integer.parseInt(yearString);
-			int month = Integer.parseInt(monthString);
-			int day = Integer.parseInt(dayString);
+			Integer.parseInt(yearString);
+			Integer.parseInt(monthString);
+			Integer.parseInt(dayString);
 		}
 		catch(NumberFormatException e){
 			return false;
@@ -69,8 +69,8 @@ public class CreateWeeklyRun {
 		String minuteString = time.substring(3, 5);
 		
 		try{
-			int hour = Integer.parseInt(hourString);
-			int minute = Integer.parseInt(minuteString);
+			Integer.parseInt(hourString);
+			Integer.parseInt(minuteString);
 		}
 		catch(NumberFormatException e){
 			return false;
