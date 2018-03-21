@@ -73,10 +73,12 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private Label labelEmail;
 	@FXML private Label labelAge;
 	@FXML private TextField commentTextfield;
-	
+	@FXML private JFXButton commentButton;
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
 	private int currentUser;
+	private int trainingID;
+	private String time;
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -94,11 +96,17 @@ public class RunnerProgressScreenController implements Initializable{
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
 				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
+		
 		tableView.getSelectionModel().selectedItemProperty().addListener((ob, oldval, newval)->{
-			if (newval != null)
+			if (newval != null) {
 				commentTextfield.setText(newval.getComment());
+				trainingID = Integer.parseInt(newval.getTrainingNumber());
+				time = newval.getTime();
+				
+			}
 			else
 				commentTextfield.setText("No comment given");
+			
 	});
 		initProgressChart();
 		initInformationTab();
@@ -206,6 +214,28 @@ public class RunnerProgressScreenController implements Initializable{
     		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView, this);
     	}
     }
+	@FXML
+	void OnCommentButton(ActionEvent event) {
+		String comment = commentTextfield.getText();
+		boolean submitted = runnerProgressScreen.submitComment(trainingID, SessionInformation.userId, time, comment);
+		if(! submitted) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Could not submit to database");
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Comment updated");
+			alert.showAndWait();
+		}
+		
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time, result.comment"
+				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+				+ " WHERE runner.runnerid =" + currentUser +";");
+		tableView.getItems().setAll(getResults(list));
+	}
 	private void initCol() {
 		trainingNumberColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingNumber"));
 		trainingPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingPlace"));
@@ -269,30 +299,5 @@ public class RunnerProgressScreenController implements Initializable{
 		
 	}
 
-	private void updateComment() {
-		tableView.getSelectionModel().selectedItemProperty().addListener((ob, oldval, newval)->{
-			if (newval != null)
-				commentTextfield.setText(newval.getComment());
-			else
-				commentTextfield.setText("No comment given");
-	});
-	}
-	public void onSubmit() {
-		String comment = commentTextfield.getText();
-		boolean submitted = .submitTime(SessionInformation.userId, comment);
-		if(! submitted) {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Could not submit to database");
-			alert.showAndWait();
-		}
-		else {
-			commentTextfield.clear();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Comment updated");
-			alert.showAndWait();
-		}
-	}
 
 }

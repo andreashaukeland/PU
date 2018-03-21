@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -57,7 +58,7 @@
                      <tabs>
                         <Tab text="Training results">
                         <content>
- <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="555.0" stylesheets="@dark-theme.css">
+ <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="555.0" stylesheets="@dark-theme.css">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -79,7 +80,7 @@
             </FontAwesomeIconView>
          </children>
       </HBox>
-      <TableView fx:id="tableView" prefHeight="398.0" prefWidth="517.0">
+      <TableView fx:id="tableView" prefHeight="257.0" prefWidth="555.0">
         <columns>
           <TableColumn fx:id="trainingNumberColumn" prefWidth="75.0" text="Training number" />
           <TableColumn fx:id="trainingPlaceColumn" prefWidth="75.0" text="Place" />
@@ -91,6 +92,16 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+                                    <TextField fx:id="commentTextfield">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <JFXButton fx:id="commentButton" onAction="#OnCommentButton" text="Update">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXButton>
    </children>
 </VBox>
 </content>

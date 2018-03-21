@@ -253,7 +253,7 @@ public class UseDB {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
 		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
-			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time);
+			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time,comment);
 		}
 		else {
 			return addRow("result", currentTrainingId,runnerID,time,comment);
@@ -270,18 +270,18 @@ public class UseDB {
 			return null;
 		}
 	}
-	public static boolean checkIfResultExists(int trainingid, int runnerid) { //Torgeir skal sjekke
+	public static boolean checkIfResultExists(int trainingid, int runnerid) { 
 		ArrayList<ArrayList<String>> result = getTable("select * from result where trainingid ="+trainingid+" and runnerid= "+runnerid);
 		return result.size()!=0;
 	}
-	public static boolean updateTrainingRow(int trainingid, int runnerid, String newTime) { //Torgeir skal sjekke
+	public static boolean updateTrainingRow(int trainingid, int runnerid, String newTime, String comment) { 
 		Connection conn = connectDB();
 		boolean result_status = false;
 		
 		try {
 			System.out.println("Update row with trainingid: " + trainingid + " and runnerid:"+runnerid+"...");
 			Statement stmt = conn.createStatement();
-			String query = "UPDATE result set time='"+newTime+"' where trainingid= "+trainingid+" and runnerid= "+runnerid;
+			String query = "UPDATE result set time='"+newTime+"', comment='"+comment+"' where trainingid= "+trainingid+" and runnerid= "+runnerid;
 			System.out.println(query);
 			stmt.executeUpdate(query);
 			System.out.println("Row updated!");
@@ -298,6 +298,16 @@ public class UseDB {
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 		
+	}
+	
+	public static boolean updateCommentToTraining(int trainingID, int runnerID, String time, String comment) {
+		System.out.println("result" + "," + trainingID + "," + runnerID + "," + time);
+		if (checkIfResultExists(trainingID, runnerID)) {
+			return updateTrainingRow(trainingID, runnerID, time,comment);
+		}
+		else {
+			return addRow("result", trainingID,runnerID,time,comment);
+		}
 	}
 
 
