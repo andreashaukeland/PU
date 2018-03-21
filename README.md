@@ -7,7 +7,7 @@ The app is designed to make life easier for runner and athletes that want to tak
 ![alt text](https://ibb.co/cYcDqH)
 
 
-![alt text](https://img.shields.io/travis/USER/REPO.svg)
+[![coverage report](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/75/badges/master/coverage.svg)](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/75/commits/master)
 
 ## Getting Started
 ### Prerequisites
