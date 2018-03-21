@@ -49,7 +49,7 @@ import tdt4140.gr1875.app.core.RunnerMainScreen;
 import tdt4140.gr1875.app.core.RunnerProgressScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
-import tdt4140.gr1875.app.ui.ViewResultsController.Results;
+import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
 public class RunnerProgressScreenController implements Initializable{
 

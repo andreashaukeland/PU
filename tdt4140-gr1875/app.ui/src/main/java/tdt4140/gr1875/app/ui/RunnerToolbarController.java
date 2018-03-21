@@ -32,7 +32,7 @@ public class RunnerToolbarController {
 	
 	@FXML
 	public void loadViewResults(ActionEvent event) {
-		SceneLoader.loadWindow("ViewResults.fxml", (Node) nextTraining, this);
+		SceneLoader.loadWindow("ViewTrainings.fxml", (Node) nextTraining, this);
 	}
 	
 	@FXML

@@ -103,12 +103,9 @@ public class UseDB {
 	}
 	
 	public static String getGeojsonTrack(int trackNum) {
-		return getTable("select track from training where training.trainingid = " + trackNum).get(0).get(0);
+		return getTable("SELECT track FROM training WHERE training.trainingid = " + trackNum).get(0).get(0);
 	}
 	
-	
-	//TODO MAKE MORE...
-	//-----------------------------
 	
 	
 	/*
@@ -172,11 +169,17 @@ public class UseDB {
 		Connection conn = connectDB();
 		boolean result_status = false;
 		
+		String table2 = table;
+		
+		if (table.equals("result")) { // Quick fix for when table name does not equal id name
+			table2 = "runner";
+		}
+		
 		try {
 			System.out.println("Deleting row with id: " + id + "..");
 			Statement stmt = conn.createStatement();
 			
-			stmt.executeUpdate("DELETE FROM " + table + " WHERE " + table + "id like " + id);
+			stmt.executeUpdate("DELETE FROM " + table + " WHERE " + table2 + "id like " + id);
 			System.out.println("Row deleted!");
 			try { conn.close(); } catch (SQLException e) {/* ignore */}
 			result_status = true;	
@@ -244,7 +247,7 @@ public class UseDB {
 	
 	// Some prebuilt functions
 	
-	public static boolean submitWeeklyRun(String place, String time, String date, int distance, String track) {
+	public static boolean submitWeeklyRun(String place, String date, String time, int distance, String track) {
 		int newID = UseDB.getFreeID("training");
 		return addRow("training", newID, place, time, date, distance, track);	
 	}
@@ -309,6 +312,5 @@ public class UseDB {
 			return addRow("result", trainingID,runnerID,time,comment);
 		}
 	}
-
 
 }
