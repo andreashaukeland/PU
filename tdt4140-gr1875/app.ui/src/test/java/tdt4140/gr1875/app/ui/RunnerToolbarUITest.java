@@ -26,7 +26,7 @@ public class RunnerToolbarUITest extends ApplicationTest {
 
 	@Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
