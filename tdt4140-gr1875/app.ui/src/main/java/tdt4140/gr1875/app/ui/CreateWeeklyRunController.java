@@ -50,7 +50,6 @@ public class CreateWeeklyRunController {
 		String place = placeTextField.getText();
 		String time = timeTextField.getText();
 		String date = dateTextField.getText();
-		String distance = distanceTextField.getText();
 		String geojsonFilePath = geojsonTextField.getText();
 		int distance = getDistanceFromGeojsonFilePath(geojsonFilePath);
 		boolean successfulSubmit = createWeeklyRun.submit(place, date, time, distance, geojsonFilePath);
