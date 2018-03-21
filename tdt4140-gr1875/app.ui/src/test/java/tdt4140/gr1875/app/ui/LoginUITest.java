@@ -2,6 +2,7 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 import org.testfx.framework.junit.ApplicationTest;
@@ -18,22 +19,26 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import junit.framework.Assert;
 
-public class LoginUITest extends GuiTest{
+public class LoginUITest extends ApplicationTest{
 	
-	
+	@BeforeClass
+    public static void headless() {
+    		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+    			GitlabCISupport.headless();
+    		}
+    }
+
 	@Override
-	protected Parent getRootNode() {
-		try {
-			return FXMLLoader.load(this.getClass().getResource("LoginScreen.fxml"));
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-		return null;
-	}
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 	 
 	 @Test
 	 public void createUserButtonTest() {
-		JFXButton createUserButton = find("#createUserButton");
+		JFXButton createUserButton = (JFXButton) lookup("#createUserButton").query();
 	    	Assert.assertEquals("Create User", createUserButton.getText());
 	    	Assert.assertEquals(231.0, createUserButton.getLayoutX());
 	    	Assert.assertEquals(301.0, createUserButton.getLayoutY());
@@ -43,7 +48,7 @@ public class LoginUITest extends GuiTest{
 	 
 	 @Test
 	 public void loginButtonTest() {
-		JFXButton loginButton = find("#loginButton");
+		JFXButton loginButton = (JFXButton) lookup("#loginButton").query();
 	    	Assert.assertEquals("Login", loginButton.getText());
 	    	Assert.assertEquals(79.0, loginButton.getLayoutX());
 	    	Assert.assertEquals(301.0, loginButton.getLayoutY());
@@ -53,7 +58,7 @@ public class LoginUITest extends GuiTest{
 	 
 	 @Test
 	 public void passwordFieldTest() {
-		JFXPasswordField passwordField = (JFXPasswordField) find("#passwordField");
+		JFXPasswordField passwordField = (JFXPasswordField) lookup("#passwordField").query();
 	    	Assert.assertEquals("Password", passwordField.getPromptText());
 	    	Assert.assertEquals(144.0, passwordField.getLayoutX());
 	    	Assert.assertEquals(211.0, passwordField.getLayoutY());
@@ -61,7 +66,7 @@ public class LoginUITest extends GuiTest{
 	 
 	 @Test
 	 public void usernameFieldTest() {
-		JFXTextField usernameField = (JFXTextField) find("#usernameField");
+		JFXTextField usernameField = (JFXTextField) lookup("#usernameField").query();
 	    	Assert.assertEquals("Username", usernameField.getPromptText());
 	    	Assert.assertEquals(143.0, usernameField.getLayoutX()); //change later to 144 (same as passwordfield)
 	    	Assert.assertEquals(130.0, usernameField.getLayoutY());
