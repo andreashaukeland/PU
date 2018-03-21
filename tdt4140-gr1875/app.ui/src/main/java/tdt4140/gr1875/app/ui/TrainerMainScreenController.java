@@ -41,38 +41,31 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.RunnerProgressScreenController.Results;
+import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
 
 public class TrainerMainScreenController implements Initializable{
 
-	//private JFXDrawer drawer;
 	@FXML private JFXHamburger hamburger;
 	@FXML private StackPane stackPane;
 	@FXML private BorderPane borderPane;
 	@FXML private GridPane trainingMapTabGridPane;
 	private JFXDrawer drawer = new JFXDrawer();
 	
-	@FXML private TableView<Training> tableView;
-	@FXML private TableColumn<Training, String> trainingPlaceColumn;
-	@FXML private TableColumn<Training, String> trainingTimeColumn;
-	@FXML private TableColumn<Training, String> trainingDateColumn;
-	GoogleMapController GMC = new GoogleMapController();
+	@FXML private TableView<Results> tableView;
+	@FXML private TableColumn<Training, String> nameColumn;
+	@FXML private TableColumn<Training, String> trackColumn;
+	@FXML private TableColumn<Training, String> timeColumn;
 	
-	@FXML
-	public void onLoadTrack() { //TODO: make GoogleMapLogic class in core. Move GMapsFX dependency to both core and ui. Load the selected track
-		Training obj = tableView.getSelectionModel().getSelectedItem();
-		if (obj != null) {
-			System.out.println(obj.getTrainingPlace());
-		}
-		
-	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initDrawer();
 		initMap();
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT place, time, date from training;");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT concat(firstname, ' ', lastname), place, result.time"
+				+ " FROM result join runner on result.runnerid = runner.runnerid join training on training.trainingid ="
+				+ "result.trainingid");
 		tableView.getItems().setAll(getResults(list));
 	}
 	
@@ -87,25 +80,24 @@ public class TrainerMainScreenController implements Initializable{
 	}
 
 	private void initCol() {
-		trainingPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingPlace"));
-		trainingTimeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
-		trainingDateColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingDate"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+		trackColumn.setCellValueFactory(new PropertyValueFactory<>("Track"));
+		timeColumn.setCellValueFactory(new PropertyValueFactory<>("Time"));
 	}
 	
-	private ObservableList<Training> getResults(ArrayList<ArrayList<String>> list){
+	private ObservableList<Results> getResults(ArrayList<ArrayList<String>> list){
 		if(list == null) {
 			return null;
 		}
-		ArrayList<Training> results = new ArrayList<>();		
+		ArrayList<Results> results = new ArrayList<>();		
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> indexedlist = list.get(i);
-			results.add(new Training(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2)));
+			results.add(new Results(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2)));
 		}
 		return FXCollections.observableArrayList(results);
 	}
 
 	private void initDrawer() {
-		//drawer = new JFXDrawer();
 		borderPane.setRight(null);
 		drawer.setDirection(DrawerDirection.RIGHT);
 		drawer.setDefaultDrawerSize(100);
@@ -141,26 +133,32 @@ public class TrainerMainScreenController implements Initializable{
 		((Stage) stackPane.getScene().getWindow()).close();
 	}
 	
-	public static class Training{
-		private final SimpleStringProperty trainingPlace;
-		private final SimpleStringProperty trainingDate;
-		private final SimpleStringProperty trainingTime;
+	
+	public static class Results{
+		
 
-		public Training(String trainingPlace, String time, String trainingDate) {
-			this.trainingPlace = new SimpleStringProperty(trainingPlace);
-			this.trainingDate = new SimpleStringProperty(trainingDate);
-			this.trainingTime = new SimpleStringProperty(time);
- 		}
-				
-		public String getTrainingPlace() {
-			return trainingPlace.get();
+		private final SimpleStringProperty name;
+		private final SimpleStringProperty track;
+		private final SimpleStringProperty time;
+		
+		public Results(String name, String track, String time) {
+			this.name = new SimpleStringProperty(name);
+			this.track = new SimpleStringProperty(track); 
+			this.time = new SimpleStringProperty(time);
 		}
-		public String getTrainingDate() {
-			return trainingDate.get();
+		
+		public String getName() {
+			return name.get();
 		}
+
+		public String getTrack() {
+			return track.get();
+		}
+
 		public String getTime() {
-			return trainingTime.get();
+			return time.get();
 		}
+		
 	}
 	
 	

@@ -49,11 +49,30 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	
 	@Override
 	public void mapInitialized() {
-	    String geojsonFile = UseDB.getGeojsonTrack(2); //TODO make method that returns value of which track you want 
-	    //to see in map based on which track the trainer has chosen in trainings tab 
+		String geojsonFile = UseDB.getGeojsonTrack(1); //TODO to see in map based on which track the trainer has chosen in trainings tab
+	    
+		if (geojsonFile.length() < 1) {
+			//Set the initial properties of the map.
+		    MapOptions mapOptions = new MapOptions();
+
+		    mapOptions.center(new LatLong(63.4, 10.4))
+		            .mapType(MapTypeIdEnum.ROADMAP)
+		            .overviewMapControl(false)
+		            .panControl(false)
+		            .rotateControl(false)
+		            .scaleControl(false)
+		            .streetViewControl(false)
+		            .zoomControl(false)
+		            .mapMarker(true)
+		            .zoom(3);
+
+		    map = googleMap.createMap(mapOptions);
+		    return;
+		}
+		 
 	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
 	    
-	  //Set the initial properties of the map.
+	    //Set the initial properties of the map.
 	    MapOptions mapOptions = new MapOptions();
 
 	    mapOptions.center(coordinates[0])
@@ -79,6 +98,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	    latlonglist[1] = last;
 	    drawPath(latlonglist);
 	}
+	 
 	
 	// Take a string, converts it to geojson, parse it to get coordinates and returns a LatLong[] object.
 	public LatLong[] stringToCoordinates(String track) {
@@ -150,7 +170,11 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		googleMap.addMapInializedListener(this);
-		
+	}
+	
+	public void clearMap() {
+		map.clearMarkers();
+		map.removeMapShape(line);
 	}
 	
 	

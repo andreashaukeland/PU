@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
-import tdt4140.gr1875.app.ui.ViewResultsController.Results;
+import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
 public class ViewRunnersController implements Initializable{ //implements ToolbarListener
 
