@@ -2,30 +2,39 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.IOException;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
+import org.testfx.framework.junit.ApplicationTest;
 
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import junit.framework.Assert;
 
-public class RunnerToolbarUITest extends GuiTest {
+public class RunnerToolbarUITest extends ApplicationTest {
 	
+	@BeforeClass
+    public static void headless() {
+    		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+    			GitlabCISupport.headless();
+    		}
+    }
+
 	@Override
-	protected Parent getRootNode() {
-		try {
-			return FXMLLoader.load(this.getClass().getResource("RunnerToolbar.fxml"));
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-		return null;
-	}
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 	
 	@Test
 	 public void NextTrainingTest() {
-		JFXButton nextTraining = find("#nextTraining");
+		JFXButton nextTraining = (JFXButton) lookup("#nextTraining").query();
 	    	Assert.assertEquals("Next Training", nextTraining.getText());
 	    	Assert.assertEquals(400.0, nextTraining.getPrefHeight());
 	    	Assert.assertEquals(250.0, nextTraining.getPrefWidth());
@@ -33,7 +42,7 @@ public class RunnerToolbarUITest extends GuiTest {
 	
 	@Test
 	 public void ViewResultsTest() {
-		JFXButton viewResults = find("#ViewResults");
+		JFXButton viewResults = (JFXButton) lookup("#ViewResults").query();
 	    	Assert.assertEquals("View Trainings", viewResults.getText());
 	    	Assert.assertEquals(400.0, viewResults.getPrefHeight());
 	    	Assert.assertEquals(250.0, viewResults.getPrefWidth());
@@ -42,7 +51,7 @@ public class RunnerToolbarUITest extends GuiTest {
 	
 	@Test
 	 public void ViewProgressTest() {
-		JFXButton viewProgress = find("#ViewProgress");
+		JFXButton viewProgress = (JFXButton) lookup("#ViewProgress").query();
 	    	Assert.assertEquals("View Progress", viewProgress.getText());
 	    	Assert.assertEquals(400.0, viewProgress.getPrefHeight());
 	    	Assert.assertEquals(250.0, viewProgress.getPrefWidth());
