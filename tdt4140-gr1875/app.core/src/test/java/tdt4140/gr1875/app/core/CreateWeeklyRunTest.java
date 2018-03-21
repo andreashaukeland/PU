@@ -12,7 +12,6 @@ public class CreateWeeklyRunTest {
 	
 	@Test
 	public void SubmitTest() {
-		
 		CreateWeeklyRun run = new CreateWeeklyRun();
 		Assert.assertEquals(true, run.submit("TestRun", "2018.03.09", "10:00", 1, ""));
 		UseDB.deleteRow("training", Integer.parseInt(UseDB.getIDByName("training", "place=TestRun").get(0).get(0)));
