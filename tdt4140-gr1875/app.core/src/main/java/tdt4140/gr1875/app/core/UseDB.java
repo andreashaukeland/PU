@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.result.UpdatableResultSet;
+
 /*
  * Help class to enable communication with remote MySQL database
  * 
@@ -189,6 +191,7 @@ public class UseDB {
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
+	
 	public static void addComment(int trainingid, String comment) {
 		try {
 			Connection myconn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db","martisku_pu","pu75");
@@ -249,7 +252,12 @@ public class UseDB {
 	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
-		return addRow("result", currentTrainingId, runnerID, time, comment);
+		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
+			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time);
+		}
+		else {
+			return addRow("result", currentTrainingId,runnerID,time,comment);
+		}
 	}
 	
 	public static ArrayList<String> getLastRun() {
@@ -261,6 +269,35 @@ public class UseDB {
 			System.out.println("ID not found getLastRun");
 			return null;
 		}
+	}
+	public static boolean checkIfResultExists(int trainingid, int runnerid) { //Torgeir skal sjekke
+		ArrayList<ArrayList<String>> result = getTable("select * from result where trainingid ="+trainingid+" and runnerid= "+runnerid);
+		return result.size()!=0;
+	}
+	public static boolean updateTrainingRow(int trainingid, int runnerid, String newTime) { //Torgeir skal sjekke
+		Connection conn = connectDB();
+		boolean result_status = false;
+		
+		try {
+			System.out.println("Update row with trainingid: " + trainingid + " and runnerid:"+runnerid+"...");
+			Statement stmt = conn.createStatement();
+			String query = "UPDATE result set time='"+newTime+"' where trainingid= "+trainingid+" and runnerid= "+runnerid;
+			System.out.println(query);
+			stmt.executeUpdate(query);
+			System.out.println("Row updated!");
+			try { conn.close(); } catch (SQLException e) {/* ignore */}
+			result_status = true;	
+		}
+		catch (SQLException ex){
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());		  
+		}
+		
+		try { conn.close(); } catch (SQLException e) {/* ignore */}
+	    System.out.println("Process finished, connection closed");
+		return result_status;
+		
 	}
 
 

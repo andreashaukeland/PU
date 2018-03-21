@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 public class CreateNewUser {
+	LoginScreen checkIfUserExists = new LoginScreen();
 	
 	public void addNewUser(String username, String password, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
@@ -24,13 +25,15 @@ public class CreateNewUser {
 		String encryptedPassword = password + salt;
 		
 		if(! coach) {
-			String info = "No info";
-			UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
-			UseDB.addRow("login", id, username, encryptedPassword, salt, "runner");
-		}
-		else {
-			UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
-			UseDB.addRow("login", id, username, encryptedPassword, salt, "trainer");
+			if(!coach) {
+				String info = "No info";
+				UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
+				UseDB.addRow("login", id, username, encryptedPassword, salt, "runner");
+			}
+			else {
+				UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
+				UseDB.addRow("login", id, username, encryptedPassword, salt, "trainer");
+			}
 		}
 	}
 		
