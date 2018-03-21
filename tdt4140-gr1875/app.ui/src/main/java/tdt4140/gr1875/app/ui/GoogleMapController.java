@@ -49,8 +49,27 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	
 	@Override
 	public void mapInitialized() {
-	    String geojsonFile = UseDB.getGeojsonTrack(1);
-	    //to see in map based on which track the trainer has chosen in trainings tab 
+		String geojsonFile = UseDB.getGeojsonTrack(1); //TODO to see in map based on which track the trainer has chosen in trainings tab
+	    
+		if (geojsonFile.length() < 1) {
+			//Set the initial properties of the map.
+		    MapOptions mapOptions = new MapOptions();
+
+		    mapOptions.center(new LatLong(63.4, 10.4))
+		            .mapType(MapTypeIdEnum.ROADMAP)
+		            .overviewMapControl(false)
+		            .panControl(false)
+		            .rotateControl(false)
+		            .scaleControl(false)
+		            .streetViewControl(false)
+		            .zoomControl(false)
+		            .mapMarker(true)
+		            .zoom(3);
+
+		    map = googleMap.createMap(mapOptions);
+		    return;
+		}
+		 
 	    LatLong[] coordinates = stringToCoordinates(geojsonFile);
 	    
 	    //Set the initial properties of the map.
