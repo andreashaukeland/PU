@@ -47,9 +47,5 @@ public class LoginScreen {
 		}
 		return encryptedPassword;
 	}
-	public static void main(String[] args) {
-		LoginScreen login = new LoginScreen();
-		System.out.println(login.checkUsernameAndPassword("runner", "test"));
-		
-	}
+	
 }

@@ -241,7 +241,7 @@ public class UseDB {
 	
 	// Some prebuilt functions
 	
-	public static boolean submitWeeklyRun(String place, String time, String date, int distance, String track) {
+	public static boolean submitWeeklyRun(String place, String date, String time, int distance, String track) {
 		int newID = UseDB.getFreeID("training");
 		return addRow("training", newID, place, time, date, distance, track);	
 	}
