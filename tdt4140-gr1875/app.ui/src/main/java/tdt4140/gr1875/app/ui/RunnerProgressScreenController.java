@@ -31,6 +31,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -71,10 +72,13 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private Label labelMobile;
 	@FXML private Label labelEmail;
 	@FXML private Label labelAge;
-	
+	@FXML private TextField commentTextfield;
+	@FXML private JFXButton commentButton;
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
 	private int currentUser;
+	private int trainingID;
+	private String time;
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -88,10 +92,22 @@ public class RunnerProgressScreenController implements Initializable{
 		}
 		initDrawer();
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time"
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time, result.comment"
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
 				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
+		
+		tableView.getSelectionModel().selectedItemProperty().addListener((ob, oldval, newval)->{
+			if (newval != null) {
+				commentTextfield.setText(newval.getComment());
+				trainingID = Integer.parseInt(newval.getTrainingNumber());
+				time = newval.getTime();
+				
+			}
+			else
+				commentTextfield.setText("No comment given");
+			
+	});
 		initProgressChart();
 		initInformationTab();
 	}
@@ -198,6 +214,28 @@ public class RunnerProgressScreenController implements Initializable{
     		SceneLoader.loadWindow("RunnerMainScreen.fxml", (Node) tableView, this);
     	}
     }
+	@FXML
+	void OnCommentButton(ActionEvent event) {
+		String comment = commentTextfield.getText();
+		boolean submitted = runnerProgressScreen.submitComment(trainingID, SessionInformation.userId, time, comment);
+		if(! submitted) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Could not submit to database");
+			alert.showAndWait();
+		}
+		else {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText("Comment updated");
+			alert.showAndWait();
+		}
+		
+		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time, result.comment"
+				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+				+ " WHERE runner.runnerid =" + currentUser +";");
+		tableView.getItems().setAll(getResults(list));
+	}
 	private void initCol() {
 		trainingNumberColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingNumber"));
 		trainingPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingPlace"));
@@ -213,11 +251,12 @@ public class RunnerProgressScreenController implements Initializable{
 		ArrayList<Results> results = new ArrayList<>();		
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> indexedlist = list.get(i);
-			results.add(new Results(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2),indexedlist.get(3),indexedlist.get(4)));
+			results.add(new Results(indexedlist.get(0), indexedlist.get(1), indexedlist.get(2),indexedlist.get(3),indexedlist.get(4), indexedlist.get(5)));
 		}
 		return FXCollections.observableArrayList(results);
 	}
 
+	
 	
 	public static class Results{
 		private final SimpleStringProperty trainingNumber;
@@ -225,14 +264,16 @@ public class RunnerProgressScreenController implements Initializable{
 		private final SimpleStringProperty trainingDate;
 		private final SimpleStringProperty time;
 		private final SimpleStringProperty distance;
+		private final SimpleStringProperty comment;
 
 		
-		public Results(String trainingNumber, String trainingPlace, String trainingDate, String distance, String time) {
+		public Results(String trainingNumber, String trainingPlace, String trainingDate, String distance, String time, String comment) {
 			this.trainingNumber = new SimpleStringProperty(trainingNumber);
 			this.trainingPlace = new SimpleStringProperty(trainingPlace);
 			this.trainingDate = new SimpleStringProperty(trainingDate);
 			this.time = new SimpleStringProperty(time);
 			this.distance = new SimpleStringProperty(distance);
+			this.comment = new SimpleStringProperty(comment);
 		}
 		
 		public String getTrainingNumber() {
@@ -252,7 +293,11 @@ public class RunnerProgressScreenController implements Initializable{
 		public String getTime() {
 			return time.get();
 		}
+		public String getComment() {
+			return comment.get();
+		}
 		
 	}
+
 
 }

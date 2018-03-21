@@ -38,6 +38,7 @@ public class RunnerMainScreenController implements Initializable{
 	
 	@FXML private TextField timeTextfield;
 	@FXML private JFXButton submitButton;
+	@FXML private TextField commentTextfield;
 	
 	private RunnerMainScreen model = new RunnerMainScreen();
 	
@@ -85,7 +86,7 @@ public class RunnerMainScreenController implements Initializable{
 	
 	public void onSubmit() {
 		String time = timeTextfield.getText();
-		String comment = ""; // TODO: ADD COMMENT FIELD
+		String comment = commentTextfield.getText();
 		boolean submitted = model.submitTime(SessionInformation.userId, time, comment);
 		if(! submitted) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -95,6 +96,7 @@ public class RunnerMainScreenController implements Initializable{
 		}
 		else {
 			timeTextfield.clear();
+			commentTextfield.clear();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setContentText("Time submitted");

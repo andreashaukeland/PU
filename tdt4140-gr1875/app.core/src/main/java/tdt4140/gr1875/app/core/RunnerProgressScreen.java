@@ -18,4 +18,7 @@ public class RunnerProgressScreen {
 		return null;
 	}
 	
+	public boolean submitComment(int trainingID, int runnerID, String time, String comment) {
+		return UseDB.updateCommentToTraining(trainingID, runnerID, time, comment);
+	}	
 }
