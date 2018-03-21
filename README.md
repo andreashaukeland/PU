@@ -1,9 +1,13 @@
 # Leitemarka Orienteringsklubb
 An application for trainers and athletes to view and monitor progress of runners.
 
-
+# Motivation
+The app is designed to make life easier for runner and athletes that want to take their training to the next level. Similar application like Strava fills a similar need, but 
 
 ![alt text](https://ibb.co/cYcDqH)
+
+
+![alt text](https://img.shields.io/travis/USER/REPO.svg)
 
 ## Getting Started
 ### Prerequisites
