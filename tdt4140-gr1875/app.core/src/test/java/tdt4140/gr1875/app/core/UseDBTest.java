@@ -59,10 +59,11 @@ public class UseDBTest {
 	
 	@Test
 	public void submitTimeToTrainingTest() {
-		UseDB.submitTimeToTraining(id, "10:10:10", "test comment");
+		int runner_id = Integer.parseInt(UseDB.getTable("SELECT runnerid FROM runner").get(0).get(0));
+		UseDB.submitTimeToTraining(runner_id, "10:10:10", "test comment");
 		ArrayList<ArrayList<String>> result3 = UseDB.getTable("SELECT comment FROM result WHERE comment='test comment'");
 		Assert.assertEquals("test comment", result3.get(result3.size()-1).get(0));
-		UseDB.deleteRow("result", id);
+		UseDB.deleteRow("result", runner_id);
 
 	}
 	
