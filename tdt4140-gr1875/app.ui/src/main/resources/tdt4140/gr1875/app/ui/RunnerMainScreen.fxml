@@ -55,6 +55,7 @@
                                     <JFXButton fx:id="submitButton" layoutX="160.0" layoutY="339.0" onAction="#onSubmit" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
                                     <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="187.0" layoutY="65.0" size="40" styleClass="glypgh-icon" />
                                     <JFXTextField fx:id="timeTextfield" labelFloat="true" layoutX="70.0" layoutY="265.0" prefHeight="38.0" prefWidth="269.0" promptText="Write time" />
+                                    <JFXTextField fx:id="commentTextfield" layoutX="398.0" layoutY="184.0" promptText="Enter comment" />
                                  </children>
                               </AnchorPane>
                            </content> 
