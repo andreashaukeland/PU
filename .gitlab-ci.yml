@@ -25,7 +25,7 @@ unittest-job:
   dependencies:
     - build-job
   script:
-    - "mvn package -f tdt4140-gr1875/pom.xml $MAVEN_CLI_OPTS"
+    - "mvn package -f tdt4140-gr1875/pom.xml $MAVEN_CLI_OPTS -Djava.awt.headless=true"
     - "cat tdt4140-gr1875/app.core/target/site/jacoco/index.html"
 
 integrationtest-job:
