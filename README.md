@@ -10,8 +10,8 @@ this application is better fitted for orieentering athletes.
 At the current stage the application supports viewing the runners activites in a map and a view of their performance over time. Future work will focus on better comparing 
 runners route to the expected or optimal path of the training.
 
-
-![alt text](https://ibb.co/cYcDqH)
+![Github](https://image.ibb.co/me0GUc/rsz_kart.png "Map") ![Github](https://image.ibb.co/ixGehx/rsz_progress.png "Progress")
+ 
 
 ## Framework
 - The application is written in Java and JavaFX
