@@ -30,6 +30,7 @@
 		            <version>8u76-b04</version> <!-- jdk-9+181 for Java 9 -->
 		            <scope>test</scope>
 		        </dependency>
+		        
 			</dependencies>
 		</profile>
 	</profiles>
@@ -70,6 +71,12 @@
 			<artifactId>testfx-junit</artifactId>
 			<version>4.0.10-alpha</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.loadui</groupId>
+    		<artifactId>testFx</artifactId>
+    		<version>3.1.2</version>
+    		<scope>test</scope>
 		</dependency>
 	</dependencies>
 

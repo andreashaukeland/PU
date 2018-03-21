@@ -34,7 +34,7 @@ public class RunnerToolbarUITest extends GuiTest {
 	@Test
 	 public void ViewResultsTest() {
 		JFXButton viewResults = find("#ViewResults");
-	    	Assert.assertEquals("View Results", viewResults.getText());
+	    	Assert.assertEquals("View Trainings", viewResults.getText());
 	    	Assert.assertEquals(400.0, viewResults.getPrefHeight());
 	    	Assert.assertEquals(250.0, viewResults.getPrefWidth());
 	    	
