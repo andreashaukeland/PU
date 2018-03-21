@@ -10,7 +10,7 @@ this application is better fitted for orieentering athletes.
 At the current stage the application supports viewing the runners activites in a map and a view of their performance over time. Future work will focus on better comparing 
 runners route to the expected or optimal path of the training.
 
-![Github](https://image.ibb.co/me0GUc/rsz_kart.png "Map") ![Github](https://image.ibb.co/ixGehx/rsz_progress.png "Progress")
+![Github](https://image.ibb.co/k8eJQH/rsz_1kart.png "Map") ![Github](https://image.ibb.co/kZaskH/rsz_1progress.png  "Progress")
  
 
 ## Framework
@@ -39,7 +39,7 @@ runners route to the expected or optimal path of the training.
 Clone the project from GitLab and set it up as a maven project (git@gitlab.stud.iie.ntnu.no:tdt4140-2018/75.git).
 
 ### Testing and running the program
-- The launcher of the application is called "FxApp.java". It is found under app.ui/src/main/java. Run the script as a java-application.
+- The launcher of the application is called "ApplicationLauncher.java". It is found under app.ui/src/main/java. Run the script as a java-application.
 - To run the tests for the application right-click at the root-folder, click run as and then maven test.
 
 
@@ -48,7 +48,7 @@ Clone the project from GitLab and set it up as a maven project (git@gitlab.stud.
 - Martin Syversen
 - Herman Rommetveit
 - Henrik Backer
-- Torgeir
+- Torgeir Sandnes Laurvik
 - Peder Grundvold
-- Martin
+- Martin Skurtveit
 
