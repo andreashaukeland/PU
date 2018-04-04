@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +74,7 @@ public class UseDBTest {
 		int currentTrainingId = Integer.parseInt(UseDB.getLastRun().get(0));
 		UseDB.submitTimeToTraining(999, "10:00", "hei");
 		UseDB.updateTrainingRow(currentTrainingId, 999, "09:00", "slay");
-		
+		UseDB.deleteRow("result", 999);
 	}
 	
 }
