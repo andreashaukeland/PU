@@ -38,8 +38,9 @@ public class CreateWeeklyRun {
 			createAlert("Training submitted with track");
 			return true;
 		} catch (IOException | ParseException e) {
-			createAlert("Training submitted without track \nNo geojson file found");
-			return true;
+			//createAlert("Training not submitted due to illlegal json-filepath");
+			//REMOVED DUE TO FAILING TESTS: SHOULD MOVE ALERT TO CONTROLLER CLASS
+			return false;
 		}
 		
 	}

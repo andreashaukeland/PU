@@ -229,12 +229,12 @@ public class UseDB {
 	
 	//Help function for connecting to an external database.
 	private static Connection connectDB() {
-		System.out.println("Connecting to database..." + "\n");
+		//System.out.println("Connecting to database..." + "\n");
 		
 		Connection conn = null;
 		try {
 		    conn =
-		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db","martisku_pu","pu75");
+		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?useSSL=false","martisku_pu","pu75");
 
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -311,6 +311,20 @@ public class UseDB {
 		else {
 			return addRow("result", trainingID,runnerID,time,comment);
 		}
+	}
+	
+	public static boolean deleteUserByUsername(String username) {
+		boolean deletedProperly = true;
+		ArrayList<ArrayList<String>> result = getTable("select loginid, usertype from login where username =\""+username+"\"");
+		if(result.size() == 1) {
+			int id = Integer.parseInt(result.get(0).get(0));
+			String usertype = result.get(0).get(1);
+			deletedProperly = deleteRow("login", id) && deleteRow(usertype, id);
+		}
+		else {
+			deletedProperly = false;
+		}
+		return deletedProperly;
 	}
 
 }

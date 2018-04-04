@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import javax.jws.soap.SOAPBinding.Use;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +67,14 @@ public class UseDBTest {
 		Assert.assertEquals("test comment", result3.get(result3.size()-1).get(0));
 		UseDB.deleteRow("result", runner_id);
 
+	}
+	
+	@Test
+	public void testUpdateTrainingRow() {
+		int currentTrainingId = Integer.parseInt(UseDB.getLastRun().get(0));
+		UseDB.submitTimeToTraining(999, "10:00", "hei");
+		UseDB.updateTrainingRow(currentTrainingId, 999, "09:00", "slay");
+		UseDB.deleteRow("result", 999);
 	}
 	
 }
