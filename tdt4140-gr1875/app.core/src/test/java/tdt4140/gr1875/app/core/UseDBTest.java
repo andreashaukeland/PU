@@ -67,5 +67,13 @@ public class UseDBTest {
 
 	}
 	
+	@Test
+	public void testUpdateTrainingRow() {
+		int currentTrainingId = Integer.parseInt(UseDB.getLastRun().get(0));
+		UseDB.submitTimeToTraining(999, "10:00", "hei");
+		UseDB.updateTrainingRow(currentTrainingId, 999, "09:00", "slay");
+		
+	}
+	
 }
 
