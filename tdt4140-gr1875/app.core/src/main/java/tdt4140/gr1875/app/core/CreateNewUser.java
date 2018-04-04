@@ -24,17 +24,16 @@ public class CreateNewUser {
 		String salt = getSaltString();
 		String encryptedPassword = password + salt;
 		
-		if(! coach) {
-			if(!coach) {
-				String info = "No info";
-				UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
-				UseDB.addRow("login", id, username, encryptedPassword, salt, "runner");
-			}
-			else {
-				UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
-				UseDB.addRow("login", id, username, encryptedPassword, salt, "trainer");
-			}
+		if(!coach) {
+			String info = "No info";
+			UseDB.addRow("runner", id, firstName, lastName, birthday, email, mobile, info);
+			UseDB.addRow("login", id, username, encryptedPassword, salt, "runner");
 		}
+		else {
+			UseDB.addRow("trainer", id, firstName, lastName, birthday, email, mobile);
+			UseDB.addRow("login", id, username, encryptedPassword, salt, "trainer");
+		}
+		
 	}
 		
 	private String checkValidInput(String email, String mobile, String birthday, boolean coach, boolean athlete) {

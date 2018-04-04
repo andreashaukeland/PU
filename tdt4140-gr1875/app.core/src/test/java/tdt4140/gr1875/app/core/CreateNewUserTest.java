@@ -17,10 +17,18 @@ public class CreateNewUserTest {
 		String shortPhone = "" + 9090;
 		String correctPhone = "" + 90909090;
 		try {
-			testUser.addNewUser("Torgeir95", "MANUERBEST", "Torgeir", "Mourinho", "fotballgutt@hotmail.com", shortPhone, "1995-11-11", true, false);
+			testUser.addNewUser("Torgeir95", "MANUERBEST", "Torgeir", "Mourinho", "fotballgutt@hotmail.com", correctPhone, "1995-11-11", true, false);
+			testUser.addNewUser("TorgeirTrener", "MANUERBEST", "Torgeir", "Mourinho", "fotballgutt@hotmail.com", correctPhone, "1995-11-11", false, true);
+			testUser.addNewUser("Torgeir98", "MANUERBEST", "Torgeir", "Mourinho", "fotballgutt@hotmail.com", shortPhone, "1995-11-11", true, false);
+		
 		}
 		catch(Exception e){
 			Assert.assertEquals("Not Valid Mobile Number \n", e.getMessage());
+		}
+		finally {
+			UseDB.deleteUserByUsername("Torgeir95");
+			UseDB.deleteUserByUsername("Torgeir98");
+			UseDB.deleteUserByUsername("TorgeirTrener");
 		}
 	}
 	

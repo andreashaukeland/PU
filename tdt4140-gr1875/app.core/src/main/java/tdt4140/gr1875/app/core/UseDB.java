@@ -312,5 +312,19 @@ public class UseDB {
 			return addRow("result", trainingID,runnerID,time,comment);
 		}
 	}
+	
+	public static boolean deleteUserByUsername(String username) {
+		boolean deletedProperly = true;
+		ArrayList<ArrayList<String>> result = getTable("select loginid, usertype from login where username =\""+username+"\"");
+		if(result.size() == 1) {
+			int id = Integer.parseInt(result.get(0).get(0));
+			String usertype = result.get(0).get(1);
+			deletedProperly = deleteRow("login", id) && deleteRow(usertype, id);
+		}
+		else {
+			deletedProperly = false;
+		}
+		return deletedProperly;
+	}
 
 }
