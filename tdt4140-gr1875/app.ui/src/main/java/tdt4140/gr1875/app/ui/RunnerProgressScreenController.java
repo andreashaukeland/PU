@@ -236,6 +236,12 @@ public class RunnerProgressScreenController implements Initializable{
 				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
 	}
+	@FXML
+	void OnGoToTrainingButton(ActionEvent event) {
+		SessionInformation.currentTrainingViewed = trainingID;
+		SceneLoader.loadWindow("ViewTrainingDetail.fxml", (Node) tableView, this);
+	}
+	
 	private void initCol() {
 		trainingNumberColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingNumber"));
 		trainingPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("TrainingPlace"));

@@ -5,4 +5,5 @@ public class SessionInformation {
 	public static int userId = 0;
 	//When a trainer wants to see the progress of a runner the currentUser needs to be stored
 	public static int currentRunnerViewed = 0;
+	public static int currentTrainingViewed = 0;
 }
