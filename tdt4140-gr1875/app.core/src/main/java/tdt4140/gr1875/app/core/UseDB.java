@@ -77,6 +77,8 @@ public class UseDB {
 		}
 	}
 	
+	
+	
 	//Arguments example: getIDByName("training", "place=TestTrack"); 
 	
 	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
