@@ -22,7 +22,7 @@ public class CreateNewUser {
 		
 		int id = UseDB.getFreeID("login");
 		String salt = getSaltString();
-		String encryptedPassword = password + salt;
+		String encryptedPassword = hashPassword(password + salt);
 		
 		if(!coach) {
 			String info = "No info";
