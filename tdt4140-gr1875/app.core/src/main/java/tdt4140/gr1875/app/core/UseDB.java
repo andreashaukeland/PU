@@ -256,10 +256,11 @@ public class UseDB {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
 		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
-			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time,comment);
+			
+			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time, comment);
 		}
 		else {
-			return addRow("result", currentTrainingId,runnerID,time,comment);
+			return addRow("result", currentTrainingId,runnerID,time,comment, "(GEOJSON TEXT)");
 		}
 	}
 	

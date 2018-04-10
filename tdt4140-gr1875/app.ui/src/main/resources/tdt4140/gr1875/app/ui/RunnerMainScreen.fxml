@@ -47,15 +47,32 @@
                <children>
                   <JFXTabPane layoutY="2.0" prefHeight="33.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <tabs>
-                        <Tab text="Current training">
+                        <Tab text="Current official training">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="613.0">
                                  <children>
                                     <JFXTextArea fx:id="nextRun" layoutX="69.0" layoutY="102.0" prefHeight="57.0" prefWidth="270.0" styleClass="text-field" />
-                                    <JFXButton fx:id="submitButton" layoutX="160.0" layoutY="339.0" onAction="#onSubmit" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
+                                    <JFXButton fx:id="submitButton" layoutX="160.0" layoutY="339.0" onAction="#onSubmitCurrentTraining" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
                                     <FontAwesomeIconView glyphName="CLOCK_ALT" layoutX="187.0" layoutY="65.0" size="40" styleClass="glypgh-icon" />
                                     <JFXTextField fx:id="timeTextfield" labelFloat="true" layoutX="70.0" layoutY="265.0" prefHeight="38.0" prefWidth="269.0" promptText="Write time" />
                                     <JFXTextField fx:id="commentTextfield" layoutX="398.0" layoutY="184.0" promptText="Enter comment" />
+                                 </children>
+                              </AnchorPane>
+                           </content> 
+                        </Tab>
+                        <Tab text="Create own training">
+                           <content>
+                              <AnchorPane prefHeight="200.0" prefWidth="613.0">
+                                 <children>
+									<JFXTextArea fx:id="CreateRun" layoutX="69.0" layoutY="30.0" prefHeight="57.0" prefWidth="270.0" styleClass="text-field" text ="Create new run" />
+                                    <JFXTextField fx:id="PlaceTextfield" labelFloat="true" layoutX="60.0" layoutY="65.0" prefHeight="38.0" prefWidth="269.0"  styleClass="text-field" promptText="Enter place" />
+                                    <JFXTextField fx:id="TimeTextfield" labelFloat="true" layoutX="75.0" layoutY="85.0" prefHeight="38.0" prefWidth="269.0"  styleClass="text-field" promptText="Enter time" />
+                                    <JFXTextField fx:id="DateTextField" labelFloat="true" layoutX="95.0" layoutY="105.0" prefHeight="38.0" prefWidth="269.0"  styleClass="text-field" promptText="Enter date" />
+                                    <JFXTextField fx:id="DistanceTextField" layoutX="70.0" layoutY="150.0" prefHeight="43.0" prefWidth="87.0"  styleClass="text-field" text="Enter distance" />
+                                    <JFXTextField fx:id="TrackTextField" layoutX="70.0" layoutY="180.0"  prefHeight="43.0" prefWidth="87.0"   styleClass="text-field" text="Enter track" />
+                                    <JFXTextField fx:id="TimeUsedTextField" layoutX="80.0" layoutY="200.0"  prefHeight="43.0" prefWidth="87.0"   styleClass="text-field" text="Enter time used" />
+                                    <JFXTextField fx:id="CommentTextfield" layoutX="70.0" layoutY="230.0"  styleClass="text-field" promptText="Enter comment" />
+                                    <JFXButton fx:id="SubmitButton" layoutX="70.0" layoutY="280.0" onAction="#onSubmitNewTraining" prefHeight="43.0" prefWidth="87.0" styleClass="login-button" text="Submit" />
                                  </children>
                               </AnchorPane>
                            </content> 
