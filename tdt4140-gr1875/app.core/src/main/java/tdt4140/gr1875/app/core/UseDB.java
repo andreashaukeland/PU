@@ -259,7 +259,7 @@ public class UseDB {
 		return addRow("training", newID, place, time, date, distance, track, officalTraining);	
 	}
 	
-	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
+	public static boolean submitTimeToTraining(int runnerID, String time, String comment, String text, String map) {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
 		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
@@ -267,7 +267,7 @@ public class UseDB {
 			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time, comment);
 		}
 		else {
-			return addRow("result", currentTrainingId,runnerID,time,comment, "(GEOJSON TEXT)");
+			return addRow("result", currentTrainingId,runnerID,time,comment, text, map);
 		}
 	}
 	
