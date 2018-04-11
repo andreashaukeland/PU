@@ -2,6 +2,7 @@ package tdt4140.gr1875.app.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -26,6 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tdt4140.gr1875.app.core.SessionInformation;
+import tdt4140.gr1875.app.core.UseDB;
+import tdt4140.gr1875.app.core.CreateNewUser;
 
 public class SettingsController {
 
@@ -52,6 +55,9 @@ public class SettingsController {
     
     @FXML
     private JFXButton usernameButton;
+
+    @FXML
+    private JFXButton deleteButton;
     
     
     public static Clip audioClip;
@@ -75,6 +81,18 @@ public class SettingsController {
     
     @FXML
     public void onSetPassword() {
+    	
+    }
+    
+    @FXML
+    public void onDeleteAccount() {
+    	int userId = SessionInformation.userId;
+    	ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT username"
+				+ " FROM login"
+				+ " WHERE loginid =" + userId +";");
+    	String username = list.get(0).get(0);
+    	CreateNewUser user = new CreateNewUser();
+    	user.deleteUser(username, userId, SessionInformation.userType);
     	
     }
     //Error when reading Elevator.wav. Worked before, reason not found.

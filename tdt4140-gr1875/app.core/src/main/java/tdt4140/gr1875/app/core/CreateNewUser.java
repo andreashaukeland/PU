@@ -127,7 +127,7 @@ public class CreateNewUser {
     }
     
     //Delete user by username, id and usertype. Example: deleteUser("username", 1, "runner");
-    private boolean deleteUser(String username, int id, String usertype) {
+    public boolean deleteUser(String username, int id, String usertype) {
     		boolean deleted = false;
     		try {
     			UseDB.deleteRow(usertype, id);
