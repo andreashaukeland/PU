@@ -15,13 +15,13 @@ public class RunnerMainScreen {
 	}
 	
 	public boolean submitTime(int runnerID, String time, String comment) {
-		return UseDB.submitTimeToTraining(runnerID, time, comment);
+		return UseDB.submitTimeToTraining(runnerID, time, comment, "", "");
 	}	
 	
 	public boolean createNewTraining(String place, String time, String date, int distance, String track, String timeUsed, String comment) {
 		int runnerId = SessionInformation.userId;
 		boolean submittedNewTraining = UseDB.submitWeeklyRun(place, date, time, distance, track, "no");
-		boolean submittedTime = UseDB.submitTimeToTraining(runnerId, time, comment);
+		boolean submittedTime = UseDB.submitTimeToTraining(runnerId, time, comment, "", "");
 		return submittedNewTraining && submittedTime;
 	}	
 }
