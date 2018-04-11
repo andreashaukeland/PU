@@ -338,5 +338,12 @@ public class UseDB {
 	public static int getTrackIDFromPlace(String place) {
 		return Integer.parseInt(getTable("select trainingid from training where place = " + "'" + place + "'").get(0).get(0));
 	}
+	public static void executeQuery(String query) {
+		try {
+		Connection conn = connectDB();
+		Statement stmnt = conn.createStatement();
+		stmnt.executeQuery(query);
+		}catch (Exception e) {}
+	}
 	
 }
