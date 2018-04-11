@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -14,7 +15,11 @@ public class CreateNewUser {
 	
 	public void addNewUser(String username, String password, String firstName, String lastName, 
 			String email, String mobile, String birthday, boolean coach, boolean athlete) {
-		
+		ArrayList<ArrayList<String>> usernameList = UseDB.getTable("SELECT * FROM login WHERE login.username = '" + username + "'");
+		if (usernameList.size() != 0) {
+			System.out.println("Username already taken");
+			throw new IllegalArgumentException();
+		}
 		String errorString = checkValidInput(email, mobile, birthday, coach, athlete);
 		if(errorString != "") {
 			throw new IllegalArgumentException(errorString);
@@ -121,4 +126,16 @@ public class CreateNewUser {
         return saltStr;
     }
     
+    //Delete user by username, id and usertype. Example: deleteUser("username", 1, "runner");
+    public boolean deleteUser(String username, int id, String usertype) {
+    		boolean deleted = false;
+    		try {
+    			UseDB.deleteRow(usertype, id);
+    			UseDB.deleteUserByUsername(username);
+    			deleted = true;
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		return deleted;
+    }
 }

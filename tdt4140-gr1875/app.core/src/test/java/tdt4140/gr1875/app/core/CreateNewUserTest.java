@@ -68,4 +68,13 @@ public class CreateNewUserTest {
 		Assert.assertEquals(false, unvalidMonth);
 		Assert.assertEquals(false, unvalidDay);
 	}
+	
+	@Test
+	public void deleteUserTest() {
+		String username = "TestUser";
+		testUser.addNewUser(username, "Test", "Test", "Test", "test@testmail.test", "12345678", "1995-11-11", false, true);
+		int id = Integer.parseInt(UseDB.getIDByName("runner", "firstname=Test", "lastname=Test").get(0).get(0));
+		boolean deleted = testUser.deleteUser(username, id, "runner");
+		Assert.assertEquals(true, deleted);
+	}
 }
