@@ -15,7 +15,15 @@ public class LoginScreen {
 		if(username.equals("") || password.equals("")){
 			return false;
 		}
-		String salt = UseDB.getTable("SELECT salt FROM login WHERE login.username = '" + username + "'").get(0).get(0);
+		ArrayList<ArrayList<String>> table = UseDB.getTable("SELECT salt FROM login WHERE login.username = '" + username + "'");
+		String salt ="";
+		if (table.size() == 0) {
+			System.out.println("Not a valid username/password combination");
+			return false;
+		}
+		else {
+			salt = table.get(0).get(0);
+		}
     	String saltedPassword = hashPassword(password + salt);
 		try{
 			ArrayList<String> userInfo = UseDB.getTable("SELECT loginid, usertype FROM login WHERE username=\"" + username + "\" and password=\"" + saltedPassword + "\"").get(0);
