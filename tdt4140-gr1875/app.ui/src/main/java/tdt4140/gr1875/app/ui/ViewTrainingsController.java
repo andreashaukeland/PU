@@ -23,6 +23,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -66,14 +67,25 @@ public class ViewTrainingsController implements Initializable{
 		Training obj = tableView.getSelectionModel().getSelectedItem();
 		if (obj != null) {
 			String trainingPlace = obj.getTrainingPlace();
-			SessionInformation.currentTrackLoaded = UseDB.getTrackIDFromPlace(trainingPlace);	
+			SessionInformation.currentTrackLoaded = UseDB.getTrackIDFromPlace(trainingPlace);
+			createAlert("Successfully loaded " + trainingPlace + ".");
+			SceneLoader.loadWindow("TrainerMainScreen.fxml", (Node) tableView, this);
 		}
+		
 	}
+    
+    private final void createAlert(String string) {
+    	Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText(null);
+		alert.setContentText(string);
+		alert.showAndWait();
+    }
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initCol();
-		ArrayList<ArrayList<String>> list = UseDB.getTable("select place, time, date, distance from training;");
+		ArrayList<ArrayList<String>> list = UseDB.getTable("select place, time, date, distance from training where "
+				+ "officialTraining = 'yes'");
 		tableView.getItems().setAll(getRes(list));
 	}
 	

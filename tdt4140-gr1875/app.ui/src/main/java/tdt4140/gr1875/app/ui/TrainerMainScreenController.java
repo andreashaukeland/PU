@@ -103,10 +103,16 @@ public class TrainerMainScreenController implements Initializable{
 		drawer.setDirection(DrawerDirection.RIGHT);
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
+		String load = "";
+		if (SessionInformation.userType.equals("trainer")) {
+			load = "TrainerToolbar.fxml";
+		}
+		if (SessionInformation.userType.equals("runner")) {
+			load = "RunnerToolbar.fxml";
+		}
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("TrainerToolbar.fxml"));
+			toolbar = FXMLLoader.load(getClass().getResource(load));
 			drawer.setSidePane(toolbar);
-			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
 			task.setRate(-1);
 			hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event e) -> {
