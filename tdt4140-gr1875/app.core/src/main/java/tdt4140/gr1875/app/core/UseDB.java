@@ -241,7 +241,7 @@ public class UseDB {
 		Connection conn = null;
 		try {
 		    conn =
-		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","martisku_pu","pu75");
+		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","martisku_pu","pu75");
 
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -335,6 +335,8 @@ public class UseDB {
 		return deletedProperly;
 	}
 	
+	public static int getTrackIDFromPlace(String place) {
+		return Integer.parseInt(getTable("select trainingid from training where place = " + "'" + place + "'").get(0).get(0));
+	}
 	
-
 }
