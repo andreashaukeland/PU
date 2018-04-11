@@ -203,19 +203,32 @@ public class ViewTrainingDetailController implements Initializable, MapComponent
 	            .streetViewControl(false)
 	            .zoomControl(false)
 	            .mapMarker(true)
-	            .zoom(3);
+	            .zoom(12);
 
 	    map = googleMap.createMap(mapOptions);
 	    
-	    //Add a markers and draw lines in map
-	    setMultipleMarkers(coordinates);
-	    drawPath(coordinates);
+	    //Add a markers and draw runnerlines in map
+	    
+	    drawPath(coordinates, "#000000");
 	    LatLong first = coordinates[0];
 	    LatLong last = coordinates[coordinates.length - 1];
 	    LatLong[] latlonglist = new LatLong[2];
 	    latlonglist[0] = first;
 	    latlonglist[1] = last;
-	    drawPath(latlonglist);
+	    drawPath(latlonglist, "#000000");
+	    
+	  //Add a markers and draw track coordinates in map
+		String geojsonFileOfficialTrack = UseDB.getTable("Select track from training where trainingid=" + SessionInformation.currentTrainingViewed).get(0).get(0);
+	    LatLong[] coordinatesOfficialTrack = stringToCoordinates(geojsonFileOfficialTrack);
+
+	    setMultipleMarkers(coordinatesOfficialTrack);
+	    drawPath(coordinatesOfficialTrack,  "#ff4500");
+	    first = coordinatesOfficialTrack[0];
+	    last = coordinatesOfficialTrack[coordinatesOfficialTrack.length - 1];
+	    latlonglist = new LatLong[2];
+	    latlonglist[0] = first;
+	    latlonglist[1] = last;
+	    drawPath(latlonglist, "#ff4500");
 	}
 	 
 	
@@ -245,13 +258,13 @@ public class ViewTrainingDetailController implements Initializable, MapComponent
 		}		
 	}
 	
-	public void drawPath(LatLong[] path) {
+	public void drawPath(LatLong[] path, String color) {
 		line_opt = new PolylineOptions();
 		line_opt.path(new MVCArray(path))
 	            .clickable(false)
 	            .draggable(false)
 	            .editable(false)
-	            .strokeColor("#ff4500")
+	            .strokeColor(color)
 	            .strokeWeight(2)
 	            .visible(true);
 
@@ -263,7 +276,7 @@ public class ViewTrainingDetailController implements Initializable, MapComponent
 	private void setMultipleMarkers(LatLong[] coordinates) {
 		for (int i = 0; i < coordinates.length; i++) {
 			MarkerOptions options = new MarkerOptions();
-			options.position(coordinates[i]).visible(Boolean.TRUE).icon("http://2.gravatar.com/avatar/8cb8671a62910c02e407fcee81699840?s=40&d=blank&r=g");
+			options.position(coordinates[i]).visible(Boolean.TRUE);
 			Marker marker = new Marker(options);
 			map.addMarker(marker);
 		}
