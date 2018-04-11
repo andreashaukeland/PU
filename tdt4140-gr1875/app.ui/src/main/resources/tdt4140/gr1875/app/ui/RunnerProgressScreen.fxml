@@ -102,6 +102,11 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </JFXButton>
+                                    <JFXButton fx:id="goToTrainignButton" onAction="#OnGoToTrainingButton" text="Go to training">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXButton>
    </children>
 </VBox>
 </content>

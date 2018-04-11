@@ -249,19 +249,20 @@ public class UseDB {
 	
 	// Some prebuilt functions
 	
-	public static boolean submitWeeklyRun(String place, String date, String time, int distance, String track) {
+	public static boolean submitWeeklyRun(String place, String date, String time, int distance, String track, String officalTraining) {
 		int newID = UseDB.getFreeID("training");
-		return addRow("training", newID, place, time, date, distance, track);	
+		return addRow("training", newID, place, time, date, distance, track, officalTraining);	
 	}
 	
 	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
 		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
-			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time,comment);
+			
+			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time, comment);
 		}
 		else {
-			return addRow("result", currentTrainingId,runnerID,time,comment);
+			return addRow("result", currentTrainingId,runnerID,time,comment, "(GEOJSON TEXT)");
 		}
 	}
 	

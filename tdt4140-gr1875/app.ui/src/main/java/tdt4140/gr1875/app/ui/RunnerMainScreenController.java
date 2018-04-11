@@ -35,10 +35,19 @@ public class RunnerMainScreenController implements Initializable{
 	@FXML private StackPane stackPane;
 	@FXML private BorderPane borderPane;
 	@FXML private JFXTextArea nextRun;
-	
 	@FXML private TextField timeTextfield;
 	@FXML private JFXButton submitButton;
 	@FXML private TextField commentTextfield;
+	
+	//FXML FOR CREATING A NEW INDIVIUAL TRAINING 
+	@FXML private TextField PlaceTextfield;
+	@FXML private TextField TimeTextfield;
+	@FXML private TextField DateTextfield;
+	@FXML private TextField DistanceTextfield;
+	@FXML private TextField TrackTextfield;
+	@FXML private TextField TimeUsedTextfield;
+	@FXML private TextField CommentTextfield;
+	@FXML private JFXButton SubmitButton;
 	
 	private RunnerMainScreen model = new RunnerMainScreen();
 	
@@ -84,24 +93,49 @@ public class RunnerMainScreenController implements Initializable{
 		
 	}
 	
-	public void onSubmit() {
+	public void onSubmitNewTraining() {
+		String place = PlaceTextfield.getText();
+		String time = TimeTextfield.getText();
+		String date = DateTextfield.getText();
+		int distance = Integer.parseInt(DistanceTextfield.getText());
+		String track = TrackTextfield.getText();
+		String timeUsed = TimeUsedTextfield.getText();
+		String comment = CommentTextfield.getText();
+		boolean submitted = model.createNewTraining(place, time, date, distance, track, timeUsed, comment);
+		if(! submitted) {
+			createAlert("Could not submit to database");
+		}
+		else {
+			PlaceTextfield.setText("");
+			TimeTextfield.setText("");
+			DateTextfield.setText("");
+			DistanceTextfield.setText("");
+			TrackTextfield.setText("");
+			TimeUsedTextfield.setText("");
+			CommentTextfield.setText("");
+			createAlert("Successfully submitted to database");
+		}
+	}
+	
+	public void onSubmitCurrentTraining() {
 		String time = timeTextfield.getText();
 		String comment = commentTextfield.getText();
 		boolean submitted = model.submitTime(SessionInformation.userId, time, comment);
 		if(! submitted) {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Could not submit to database");
-			alert.showAndWait();
+			createAlert("Could not submit to database");
 		}
 		else {
 			timeTextfield.clear();
 			commentTextfield.clear();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setContentText("Time submitted");
-			alert.showAndWait();
+			createAlert("Time submitted");
 		}
+	}
+	
+	public void createAlert(String text) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText(null);
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 
 }

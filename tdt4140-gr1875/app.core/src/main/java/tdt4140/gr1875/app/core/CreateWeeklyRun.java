@@ -27,14 +27,14 @@ public class CreateWeeklyRun {
 		}
 
 		if (geojsonFilePath.equals("")) {
-			UseDB.submitWeeklyRun(place, date, time, distance, geojsonFilePath);
+			UseDB.submitWeeklyRun(place, date, time, distance, geojsonFilePath, "yes");
 			return true;
 		}
 
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
-			UseDB.submitWeeklyRun(place, date, time, distance, track.toString());
+			UseDB.submitWeeklyRun(place, date, time, distance, track.toString(), "yes");
 			createAlert("Training submitted with track");
 			return true;
 		} catch (IOException | ParseException e) {

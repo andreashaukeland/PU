@@ -23,7 +23,7 @@ public class UseDBTest {
 	@Test
 	public void DBTest() {
 		
-		UseDB.addRow("training", id, "TestTrack", "12:00", "2019-03-12", 0, "");
+		UseDB.addRow("training", id, "TestTrack", "12:00", "2019-03-12", 0, "", "yes");
 		
 		ArrayList<ArrayList<String>> result1 = UseDB.getTable("SELECT * FROM training WHERE trainingid="+id);
 		String track = result1.get(result1.size()-1).get(1);
@@ -51,7 +51,7 @@ public class UseDBTest {
 	
 	@Test
 	public void submitWeeklyRunTest() {
-		UseDB.submitWeeklyRun("TestTrack2", "2019-03-12", "12:00", 0, "");
+		UseDB.submitWeeklyRun("TestTrack2", "2019-03-12", "12:00", 0, "", "yes");
 		ArrayList<ArrayList<String>> result2 = UseDB.getTable("SELECT trainingid, place FROM training WHERE place='TestTrack2'");
 		int id2 = Integer.parseInt(result2.get(0).get(0));
 		
@@ -61,11 +61,13 @@ public class UseDBTest {
 	
 	@Test
 	public void submitTimeToTrainingTest() {
-		int runner_id = Integer.parseInt(UseDB.getTable("SELECT runnerid FROM runner").get(0).get(0));
+		int runner_id = 999;
+		UseDB.addRow("runner", runner_id, "Andreas", "Haukeland", "18.05.95", "andhauk@stud.no", "90909090", "");
 		UseDB.submitTimeToTraining(runner_id, "10:10:10", "test comment");
 		ArrayList<ArrayList<String>> result3 = UseDB.getTable("SELECT comment FROM result WHERE comment='test comment'");
 		Assert.assertEquals("test comment", result3.get(result3.size()-1).get(0));
 		UseDB.deleteRow("result", runner_id);
+		UseDB.deleteRow("runner", 999);
 
 	}
 	
