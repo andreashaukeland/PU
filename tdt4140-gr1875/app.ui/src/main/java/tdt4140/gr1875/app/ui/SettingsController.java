@@ -93,8 +93,14 @@ public class SettingsController {
     	String username = list.get(0).get(0);
     	CreateNewUser user = new CreateNewUser();
     	user.deleteUser(username, userId, SessionInformation.userType);
+    	SessionInformation.userId = 0;
+		SessionInformation.userType = "";
+		SceneLoader.loadWindow("LoginScreen.fxml", (Node) backButton, this);
     	
     }
+    
+
+    
     //Error when reading Elevator.wav. Worked before, reason not found.
     /*
     void playSound() {
