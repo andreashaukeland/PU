@@ -59,7 +59,7 @@ public class UseDB {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		
-	try { conn.close(); } catch (SQLException e) {/* ignore */}
+	try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
 	
     System.out.println("Process finished, connection closed");
 	return table;
@@ -119,11 +119,12 @@ public class UseDB {
 	
 	public static boolean addRow(String table, Object...objects) {
 		Connection conn = connectDB();
+		Statement stmt = null;
 		boolean result_status = false;
 		
 		try {
 			System.out.println("Inserting row into " + table + "...");
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM " + table); // Need rs to get column count
 		    java.sql.ResultSetMetaData rsmd = rs.getMetaData();
@@ -157,7 +158,7 @@ public class UseDB {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		
-		try { conn.close(); } catch (SQLException e) {/* ignore */}
+		try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
@@ -167,6 +168,7 @@ public class UseDB {
 	// Delete a row in the database, arguments are table name (string) and id (integer)
 	public static boolean deleteRow(String table, Integer id) {
 		Connection conn = connectDB();
+		Statement stmt = null;
 		boolean result_status = false;
 		
 		String table2 = table;
@@ -177,7 +179,7 @@ public class UseDB {
 		
 		try {
 			System.out.println("Deleting row with id: " + id + "..");
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			
 			stmt.executeUpdate("DELETE FROM " + table + " WHERE " + table2 + "id like " + id);
 			System.out.println("Row deleted!");
@@ -190,24 +192,27 @@ public class UseDB {
 		    System.out.println("VendorError: " + ex.getErrorCode());		  
 		}
 		
-		try { conn.close(); } catch (SQLException e) {/* ignore */}
+		try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
 	
 	public static void addComment(int trainingid, String comment) {
+		Connection conn = connectDB();
+		Statement stmt = null;
 		try {
-			Connection myconn = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db","martisku_pu","pu75");
-			Statement statement = myconn.createStatement();
+			stmt = conn.createStatement();
 			String query = "Update result"
 					+ " set comment = \""+comment+"\"\n"
 					+ "where trainingid= "+trainingid+" and runnerid= "+SessionInformation.userId+";";
 			System.out.println(query);
-		    statement.execute(query);
+		    stmt.execute(query);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
+	    System.out.println("Process finished, connection closed");
 	}
 	
 	
@@ -234,7 +239,7 @@ public class UseDB {
 		Connection conn = null;
 		try {
 		    conn =
-		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?useSSL=false","martisku_pu","pu75");
+		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","martisku_pu","pu75");
 
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -280,16 +285,16 @@ public class UseDB {
 	}
 	public static boolean updateTrainingRow(int trainingid, int runnerid, String newTime, String comment) { 
 		Connection conn = connectDB();
+		Statement stmt = null;
 		boolean result_status = false;
 		
 		try {
 			System.out.println("Update row with trainingid: " + trainingid + " and runnerid:"+runnerid+"...");
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			String query = "UPDATE result set time='"+newTime+"', comment='"+comment+"' where trainingid= "+trainingid+" and runnerid= "+runnerid;
 			System.out.println(query);
 			stmt.executeUpdate(query);
 			System.out.println("Row updated!");
-			try { conn.close(); } catch (SQLException e) {/* ignore */}
 			result_status = true;	
 		}
 		catch (SQLException ex){
@@ -298,7 +303,7 @@ public class UseDB {
 		    System.out.println("VendorError: " + ex.getErrorCode());		  
 		}
 		
-		try { conn.close(); } catch (SQLException e) {/* ignore */}
+		try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 		
