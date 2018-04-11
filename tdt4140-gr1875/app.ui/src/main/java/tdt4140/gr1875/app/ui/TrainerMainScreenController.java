@@ -39,6 +39,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.RunnerProgressScreenController.Results;
 import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
@@ -65,7 +66,7 @@ public class TrainerMainScreenController implements Initializable{
 		initCol();
 		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT concat(firstname, ' ', lastname), place, result.time"
 				+ " FROM result join runner on result.runnerid = runner.runnerid join training on training.trainingid ="
-				+ "result.trainingid");
+				+ "result.trainingid WHERE training.trainingid = '" + SessionInformation.currentTrackLoaded + "'");
 		tableView.getItems().setAll(getResults(list));
 	}
 	

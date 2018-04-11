@@ -62,12 +62,12 @@ public class ViewTrainingsController implements Initializable{
     }
     
     @FXML
-	public void onLoadTrack() { //TODO: Load the selected track in table
+	public void onLoadTrack() {
 		Training obj = tableView.getSelectionModel().getSelectedItem();
 		if (obj != null) {
-			System.out.println(obj.getTrainingPlace());
+			String trainingPlace = obj.getTrainingPlace();
+			SessionInformation.currentTrackLoaded = UseDB.getTrackIDFromPlace(trainingPlace);	
 		}
-		
 	}
     
 	@Override
