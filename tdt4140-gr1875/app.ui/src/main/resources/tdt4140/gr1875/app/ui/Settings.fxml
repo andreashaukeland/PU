@@ -28,7 +28,7 @@
       <JFXButton fx:id="usernameButton" layoutX="410.0" layoutY="108.0" onAction="#onSetUsername" prefHeight="38.0" prefWidth="121.0" styleClass="login-button" text="Set Username" />
       <JFXButton fx:id="passwordButton" layoutX="410.0" layoutY="181.0" onAction="#onSetPassword" prefHeight="38.0" prefWidth="121.0" styleClass="login-button" text="Set Password" />
       <FontAwesomeIconView glyphName="COG" layoutX="280.0" layoutY="57.0" size="40" styleClass="glypgh-icon" />
-      <JFXButton fx:id="deleteButton" contentDisplay="TOP" layoutX="397.0" layoutY="263.0" onAction="#logOut" prefHeight="88.0" prefWidth="147.0" styleClass="login-button" text="Delete account" textFill="#ffff8d">
+      <JFXButton fx:id="deleteButton" contentDisplay="TOP" layoutX="397.0" layoutY="263.0" prefHeight="88.0" prefWidth="147.0" styleClass="login-button" text="Delete account" textFill="#ffff8d">
          <graphic>
             <FontAwesomeIconView glyphName="TRASH" size="40" styleClass="glypgh-icon" />
          </graphic>
