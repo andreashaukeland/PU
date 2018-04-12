@@ -3,6 +3,7 @@ package tdt4140.gr1875.app.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -23,6 +24,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -86,18 +90,31 @@ public class SettingsController {
     
     @FXML
     public void onDeleteAccount() {
-    	int userId = SessionInformation.userId;
-    	ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT username"
-				+ " FROM login"
-				+ " WHERE loginid =" + userId +";");
-    	String username = list.get(0).get(0);
-    	CreateNewUser user = new CreateNewUser();
-    	user.deleteUser(username, userId, SessionInformation.userType);
-    	SessionInformation.userId = 0;
-		SessionInformation.userType = "";
-		SceneLoader.loadWindow("LoginScreen.fxml", (Node) backButton, this);
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Delete account");
+    	alert.setHeaderText("Are you sure you want to delete your account?");
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK) {
+    		int userId = SessionInformation.userId;
+        	ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT username"
+    				+ " FROM login"
+    				+ " WHERE loginid =" + userId +";");
+        	String username = list.get(0).get(0);
+        	CreateNewUser user = new CreateNewUser();
+        	user.deleteUser(username, userId, SessionInformation.userType);
+        	SessionInformation.userId = 0;
+    		SessionInformation.userType = "";
+    		SceneLoader.loadWindow("LoginScreen.fxml", (Node) backButton, this);
+    	}
+    	else {
+    		return;
+    	}
+    	
     	
     }
+    
+    
     
 
     
