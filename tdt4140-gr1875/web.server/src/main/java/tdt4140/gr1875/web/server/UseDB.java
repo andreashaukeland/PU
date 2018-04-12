@@ -102,6 +102,26 @@ public class UseDB {
 		}
 	}
 	
+	//Arguments example: getIDByName("training", "place='TestTrack'"); 
+	
+	public static ArrayList<ArrayList<String>> getRow(String table, List<String> names) {
+		
+		try {
+			String query = "SELECT * FROM " + table;
+			if (!names.isEmpty()) {
+				query += " WHERE " + names.get(0);
+			}
+			
+			for (int i = 1; i < names.size(); i++) {
+				query += " AND " + names.get(i);
+			}
+			System.out.println(query);
+			return getTable(query);
+		} catch (Exception e) {
+			System.out.println("ERROR:" + e);
+			return null;
+		}
+	}	
 	public static String getGeojsonTrack(int trackNum) {
 		return getTable("SELECT track FROM training WHERE training.trainingid = " + trackNum).get(0).get(0);
 	}
@@ -313,6 +333,5 @@ public class UseDB {
 		}
 		return deletedProperly;
 	}
-
 }
 
