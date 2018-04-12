@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -33,11 +34,13 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -74,6 +77,8 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private Label labelAge;
 	@FXML private TextField commentTextfield;
 	@FXML private JFXButton commentButton;
+	@FXML private JFXButton deleteResultButton;
+	@FXML private TextField timeTextfield;
 	
 	private RunnerProgressScreen runnerProgressScreen = new RunnerProgressScreen();
 	private int currentUser;
@@ -101,11 +106,13 @@ public class RunnerProgressScreenController implements Initializable{
 			if (newval != null) {
 				commentTextfield.setText(newval.getComment());
 				trainingID = Integer.parseInt(newval.getTrainingNumber());
-				time = newval.getTime();
+				timeTextfield.setText(newval.getTime());
 				
 			}
-			else
-				commentTextfield.setText("No comment given");
+			else {
+				commentTextfield.setText("Select training");
+				timeTextfield.setText("tt:mm:ss");
+			}
 			
 	});
 		initProgressChart();
@@ -217,6 +224,7 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML
 	void OnCommentButton(ActionEvent event) {
 		String comment = commentTextfield.getText();
+		String time = timeTextfield.getText();
 		boolean submitted = runnerProgressScreen.submitComment(trainingID, SessionInformation.userId, time, comment);
 		if(! submitted) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -227,7 +235,7 @@ public class RunnerProgressScreenController implements Initializable{
 		else {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
-			alert.setContentText("Comment updated");
+			alert.setContentText("Result updated");
 			alert.showAndWait();
 		}
 		
@@ -235,6 +243,27 @@ public class RunnerProgressScreenController implements Initializable{
 				+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
 				+ " WHERE runner.runnerid =" + currentUser +";");
 		tableView.getItems().setAll(getResults(list));
+	}
+	
+	@FXML 
+	void OnDeleteButton(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+    	alert.setTitle("Delete result?");
+    	alert.setHeaderText("Are you sure you want to delete this result?");
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK) {
+    		    String query = "DELETE FROM result WHERE trainingid = " + trainingID +" AND runnerid = " + currentUser +";";
+    		    System.out.println(query);
+    		    UseDB.executeUpdate(query);
+    		    ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT training.trainingid, place, date, distance, result.time, result.comment"
+    					+ " FROM training join result on result.trainingid = training.trainingid join runner on runner.runnerid = result.runnerid"
+    					+ " WHERE runner.runnerid =" + currentUser +";");
+    			tableView.getItems().setAll(getResults(list));
+    	}
+    	else {
+    		return;
+    	}
 	}
 	@FXML
 	void OnGoToTrainingButton(ActionEvent event) {
