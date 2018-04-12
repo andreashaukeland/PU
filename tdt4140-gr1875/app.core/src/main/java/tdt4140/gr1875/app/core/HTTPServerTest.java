@@ -221,6 +221,7 @@ public class HTTPServerTest {
 		assertEquals(OK, statusCode);
 	}
 */
+
 	// Konverterer fra Json til map, der nokkel er variabelnavn
 	private Map<String, String> extractInfoFromResponse(String json) {
 		Gson gson = new Gson();
