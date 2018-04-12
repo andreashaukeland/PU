@@ -39,6 +39,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.RunnerProgressScreenController.Results;
 import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
@@ -65,7 +66,7 @@ public class TrainerMainScreenController implements Initializable{
 		initCol();
 		ArrayList<ArrayList<String>> list = UseDB.getTable("SELECT concat(firstname, ' ', lastname), place, result.time"
 				+ " FROM result join runner on result.runnerid = runner.runnerid join training on training.trainingid ="
-				+ "result.trainingid");
+				+ "result.trainingid WHERE training.trainingid = '" + SessionInformation.currentTrackLoaded + "'");
 		tableView.getItems().setAll(getResults(list));
 	}
 	
@@ -102,10 +103,16 @@ public class TrainerMainScreenController implements Initializable{
 		drawer.setDirection(DrawerDirection.RIGHT);
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
+		String load = "";
+		if (SessionInformation.userType.equals("trainer")) {
+			load = "TrainerToolbar.fxml";
+		}
+		if (SessionInformation.userType.equals("runner")) {
+			load = "RunnerToolbar.fxml";
+		}
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("TrainerToolbar.fxml"));
+			toolbar = FXMLLoader.load(getClass().getResource(load));
 			drawer.setSidePane(toolbar);
-			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
 			task.setRate(-1);
 			hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event e) -> {

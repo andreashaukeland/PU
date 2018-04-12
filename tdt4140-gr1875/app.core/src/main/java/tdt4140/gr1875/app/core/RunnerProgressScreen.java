@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RunnerProgressScreen {
-
-	public RunnerProgressScreen() {
-		
-	}
 	
 	public static String getLastRun() {
 		ArrayList<String> lastRun = UseDB.getLastRun();
@@ -18,7 +14,7 @@ public class RunnerProgressScreen {
 		return null;
 	}
 	
-	public boolean submitComment(int trainingID, int runnerID, String time, String comment) {
+	public static boolean submitComment(int trainingID, int runnerID, String time, String comment) {
 		return UseDB.updateCommentToTraining(trainingID, runnerID, time, comment);
 	}	
 }

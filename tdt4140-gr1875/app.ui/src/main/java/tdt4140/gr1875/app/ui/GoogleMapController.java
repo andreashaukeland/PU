@@ -35,6 +35,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
+import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 
 
@@ -49,7 +50,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	
 	@Override
 	public void mapInitialized() {
-		String geojsonFile = UseDB.getGeojsonTrack(1); //TODO to see in map based on which track the trainer has chosen in trainings tab
+		String geojsonFile = UseDB.getGeojsonTrack(SessionInformation.currentTrackLoaded); //TODO to see in map based on which track the trainer has chosen in trainings tab
 	    
 		if (geojsonFile.length() < 1) {
 			//Set the initial properties of the map.
@@ -84,7 +85,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	            .streetViewControl(false)
 	            .zoomControl(false)
 	            .mapMarker(true)
-	            .zoom(3);
+	            .zoom(12);
 
 	    map = googleMap.createMap(mapOptions);
 	    
@@ -144,7 +145,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	private void setMultipleMarkers(LatLong[] coordinates) {
 		for (int i = 0; i < coordinates.length; i++) {
 			MarkerOptions options = new MarkerOptions();
-			options.position(coordinates[i]).visible(Boolean.TRUE).icon("http://2.gravatar.com/avatar/8cb8671a62910c02e407fcee81699840?s=40&d=blank&r=g");
+			options.position(coordinates[i]).visible(Boolean.TRUE);
 			Marker marker = new Marker(options);
 			map.addMarker(marker);
 		}
