@@ -91,6 +91,51 @@ public class DatabaseConnector {
 	    System.out.println("Process finished, connection closed");
 		return result_status;
 	}
+	
+	// Get table from database
+		public static ArrayList<ArrayList<String>> getTable(String query) {
+			
+			Connection conn = connectDB();
+			
+			if (conn == null) {
+				System.out.println("Can not connect to database");
+				System.exit(0);
+			}
+			
+			Statement stmt = null;
+			ResultSet rs = null;
+			ArrayList<ArrayList<String>> table = null;
+			
+			System.out.println("Running query..");
+			
+			try {
+			    stmt = conn.createStatement();
+			    rs = stmt.executeQuery(query);
+			    java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+
+			    int colNum = rsmd.getColumnCount();
+			    table = new ArrayList<ArrayList<String>>();
+			    
+		        while(rs.next()) {
+		        	ArrayList<String> col = new ArrayList<String>();
+		        	for (int i = 1; i < colNum+1; i++) {
+						col.add(rs.getString(i));
+					}
+		        	table.add(col);
+			    }
+
+			}
+			catch (SQLException ex){
+			    System.out.println("SQLException: " + ex.getMessage());
+			    System.out.println("SQLState: " + ex.getSQLState());
+			    System.out.println("VendorError: " + ex.getErrorCode());
+			}
+			
+		try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
+		
+	    System.out.println("Process finished, connection closed");
+		return table;
+		}
 
 	//Help function for connecting to an external database.
 	private static Connection connectDB() {
@@ -110,6 +155,3 @@ public class DatabaseConnector {
 	}
 	
 	}
-	
-}
-
