@@ -343,7 +343,25 @@ public class UseDB {
 		Connection conn = connectDB();
 		Statement stmnt = conn.createStatement();
 		stmnt.executeQuery(query);
-		}catch (Exception e) {}
+		}catch (SQLException ex){
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());	
+		}
+		
+	}
+	
+	public static void executeUpdate(String query) {
+		try {
+		Connection conn = connectDB();
+		Statement stmnt = conn.createStatement();
+		stmnt.executeUpdate(query);
+		}catch (SQLException ex){
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());	
+		}
+		
 	}
 	
 }
