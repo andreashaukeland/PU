@@ -97,12 +97,12 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <JFXButton fx:id="commentButton" onAction="#OnCommentButton" text="Update">
+                                    <JFXButton fx:id="commentButton" onAction="#OnCommentButton" styleClass="login-button" text="Update">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="goToTrainignButton" onAction="#OnGoToTrainingButton" text="Go to training">
+                                    <JFXButton fx:id="goToTrainignButton" onAction="#OnGoToTrainingButton" styleClass="login-button" text="Go to training">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>

@@ -14,6 +14,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
 
 <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="675.0" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1875.app.ui.ViewTrainingDetailController">
    <children>
@@ -47,15 +52,17 @@
                <children>
                   <JFXTabPane layoutY="2.0" prefHeight="33.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <tabs>
-                        <Tab text="Information">
+                        <Tab text="Map" fx:id="mapTab">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="613.0">
                                  <children>
-                                   </children>
+                                       <GoogleMapView fx:id="googleMap" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"  GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+									</children>
                               </AnchorPane>
                            </content> 
+                        	
                         </Tab>
-                        <Tab text="Map">
+                        <Tab text="Pulse overview" fx:id="pulseOverview">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="613.0">
                                  <children>
@@ -64,7 +71,7 @@
                            </content> 
                         	
                         </Tab>
-                        <Tab text="Pulse overview">
+                        <Tab text="Speed overview" fx:id="speedOverview">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="613.0">
                                  <children>

@@ -63,7 +63,7 @@ public class UseDBTest {
 	public void submitTimeToTrainingTest() {
 		int runner_id = 999;
 		UseDB.addRow("runner", runner_id, "Andreas", "Haukeland", "18.05.95", "andhauk@stud.no", "90909090", "");
-		UseDB.submitTimeToTraining(runner_id, "10:10:10", "test comment");
+		UseDB.submitTimeToTraining(runner_id, "10:10:10", "test comment", "test comment", "test comment");
 		ArrayList<ArrayList<String>> result3 = UseDB.getTable("SELECT comment FROM result WHERE comment='test comment'");
 		Assert.assertEquals("test comment", result3.get(result3.size()-1).get(0));
 		UseDB.deleteRow("result", runner_id);
@@ -74,10 +74,11 @@ public class UseDBTest {
 	@Test
 	public void testUpdateTrainingRow() {
 		int currentTrainingId = Integer.parseInt(UseDB.getLastRun().get(0));
-		UseDB.submitTimeToTraining(999, "10:00", "hei");
+		UseDB.submitTimeToTraining(999, "10:00", "hei", "", "");
 		UseDB.updateTrainingRow(currentTrainingId, 999, "09:00", "slay");
 		UseDB.deleteRow("result", 999);
 	}
+
 	
 }
 

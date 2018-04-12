@@ -77,6 +77,8 @@ public class UseDB {
 		}
 	}
 	
+	
+	
 	//Arguments example: getIDByName("training", "place=TestTrack"); 
 	
 	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
@@ -257,7 +259,7 @@ public class UseDB {
 		return addRow("training", newID, place, time, date, distance, track, officalTraining);	
 	}
 	
-	public static boolean submitTimeToTraining(int runnerID, String time, String comment) {
+	public static boolean submitTimeToTraining(int runnerID, String time, String comment, String text, String map) {
 		String currentTrainingId = getLastRun().get(0);
 		System.out.println("result" + "," + currentTrainingId + "," + runnerID + "," + time);
 		if (checkIfResultExists(Integer.parseInt(currentTrainingId), runnerID)) {
@@ -265,7 +267,7 @@ public class UseDB {
 			return updateTrainingRow(Integer.parseInt(currentTrainingId), runnerID, time, comment);
 		}
 		else {
-			return addRow("result", currentTrainingId,runnerID,time,comment, "(GEOJSON TEXT)");
+			return addRow("result", currentTrainingId,runnerID,time,comment, text, map);
 		}
 	}
 	
@@ -335,6 +337,13 @@ public class UseDB {
 	
 	public static int getTrackIDFromPlace(String place) {
 		return Integer.parseInt(getTable("select trainingid from training where place = " + "'" + place + "'").get(0).get(0));
+	}
+	public static void executeQuery(String query) {
+		try {
+		Connection conn = connectDB();
+		Statement stmnt = conn.createStatement();
+		stmnt.executeQuery(query);
+		}catch (Exception e) {}
 	}
 	
 }
