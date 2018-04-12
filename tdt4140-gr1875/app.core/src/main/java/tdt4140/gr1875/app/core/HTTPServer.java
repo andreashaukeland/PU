@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -24,7 +29,7 @@ public class HTTPServer {
 	static HttpServer server;
 
 	public static void initialize() throws Exception {
-		server = HttpServer.create(new InetSocketAddress(8000), 0);
+		server = HttpServer.create(new InetSocketAddress(3005), 0);
 		server.createContext("/training", new TrainingHandler());
 		//server.createContext("/clients", new ClientHandler());
 		//server.createContext("/exercise", new ExerciseHandler());
@@ -272,5 +277,25 @@ public class HTTPServer {
 		}
 	}
 	*/
+	}
+	
+	public static void main(String[] args) {
+		HTTPServer s = new HTTPServer();
+		try {
+			s.initialize();
+			
+			String postUrl = "http://localhost:8000/training";
+			HttpClient httpClient = HttpClientBuilder.create().build();
+			HttpPost post = new HttpPost(postUrl);
+			StringEntity postingString = new StringEntity("runnerid=5&time=01:00:00&comment=server&text='mongo'", "utf-8");
+			post.setEntity(postingString);
+			post.setHeader("Content-type", "application/json");
+			HttpResponse response = httpClient.execute(post);
+			
+			 s.tearDown();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// fail();
+		}
 	}
 }
