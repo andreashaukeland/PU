@@ -85,7 +85,7 @@ public class GoogleMapController implements Initializable, MapComponentInitializ
 	            .streetViewControl(false)
 	            .zoomControl(false)
 	            .mapMarker(true)
-	            .zoom(3);
+	            .zoom(12);
 
 	    map = googleMap.createMap(mapOptions);
 	    
