@@ -94,19 +94,19 @@ public class HTTPServer {
 			boolean added = false;
 			try {
 				if(args.get(0).equals("training")) {
-					added = UseDB.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5),args.get(6),args.get(7));
+					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5),args.get(6),args.get(7));
 				}
 				else if(args.get(0).equals("trainer")) {
-					added = UseDB.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
+					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
 				}
 				else if(args.get(0).equals("runner")) {
-					added = UseDB.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6), args.get(7));
+					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6), args.get(7));
 				}
 				else if(args.get(0).equals("result")) {
-					added = UseDB.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
+					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
 				}
 				else if(args.get(0).equals("login")) {
-					added = UseDB.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
+					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
 				}
 	
 				sendResponse(ex, String.valueOf(added), 201);
@@ -121,7 +121,7 @@ public class HTTPServer {
 			boolean added = false;			
 			try {
 				List<String> comparisons = Arrays.asList(sessionId.split("&"));
-				ArrayList<ArrayList<String>> training = UseDB.getRow(comparisons.get(0),
+				ArrayList<ArrayList<String>> training = DatabaseConnector.getRow(comparisons.get(0),
 						comparisons.subList(1, comparisons.size()));
 				
 				Gson gson = new Gson();
