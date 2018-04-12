@@ -52,7 +52,7 @@
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="613.0">
                                  <children>
-                                    <JFXTextArea fx:id="nextRun" layoutX="235.0" layoutY="121.0" prefHeight="57.0" prefWidth="204.0" styleClass="text-field" wrapText="true">
+                                    <JFXTextArea fx:id="nextRun" layoutX="227.5" layoutY="121.0" prefHeight="57.0" prefWidth="219.0" styleClass="text-field" wrapText="true">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets></JFXTextArea>
