@@ -55,6 +55,12 @@ import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
+/*
+ * This class is used to initialize the progress screen for the runner. It loads all the results for the logged
+ * in runner into a table. It also gives the ability to view details about a given training. 
+ * 
+ */
+
 public class RunnerProgressScreenController implements Initializable{
 
 	private JFXDrawer drawer;

@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tdt4140.gr1875.app.core.SessionInformation;
 
+/*
+ * This class is used to load the corresponding windows when the buttons in the trainers toolbar are clicked. 
+ * 
+ */
+
 public class TrainerToolbarController {
 		
 	

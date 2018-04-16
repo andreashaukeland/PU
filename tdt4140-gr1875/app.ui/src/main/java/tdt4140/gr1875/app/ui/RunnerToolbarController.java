@@ -16,6 +16,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.SessionInformation;
 
+/*
+ * This class is used to load the corresponding windows when the buttons in the runners toolbar are clicked. 
+ * 
+ */
+
 public class RunnerToolbarController {
 
 	@FXML private JFXButton nextTraining;

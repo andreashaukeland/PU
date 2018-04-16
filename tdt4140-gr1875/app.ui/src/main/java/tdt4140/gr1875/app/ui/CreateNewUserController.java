@@ -34,6 +34,12 @@ import javafx.stage.Stage;
 import tdt4140.gr1875.app.core.CreateNewUser;
 import tdt4140.gr1875.app.core.SessionInformation;
 
+/*
+ * This class is used to create a new user. When a user enters the button "create user" the textfields are read
+ * and all info are inserted into the database. 
+ * 
+ */
+
 public class CreateNewUserController implements Initializable{
 	@FXML private JFXTextField firstnameField;
 	@FXML private JFXTextField lastnameField;

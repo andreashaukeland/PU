@@ -40,6 +40,13 @@ import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.TrainerMainScreenController.Results;
 
+/*
+ * This class is used to initialize the trainings window. It reads all trainings from database and puts it in a table.
+ * It also gives the opportunity to load a highlighted training from the table. You can then view the map and results
+ * for that training.  
+ * 
+ */
+
 public class ViewTrainingsController implements Initializable{
 
 	@FXML private TableView<Training> tableView;

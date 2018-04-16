@@ -28,6 +28,12 @@ import javafx.scene.layout.VBox;
 import tdt4140.gr1875.app.core.RunnerMainScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
 
+
+/*
+ * This class is used to initialize the runners main screen. It also has support for creating an individual training. 
+ * 
+ */
+
 public class RunnerMainScreenController implements Initializable{
 
 	private JFXDrawer drawer;

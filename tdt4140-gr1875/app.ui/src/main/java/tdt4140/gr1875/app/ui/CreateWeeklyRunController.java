@@ -27,6 +27,12 @@ import tdt4140.gr1875.app.core.CreateWeeklyRun;
 
 import javafx.stage.StageStyle;
 
+/*
+ * This class is used to crate a new weekly run. When the trainer wants to add a training he can submit
+ * a geojson file from his own files and the program reads and draws the track in map.  
+ * 
+ */
+
 public class CreateWeeklyRunController {
 
 	

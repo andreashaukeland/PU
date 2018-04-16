@@ -34,6 +34,11 @@ import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.core.CreateNewUser;
 
+/*
+ * This class is used to delete the users account, set new username and password and change sound on/off. 
+ * 
+ */
+
 public class SettingsController {
 
 	@FXML

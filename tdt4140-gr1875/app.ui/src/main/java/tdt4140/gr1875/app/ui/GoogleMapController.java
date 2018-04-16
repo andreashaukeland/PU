@@ -38,6 +38,11 @@ import netscape.javascript.JSObject;
 import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 
+/*
+ * This class is used to initialize the map function. It reads the given geojson file from the database, draws
+ * the path and puts down markers for each post.  
+ * 
+ */
 
 public class GoogleMapController implements Initializable, MapComponentInitializedListener{
 

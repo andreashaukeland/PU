@@ -75,6 +75,12 @@ import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.core.ViewTrainingDetail;
 import tdt4140.gr1875.app.ui.TrainerMainScreenController.Results;
 
+/*
+ * This class is used to initialize the progress view for a runner. It initializes the map and charts for pulse and 
+ * speed during the chosen run.
+ * 
+ */
+
 public class ViewTrainingDetailController implements Initializable, MapComponentInitializedListener{
 	private JFXDrawer drawer;
 	@FXML private JFXHamburger hamburger;

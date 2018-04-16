@@ -44,6 +44,10 @@ import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.RunnerProgressScreenController.Results;
 import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
+/*
+ * This class is used to initialize the trainers main screen and load all the results in a table. 
+ * 
+ */
 
 public class TrainerMainScreenController implements Initializable{
 

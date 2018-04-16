@@ -8,6 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ * This class is a helping class that opens a new window and closes the current window.
+ * 
+ */
+
 public class SceneLoader {
     public static void loadWindow(String loc, Node root, Object classname) {
     	try {

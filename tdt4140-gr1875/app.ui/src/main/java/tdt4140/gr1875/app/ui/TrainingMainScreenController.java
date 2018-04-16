@@ -29,6 +29,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/*
+ * This class is used to initialize the training screen. 
+ * 
+ */
 
 public class TrainingMainScreenController implements Initializable{
 

@@ -25,6 +25,11 @@ import tdt4140.gr1875.app.core.LoginScreen;
 import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 
+/*
+ * This class is used to controll the login information and login to a users account.  
+ * 
+ */
+
 public class LoginScreenController {
 
 	@FXML private JFXTextField usernameField;

@@ -27,7 +27,13 @@ import tdt4140.gr1875.app.core.SessionInformation;
 import tdt4140.gr1875.app.core.UseDB;
 import tdt4140.gr1875.app.ui.ViewTrainingsController.Training;
 
-public class ViewRunnersController implements Initializable{ //implements ToolbarListener
+/*
+ * This class is used to initialize the view athletes window and load all athletes in a table.You can also choose an 
+ * athlete and view the progress for that athlete.  
+ * 
+ */
+
+public class ViewRunnersController implements Initializable{ 
 
 	@FXML private TableView<Athlete> tableView;
 	@FXML private TableColumn<Athlete, String> FirstNameColumn;

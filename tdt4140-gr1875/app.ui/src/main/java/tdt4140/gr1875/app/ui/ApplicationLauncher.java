@@ -6,9 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ * This class is used to launch the application with Loginscreen as first viewable page. 
+ */
+
 public class ApplicationLauncher extends Application {
 
-	
 	
     @Override
     public void start(Stage stage) throws Exception {
