@@ -6,7 +6,7 @@ An application for orienteering trainers and athletes to view and monitor progre
 
 # Motivation and status
 The app is designed to make life easier for runners and athletes that want to take their training to the next level. Similar applications like Strava fills a similar need, but 
-this application is better fitted for orieentering athletes.
+this application is better fitted for orienteering athletes.
 At the current stage the application supports viewing the runners activites in a map and a view of their performance over time. Future work will focus on better comparing 
 runners route to the expected or optimal path of the training.
 
