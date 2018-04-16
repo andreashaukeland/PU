@@ -30,12 +30,12 @@
       </JFXButton>
       <JFXButton fx:id="Settings" contentDisplay="TOP" layoutX="10.0" layoutY="276.0" onAction="#loadSettings" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Settings" textFill="#ffff8d">
          <graphic>
-            <FontAwesomeIconView glyphName="WHATSAPP" size="40" styleClass="glypgh-icon" />
+            <FontAwesomeIconView glyphName="COG" size="40" styleClass="glypgh-icon" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="LogOut" contentDisplay="TOP" onAction="#onLogOut" prefHeight="400.0" prefWidth="154.0" styleClass="login-button" text="Log out" textFill="#ffff8d">
          <graphic>
-            <FontAwesomeIconView glyphName="COG" size="40" styleClass="glypgh-icon" />
+            <FontAwesomeIconView glyphName="LOCK" size="40" styleClass="glypgh-icon" />
          </graphic>
       </JFXButton>
    </children>
