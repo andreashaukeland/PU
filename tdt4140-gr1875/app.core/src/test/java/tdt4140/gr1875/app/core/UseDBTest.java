@@ -48,6 +48,22 @@ public class UseDBTest {
 		String result2 = UseDB.getRunnerByID(id).get(0);
 		Assert.assertEquals(runner, result2);
 	}
+	@Test
+	public void illegalQueryTest() {
+		ArrayList<ArrayList<String>> runner = UseDB.getTable("Illegal query to database");
+		Assert.assertEquals(null, runner);
+	}
+	@Test
+	public void addCommentToResultTest() {
+		UseDB.addRow("runner", 99, "Andreas", "Haukeland", "18-05-1995", "andreas@haukeland.no", "90361850", "");
+		UseDB.updateCommentToTraining(1, 99, "10:00:00", "");
+		UseDB.updateCommentToTraining(1, 99, "05:00:00", "TestComment");
+		String comment = UseDB.getTable("select comment from result where trainingid=1 and runnerid=99").get(0).get(0);
+		Assert.assertEquals("TestComment", comment);
+		UseDB.deleteRow("runner", 99);
+		UseDB.deleteRow("result", 99);
+		
+	}
 	
 	@Test
 	public void submitWeeklyRunTest() {

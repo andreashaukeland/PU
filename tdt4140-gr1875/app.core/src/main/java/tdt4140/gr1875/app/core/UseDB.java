@@ -27,7 +27,7 @@ public class UseDB {
 		
 		if (conn == null) {
 			System.out.println("Can not connect to database");
-			System.exit(0);
+			return null;
 		}
 		
 		Statement stmt = null;
@@ -59,7 +59,7 @@ public class UseDB {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		
-	try { conn.close(); stmt.close(); } catch (SQLException e) {/* ignore */}
+	try { conn.close(); stmt.close(); rs.close();} catch (Exception e) {/* ignore */}
 	
     System.out.println("Process finished, connection closed");
 	return table;
@@ -153,6 +153,7 @@ public class UseDB {
 			stmt.executeUpdate(query);
 			System.out.println("Row added!");
 			result_status = true;
+			rs.close();
 		}
 		catch (SQLException ex){
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -317,7 +318,7 @@ public class UseDB {
 			return updateTrainingRow(trainingID, runnerID, time,comment);
 		}
 		else {
-			return addRow("result", trainingID,runnerID,time,comment);
+			return addRow("result", trainingID,runnerID,time,comment,"","");
 		}
 	}
 	
