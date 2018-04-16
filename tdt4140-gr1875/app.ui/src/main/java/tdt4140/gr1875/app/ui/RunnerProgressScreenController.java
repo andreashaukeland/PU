@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXDrawer.DrawerDirection;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
@@ -71,7 +72,7 @@ public class RunnerProgressScreenController implements Initializable{
 	@FXML private JFXButton backButton;
 	@FXML private Tab progressTab;
 	@FXML private Label labelFullname;
-	@FXML private Label labelInformation;
+	@FXML private JFXTextArea labelInformation;
 	@FXML private Label labelMobile;
 	@FXML private Label labelEmail;
 	@FXML private Label labelAge;
@@ -153,7 +154,13 @@ public class RunnerProgressScreenController implements Initializable{
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
+			if(SessionInformation.userType=="runner") {
+				toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
+			}
+			else {
+				toolbar = FXMLLoader.load(getClass().getResource("TrainerToolbar.fxml"));
+
+			}
 			drawer.setSidePane(toolbar);
 			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
