@@ -11,9 +11,7 @@ import java.util.List;
 import com.mysql.cj.jdbc.result.UpdatableResultSet;
 
 /*
- * Help class to enable communication with remote MySQL database
- * 
- * USAGE: From a given class call: UseDB.getTable(query) / UseDB.addRow()
+ * Help class containing functions that the server will use to handle requests
  */
 
 public class DatabaseConnector {

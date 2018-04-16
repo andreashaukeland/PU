@@ -16,6 +16,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import tdt4140.gr1875.app.core.*;
 
+/*
+ * This is used to create the weekly run where all the runners can participate. It contains verification for
+ * the input fields and a json parser for the geojson file.
+ */
+
 public class CreateWeeklyRun {
 	public CreateWeeklyRun() {
 	}
@@ -30,7 +35,8 @@ public class CreateWeeklyRun {
 			UseDB.submitWeeklyRun(place, date, time, distance, geojsonFilePath, "yes");
 			return true;
 		}
-
+		
+		//Parse a .geojson file to a string before adding info to the database
 		JSONParser parser = new JSONParser();
 		try {
 			JSONObject track = (JSONObject) parser.parse(new FileReader(geojsonFilePath));
@@ -38,8 +44,6 @@ public class CreateWeeklyRun {
 			createAlert("Training submitted with track");
 			return true;
 		} catch (IOException | ParseException e) {
-			//createAlert("Training not submitted due to illlegal json-filepath");
-			//REMOVED DUE TO FAILING TESTS: SHOULD MOVE ALERT TO CONTROLLER CLASS
 			return false;
 		}
 		
@@ -85,6 +89,7 @@ public class CreateWeeklyRun {
 		return false;
 	}
 	
+	// Alert to give feedback to the user
 	private void createAlert(String string) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setHeaderText(null);

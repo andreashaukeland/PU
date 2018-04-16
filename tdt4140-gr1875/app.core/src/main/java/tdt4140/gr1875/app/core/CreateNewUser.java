@@ -10,6 +10,13 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+/*
+ * This class is used to create new users and add them to the database so they will be able to log into
+ * the application. It mostly contains verification methods to check that the input fields are valid.
+ * 
+ * It also contains hashing for the password to increase security.
+ */
+
 public class CreateNewUser {
 	LoginScreen checkIfUserExists = new LoginScreen();
 	
@@ -93,6 +100,7 @@ public class CreateNewUser {
     	    return sdf.parse(birthDay, new ParsePosition(0)) != null;
 	}
 
+    // Hashing the password before adding it to the database
     public String hashPassword(String password) {
 		MessageDigest messageDigest;
 		String encryptedPassword = "";
@@ -110,6 +118,7 @@ public class CreateNewUser {
 		return encryptedPassword;
 	}
     
+    // Adding salt to the hash for better security
     private String getSaltString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();

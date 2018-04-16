@@ -13,7 +13,9 @@ import com.mysql.cj.jdbc.result.UpdatableResultSet;
 /*
  * Help class to enable communication with remote MySQL database
  * 
- * USAGE: From a given class call: UseDB.getTable(query) / UseDB.addRow()
+ * USAGE: From a given class call: UseDB.fucntion()
+ * 
+ * All logic for accessing the database should be in this class
  */
 
 
@@ -64,23 +66,9 @@ public class UseDB {
     System.out.println("Process finished, connection closed");
 	return table;
 	}
-	
-	// Some prebuilt get functions:
-	
-	public static ArrayList<String> getRunnerByID(int id){
-		try {
-			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
-
-		}catch (Exception e) {
-			System.out.println("ID not found in getRunnerByID");
-			return null;
-		}
-	}
-	
-	
+		
 	
 	//Arguments example: getIDByName("training", "place=TestTrack"); 
-	
 	public static ArrayList<ArrayList<String>> getIDByName(String table, String...names) {
 		if (names.length > 2 || names.length == 0) {
 			System.out.println("Invalid. Wrong number of arguments.");
@@ -200,6 +188,7 @@ public class UseDB {
 		return result_status;
 	}
 	
+	// Adding a comment to an existing training
 	public static void addComment(int trainingid, String comment) {
 		Connection conn = connectDB();
 		Statement stmt = null;
@@ -221,6 +210,7 @@ public class UseDB {
 	
 	
 	// Help function used to get an unused ID
+	// The function will find the first id number that is unused in a given table
 	public static int getFreeID(String table) {		
 		int rowNum = 1;
 		System.out.println("Finding unused ID...");
@@ -237,12 +227,13 @@ public class UseDB {
 	
 	//Help function for connecting to an external database.
 	private static Connection connectDB() {
-		//System.out.println("Connecting to database..." + "\n");
 		
 		Connection conn = null;
 		try {
 		    conn =
-		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","martisku_pu","pu75");
+		       DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no/martisku_db?&"
+		       		+ "useSSL=false&useJDBCCompliantTimezoneShift=true&"
+		       		+ "useLegacyDatetimeCode=false&serverTimezone=UTC","martisku_pu","pu75");
 
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -254,6 +245,16 @@ public class UseDB {
 	
 	
 	// Some prebuilt functions
+	
+	public static ArrayList<String> getRunnerByID(int id){
+		try {
+			return getTable("SELECT firstname, lastname FROM runner WHERE runner.runnerid = " + id).get(0);
+
+		}catch (Exception e) {
+			System.out.println("ID not found in getRunnerByID");
+			return null;
+		}
+	}
 	
 	public static boolean submitWeeklyRun(String place, String date, String time, int distance, String track, String officalTraining) {
 		int newID = UseDB.getFreeID("training");

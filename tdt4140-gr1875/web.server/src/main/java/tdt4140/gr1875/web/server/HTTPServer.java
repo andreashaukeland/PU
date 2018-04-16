@@ -31,6 +31,10 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+/*
+ * This class is used to make an Apache web server and handle requests
+ */
+
 public class HTTPServer {
 
 	static HttpServer server;
@@ -137,8 +141,9 @@ public class HTTPServer {
 			}
 		}
 	}
-
 	
+	// USED FOR SIMPLE TESTING
+	/*
 	public static void main(String[] args) {
 		HTTPServer s = new HTTPServer();
 		try {
@@ -165,6 +170,6 @@ public class HTTPServer {
 		finally {
 			s.tearDown();
 		}
-	}
+	}*/
 }
 

@@ -7,6 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 
+/*
+ * This class controls the login operation. Besides the normal login logic it also has a hash function since
+ * the password saved in our database is in a hashed format.
+ */
+
 public class LoginScreen {
 	public LoginScreen() {
 	}
@@ -38,7 +43,8 @@ public class LoginScreen {
 			return false;
 		}
 	}
-
+	
+	// This function takes in a password and a salt and returns an encrypted password
     private String hashPassword(String password) {
 		MessageDigest messageDigest;
 		String encryptedPassword = "";

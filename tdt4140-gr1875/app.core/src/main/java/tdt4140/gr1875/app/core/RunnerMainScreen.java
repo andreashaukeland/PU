@@ -3,6 +3,10 @@ package tdt4140.gr1875.app.core;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * This class contains the logic behind the main screen for all runner-users.
+ */
+
 public class RunnerMainScreen {
 	
 	public static String getLastRun() {
