@@ -97,16 +97,16 @@ public class HTTPServer {
 					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5),args.get(6),args.get(7));
 				}
 				else if(args.get(0).equals("trainer")) {
-					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
+					added = DatabaseConnector.addRow("trainer", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
 				}
 				else if(args.get(0).equals("runner")) {
-					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6), args.get(7));
+					added = DatabaseConnector.addRow("runner", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6), args.get(7));
 				}
 				else if(args.get(0).equals("result")) {
-					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
+					added = DatabaseConnector.addRow("result", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5), args.get(6));
 				}
 				else if(args.get(0).equals("login")) {
-					added = DatabaseConnector.addRow("training", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
+					added = DatabaseConnector.addRow("login", args.get(1), args.get(2), args.get(3), args.get(4), args.get(5));
 				}
 	
 				sendResponse(ex, String.valueOf(added), 201);

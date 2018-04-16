@@ -154,7 +154,13 @@ public class RunnerProgressScreenController implements Initializable{
 		drawer.setDefaultDrawerSize(100);
 		VBox toolbar;
 		try {
-			toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
+			if(SessionInformation.userType=="runner") {
+				toolbar = FXMLLoader.load(getClass().getResource("RunnerToolbar.fxml"));
+			}
+			else {
+				toolbar = FXMLLoader.load(getClass().getResource("TrainerToolbar.fxml"));
+
+			}
 			drawer.setSidePane(toolbar);
 			
 			HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
