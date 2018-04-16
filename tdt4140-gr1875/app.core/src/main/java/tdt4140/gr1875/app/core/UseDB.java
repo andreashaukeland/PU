@@ -339,18 +339,7 @@ public class UseDB {
 	public static int getTrackIDFromPlace(String place) {
 		return Integer.parseInt(getTable("select trainingid from training where place = " + "'" + place + "'").get(0).get(0));
 	}
-	public static void executeQuery(String query) {
-		try {
-		Connection conn = connectDB();
-		Statement stmnt = conn.createStatement();
-		stmnt.executeQuery(query);
-		}catch (SQLException ex){
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());	
-		}
-		
-	}
+
 	
 	public static void executeUpdate(String query) {
 		try {

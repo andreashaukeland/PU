@@ -60,9 +60,14 @@ public class UseDBTest {
 		UseDB.updateCommentToTraining(1, 99, "05:00:00", "TestComment");
 		String comment = UseDB.getTable("select comment from result where trainingid=1 and runnerid=99").get(0).get(0);
 		Assert.assertEquals("TestComment", comment);
-		UseDB.deleteRow("runner", 99);
-		UseDB.deleteRow("result", 99);
 		
+		SessionInformation.userId = 99;
+		UseDB.addComment(1, "TestComment2");
+		comment = UseDB.getTable("select comment from result where trainingid=1 and runnerid=99").get(0).get(0);
+		Assert.assertEquals("TestComment2", comment);
+		UseDB.deleteRow("result", 99);
+		UseDB.deleteRow("runner", 99);
+
 	}
 	
 	@Test
