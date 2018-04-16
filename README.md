@@ -30,17 +30,28 @@ runners route to the expected or optimal path of the training.
 
 ## Getting Started
 ### Prerequisites
-- We have used JFoenix for the GUI of the project and to be able to use JFoenix you will need to use Java 8 as a running environment, as it is not compatible with Java 9.
-  Furthermore if you want to edit the fxml-files in Scenebuilder you will need to add JFoenix and FontAwesome as a dependency there
-- You need an editor that supports Java (we reccommend Eclipse)
-- If you want to run the tests from terminal you need to download Maven (https://maven.apache.org/download.cgi)
+- The project uses Java 8 and is not compatible with Java 9. This is due to JFoenix.
+- The project is developed using Eclipse, but other IDE's can also work.
+- You will need maven to build the project, the m2e plugin is recomended if you are using Eclipse: http://download.eclipse.org/technology/m2e/releases
+- If you want to run the tests from terminal you need to download Maven standalone install (https://maven.apache.org/download.cgi)
+- We have used JFoenix for the GUI of the project and to be able to use JFoenix you will need to use Java 8 as a running environment.
+  Furthermore if you want to edit the fxml-files in Scenebuilder you will need to add JFoenix and FontAwesome as a dependency there.
+- For more information on the modules used you are advised to see the pom.xml files.
 
 ### Installation
-Clone the project from GitLab and set it up as a maven project (git@gitlab.stud.iie.ntnu.no:tdt4140-2018/75.git).
+As mentioned above the project uses maven as build system and is therefore organised as a hierarchical project with a top-level module with several sub-modules.
+Most IDEs support importing it by point to the top-level module folder, so you should only need to clone the repository and import.
+
+If you are using Eclipse go to **Import... > Existing Projects into Workspace wizard**. Make sure to import all sub-module projects
+(check the box for "nested projects" in the wizard). You should also view it in the Project Explorer with Project Presentation set to Hierarchical.
+
+To update modules in the project run maven install: **mvn clean install**. In Eclipse go to **Run As -> maven clean** and **Run As -> maven install**.
+
+Clone URL: **https://gitlab.stud.iie.ntnu.no/tdt4140-2018/75.git**
 
 ### Testing and running the program
-- The launcher of the application is called "ApplicationLauncher.java". It is found under app.ui/src/main/java. Run the script as a java-application.
-- To run the tests for the application right-click at the root-folder, click run as and then maven test.
+- The launcher of the application is called **ApplicationLauncher.java**. It is found under **app.ui/src/main/java**. Run the script as a java-application.
+- To run the tests for the application right-click at the root-folder, click run as and then **maven test**.
 
 
 # Authors
